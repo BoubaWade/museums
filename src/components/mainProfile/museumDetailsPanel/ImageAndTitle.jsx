@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-export default function ImageAndTitle({ dataRecovered }) {
-  const { url_image, nom_officiel_du_musee } = dataRecovered;
+export default function ImageAndTitle({ datas }) {
+  const { url_image, nom_officiel_du_musee } = datas;
 
   return (
     <ImageAndTitleStyled>

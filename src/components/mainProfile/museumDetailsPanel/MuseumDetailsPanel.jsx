@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import backgroundImage from "../../../assets/images/backgroundImage.gif";
 // import PrimaryButton from "../../../reusable-ui/PrimaryButton";
-import ListMuseumInfos from "./ListMuseumInfos";
+import ListMuseumInfos from "../../reusable-ui/ListMuseumInfos";
 import ImageAndTitle from "./ImageAndTitle";
 import { useNavigate } from "react-router-dom";
 // import PrimaryButton from "../../reusable-ui/PrimaryButton";
@@ -38,8 +38,8 @@ export default function MuseumDetailsPanel() {
   return (
     <MuseumDetailsPanelStyled style={panelDisplayStyle}>
       <img src={backgroundImage} className="bg-image" />
-      <ImageAndTitle dataRecovered={dataRecovered} />
-      <ListMuseumInfos dataRecovered={dataRecovered} />
+      <ImageAndTitle datas={dataRecovered} />
+      <ListMuseumInfos datas={dataRecovered} />
       <PrimaryButton
         className="button-read-more"
         label="En savoir plus"
@@ -86,6 +86,8 @@ const MuseumDetailsPanelStyled = styled.div`
     color: #b659b6;
     border-radius: 0 30px 30px 0;
     left: -4px;
+    /* margin-bottom:10px; */
+    /* bottom: -48%; */
     bottom: 10px;
     cursor: pointer;
   }

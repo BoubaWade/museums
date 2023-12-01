@@ -19,37 +19,43 @@ export default function Card({ data }) {
     commune,
     isClicked,
   } = data;
-  const { isNavSwitchButtonActived } = useSelector(
+  const { isNavSwitchButtonActived, isDetailsPanelDisplayed } = useSelector(
     (state) => state.displaySettings
   );
+
   const dispatch = useDispatch();
-  const [isCardClicked, setIsCardClicked] = useState(isClicked);
 
   const handleDelete = () => {
     dispatch(handleDeleteCard(identifiant_museofile));
     dispatch(deleteOneToBasket(identifiant_museofile));
   };
-  const getCardClicked = (datas, key) => {
-    return datas.filter((data) => (data.isClicked = key));
-  };
+
+  // const getCardClicked = (datas) => {
+  //   return datas.filter((data) => (data.isClicked = true));
+  // };
+  // const [isCardClicked, setIsCardClicked] = useState(isClicked);
 
   const handleClick = (e) => {
     if (!e.target.closest("button") || e.target.closest(".delete-card")) {
       dispatch(handleRecoverDataAfterClickingOnACard(identifiant_museofile));
-      // if (!isCardClicked) {
+
       setIsCardClicked(!isCardClicked);
-      // }
-      //Afficher ou Fermer le panel details museum
-      dispatch(setIsDetailsPanelDisplayed());
+      if (!isDetailsPanelDisplayed) {
+        dispatch(setIsDetailsPanelDisplayed());
+      }
     }
   };
 
-  const cardBackground = {
-    backgroundColor: isCardClicked ? "#f6e9f6" : "",
-  };
+  // const cardBackground = {
+  //   backgroundColor: isCardClicked ? "#f6e9f6" : "white",
+  // };
 
   return (
-    <CardStyled onClick={(e) => handleClick(e)} style={cardBackground}>
+    <CardStyled
+      // id="card"
+      onClick={() => handleClick(identifiant_museofile)}
+      // style={cardBackground}
+    >
       {isNavSwitchButtonActived && (
         <TiDelete className="delete-card" onClick={handleDelete} />
       )}

@@ -30,7 +30,7 @@ export default function CardButtons({ data }) {
         <PrimaryButton
           id={data.identifiant_museofile}
           className={!data.isAdded ? "add-button" : "confirm-add"}
-          label={!data.isAdded ? "Ajouter" : "Déja ajouté"}
+          label={!data.isAdded ? "Ajouter" : "Déja ajouté !"}
           onClick={handleAddItemAndOpenBasket}
         />
       ) : (

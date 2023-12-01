@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-export default function ListMuseumInfos({ dataRecovered }) {
-  const { adresse, code_postal, commune, telephone, url } = dataRecovered;
+export default function ListMuseumInfos({ datas }) {
+  const { adresse, code_postal, commune, telephone, url } = datas;
   const museumInfos = [
     { label: "Adresse", value: adresse },
     { label: "Code Postal", value: code_postal },
