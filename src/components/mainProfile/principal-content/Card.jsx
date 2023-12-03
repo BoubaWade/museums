@@ -35,11 +35,11 @@ export default function Card({ data }) {
   // };
   // const [isCardClicked, setIsCardClicked] = useState(isClicked);
 
-  const handleClick = (e) => {
+  const handleClick = (id, e) => {
     if (!e.target.closest("button") || e.target.closest(".delete-card")) {
-      dispatch(handleRecoverDataAfterClickingOnACard(identifiant_museofile));
+      dispatch(handleRecoverDataAfterClickingOnACard(id));
 
-      setIsCardClicked(!isCardClicked);
+      // setIsCardClicked(!isCardClicked);
       if (!isDetailsPanelDisplayed) {
         dispatch(setIsDetailsPanelDisplayed());
       }
@@ -53,7 +53,7 @@ export default function Card({ data }) {
   return (
     <CardStyled
       // id="card"
-      onClick={() => handleClick(identifiant_museofile)}
+      onClick={(e) => handleClick(identifiant_museofile, e)}
       // style={cardBackground}
     >
       {isNavSwitchButtonActived && (
@@ -70,6 +70,7 @@ export default function Card({ data }) {
 }
 
 const CardStyled = styled.article`
+  background-color: white;
   position: relative;
   width: 250px;
   height: 340px;

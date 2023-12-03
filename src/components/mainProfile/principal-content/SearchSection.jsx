@@ -12,13 +12,16 @@ export default function SearchSection() {
   );
   const dispatch = useDispatch();
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+  }, []);
+
   const handleScroll = () => {
     const addCardSection = document.getElementById("add-card-section");
     if (addCardSection) {
       addCardSection.scrollIntoView({ behavior: "smooth" });
     }
   };
+
   const handleSearchChange = (value) => {
     dispatch(setSearch(value));
   };
@@ -31,7 +34,7 @@ export default function SearchSection() {
         onSearch={handleSearchChange}
       />
       {isAddSectionDisplayed && <AddCardSection id="add-card-section" />}
-      <Table handleScroll={handleScroll} />
+      <Table />
     </SearchSectionStyled>
   );
 }

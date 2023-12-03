@@ -34,12 +34,15 @@ export default function CardContainer() {
 }
 
 const CardContainerStyled = styled.ul`
+  background-color: white;
   width: 90%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 50px;
   margin: 40px auto 80px;
+  padding: 50px 0;
+  border-radius: 15px;
   .empty-card {
     font-size: 18px;
     color: red;

@@ -4,7 +4,7 @@ import InfosCard from "../../reusable-ui/InfosCard";
 import { FaImage, FaCity } from "react-icons/fa";
 import { MdOutlineMuseum } from "react-icons/md";
 import { TiDeleteOutline } from "react-icons/ti";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import PrimaryButton from "../../reusable-ui/PrimaryButton";
 import { handleAddMuseum } from "../../../features/profile/museumsSlice";
 import { setIsAddSectionDisplayed } from "../../../features/profile/displaySettingsSlice";
@@ -31,7 +31,7 @@ export default function AddCardSection() {
   };
 
   return (
-    <AddCardSectionStyled>
+    <AddCardSectionStyled >
       <TiDeleteOutline
         className="close-section"
         onClick={() => dispatch(setIsAddSectionDisplayed(false))}
@@ -85,6 +85,7 @@ export default function AddCardSection() {
 }
 
 const AddCardSectionStyled = styled.section`
+  background-color: white;
   position: relative;
   display: flex;
   flex-direction: column;

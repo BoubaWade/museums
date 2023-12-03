@@ -1,3 +1,4 @@
+import bgImage from "../../../assets/images/bgProfilPrincipalContain.png";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { BsFillArrowRightSquareFill } from "react-icons/bs";
@@ -28,6 +29,7 @@ export default function PrincipalContent() {
 
   return (
     <PrincipalContentStyled style={width}>
+      <img src={bgImage} className="bg-image" />
       {isNavSwitchButtonActived && (
         <SwitchButton
           className="switch-button"
@@ -54,7 +56,16 @@ const PrincipalContentStyled = styled.section`
   /* display: flex; */
   overflow-y: auto;
   box-shadow: 0px 1px 6px 3px rgba(179, 179, 179, 0.75) inset;
+  .bg-image {
+    position: absolute;
+    width: 100vw;
+    /* height: 100vh; */
+    height: calc(100vh - 150px);
+    object-fit: cover;
+    z-index: -1;
+  }
   .switch-button {
+    background-color: white;
     margin: 20px auto 0;
   }
   .input-search {

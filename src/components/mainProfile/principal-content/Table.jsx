@@ -8,7 +8,7 @@ import {
 import { setIsAddSectionDisplayed } from "../../../features/profile/displaySettingsSlice";
 import { normalizeString } from "../../../utils/utils";
 
-export default function Table({ handleScroll }) {
+export default function Table() {
   const { datasMuseumsFromAPI, search } = useSelector((state) => state.museums);
   const dispatch = useDispatch();
 
@@ -34,7 +34,9 @@ export default function Table({ handleScroll }) {
   const handleClick = (e) => {
     dispatch(setIsAddSectionDisplayed(true));
     dispatch(handleDataRecoveredAfterClick(e.target.id));
-    handleScroll();
+    // handleScroll();
+    console.log(e)
+    // window.scrollIntoView({ behavior: "smooth" })
   };
 
   return (
@@ -73,11 +75,14 @@ export default function Table({ handleScroll }) {
 }
 
 const TableStyled = styled.table`
+  background-color: white;
   width: 90%;
   margin: 0 auto 40px;
   border-collapse: collapse;
   tr {
     &:first-child {
+      background-color: white;
+
       font-weight: 500;
       border: 2px solid #b659b6;
     }
@@ -91,7 +96,7 @@ const TableStyled = styled.table`
   }
   tbody {
     &:nth-child(odd) {
-      background-color: #f1b1f169;
+      /* background-color: #f1b1f169; */
     }
   }
   .visualization {
