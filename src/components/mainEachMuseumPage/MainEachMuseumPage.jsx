@@ -1,9 +1,9 @@
+import "leaflet/dist/leaflet.css";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import PrimaryButton from "../reusable-ui/PrimaryButton";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "leaflet/dist/leaflet.css";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import ListMuseumInfos from "../reusable-ui/ListMuseumInfos";
 import { calculateDistance } from "../../utils/utils";
@@ -126,6 +126,7 @@ export default function MainEachMuseumPage() {
           />
           <Marker position={[datasMuseum.latitude, datasMuseum.longitude]}>
             <Popup>{datasMuseum.nom_officiel_du_musee.toUpperCase()}.</Popup>
+            <img src={datasMuseum.url_image} />
           </Marker>
         </MapContainer>
       </div>
@@ -138,7 +139,6 @@ export default function MainEachMuseumPage() {
           {/* <h3>Coordonnées de géolocalisation de l'utilisateur :</h3> */}
           {userLocation ? (
             <div>
-
               <p>Vous êtes à {distanceBetweenUserAndMUseum} km du musée</p>
               {/* <p>Latitude : {userLocation.latitude}</p>
               <p>Longitude : {userLocation.longitude}</p> */}

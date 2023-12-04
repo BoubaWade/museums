@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import styled from "styled-components";
 import SearchForm from "../../reusable-ui/SearchForm";
 import Table from "./Table";
@@ -11,9 +10,6 @@ export default function SearchSection() {
     (state) => state.displaySettings
   );
   const dispatch = useDispatch();
-
-  useEffect(() => {
-  }, []);
 
   const handleScroll = () => {
     const addCardSection = document.getElementById("add-card-section");

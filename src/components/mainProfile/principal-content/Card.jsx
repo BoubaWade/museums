@@ -82,6 +82,11 @@ const CardStyled = styled.article`
   border-radius: 15px;
   box-shadow: 4px 2px 20px 2px rgba(179, 179, 179, 0.75);
   cursor: pointer;
+  transition: 0.05s ease-in-out;
+  &:hover {
+    transform: scale(1.03);
+    box-shadow: 0px 0px 5px 3px #b659b6;
+  }
   .delete-card {
     position: absolute;
     top: 5px;

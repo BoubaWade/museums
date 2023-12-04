@@ -16,7 +16,7 @@ export function addPropertyToDataFetched(datas) {
 }
 
 export function getDatasMuseumsFiltered(datas, search) {
-  return datas.filter((data) => {
+  return datas?.filter((data) => {
     const nameOfMuseum = normalizeString(data.nom_officiel_du_musee).includes(
       normalizeString(search)
     );
@@ -27,8 +27,12 @@ export function getDatasMuseumsFiltered(datas, search) {
       normalizeString(search)
     );
 
+    const codePostal = normalizeString(data.code_postal).includes(
+      normalizeString(search)
+    );
+
     if (search.length > 2) {
-      return nameOfMuseum || cityOfMuseum || departementOfMuseum;
+      return nameOfMuseum || cityOfMuseum || departementOfMuseum || codePostal;
     } else {
       return datas;
     }
@@ -42,7 +46,6 @@ export function calculateDistance(lat1, lon1, lat2, lon2) {
   const dLat = toRadians(lat2 - lat1);
   const dLon = toRadians(lon2 - lon1);
 
-  // Formule de la haversine
   const a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
     Math.cos(toRadians(lat1)) *

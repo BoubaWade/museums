@@ -1,52 +1,84 @@
+import "react-calendar/dist/Calendar.css";
+import "react-date-picker/dist/DatePicker.css";
 import { MdDelete } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { handleDeleteItemFromBasket } from "../../../features/profile/basketSlice";
+import { useEffect, useState } from "react";
+import BackBasketCard from "./BackBasketCard";
+const NUMBER_OF_MILLISECOND_IN_ONE_MINUTE = 60000;
 
 export default function BasketCard({ data }) {
   const { nom_officiel_du_musee, commune } = data;
   const dispatch = useDispatch();
+  const [minutesElapsed, setMinutesElapsed] = useState(0);
+  const [isRotate, setIsRotate] = useState(false);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setMinutesElapsed((prevMinutes) => prevMinutes + 1);
+    }, NUMBER_OF_MILLISECOND_IN_ONE_MINUTE);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const handleDeleteItem = () => {
     dispatch(handleDeleteItemFromBasket(data.identifiant_museofile));
   };
+  const handleClick = () => {
+    setIsRotate(!isRotate);
+  };
+
+  const rotateCard = {
+    background: isRotate && "#b659b6",
+    transform: isRotate ? "rotateY(180deg)" : "",
+  };
 
   return (
-    <BasketCardStyled>
-      <h3>{nom_officiel_du_musee.toUpperCase()}</h3>
-      <p>{commune}</p>
-      <MdDelete className="icon-delete" onClick={handleDeleteItem} />
+    <BasketCardStyled onClick={handleClick} style={rotateCard}>
+      {!isRotate ? (
+        <>
+          <h3>{nom_officiel_du_musee.toUpperCase()}</h3>
+          <p>{commune}</p>
+          <MdDelete className="icon-delete" onClick={handleDeleteItem} />
+          <span className="minutes-elapsed">
+            Ajouté il y'a
+            {minutesElapsed === 1 ? " 1 minute" : ` ${minutesElapsed} minutes`}
+          </span>
+        </>
+      ) : (
+        <BackBasketCard />
+      )}
     </BasketCardStyled>
   );
 }
 
 const BasketCardStyled = styled.article`
+  position: relative;
   background-color: #0080008a;
   width: 90%;
   height: 80px;
   display: flex;
   align-items: center;
+  /* justify-content: center; */
   padding: 5px;
   border-radius: 5px;
-  h3 {
-    width: 65%;
+  cursor: pointer;
+  transition: 0.5s ease-in-out;
+  h3,
+  p {
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-
     font-size: 11px;
+  }
+  h3 {
+    width: 65%;
   }
   p {
     width: 25%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-
-    font-size: 11px;
   }
   .icon-delete {
     display: none;
@@ -54,6 +86,13 @@ const BasketCardStyled = styled.article`
     width: 30px;
     font-size: 20px;
     cursor: pointer;
+  }
+  .minutes-elapsed {
+    color: #b659b6;
+    position: absolute;
+    right: 10px;
+    bottom: 2px;
+    font-size: 11px;
   }
   &:hover {
     .icon-delete {

@@ -9,7 +9,6 @@ import {
 import CardContainer from "./CardContainer";
 import SwitchButton from "../../reusable-ui/SwitchButton";
 import SearchSection from "./SearchSection";
-import MuseumDetailsPanel from "../museumDetailsPanel/MuseumDetailsPanel";
 
 export default function PrincipalContent() {
   const {
@@ -46,20 +45,16 @@ export default function PrincipalContent() {
         />
       )}
       {isMainSwitchButtonActived ? <SearchSection /> : <CardContainer />}
-      {/* <MuseumDetailsPanel /> */}
     </PrincipalContentStyled>
   );
 }
 
 const PrincipalContentStyled = styled.section`
-  /* position: relative; */
-  /* display: flex; */
   overflow-y: auto;
   box-shadow: 0px 1px 6px 3px rgba(179, 179, 179, 0.75) inset;
   .bg-image {
     position: absolute;
     width: 100vw;
-    /* height: 100vh; */
     height: calc(100vh - 150px);
     object-fit: cover;
     z-index: -1;

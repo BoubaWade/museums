@@ -6,12 +6,7 @@ import { getDatasMuseumsFiltered } from "../../../utils/utils";
 export default function CardContainer() {
   const { datasMuseums, search } = useSelector((state) => state.museums);
   const datasMuseumsFiltered = getDatasMuseumsFiltered(datasMuseums, search);
-  // const handleClick = (id) => {
-  //   const cardToClicked = datasMuseumsFiltered.find(
-  //     (data) => (data.identifiant_museofile = id)
-  //   );
-  //   console.log(cardToClicked);
-  // };
+
   if (!datasMuseumsFiltered || datasMuseumsFiltered.length === 0) {
     return (
       <CardContainerStyled>
@@ -23,11 +18,7 @@ export default function CardContainer() {
   return (
     <CardContainerStyled>
       {datasMuseumsFiltered.map((data) => (
-        <Card
-          key={data.identifiant_museofile}
-          data={data}
-          // handleClick={handleClick}
-        />
+        <Card key={data.identifiant_museofile} data={data} />
       ))}
     </CardContainerStyled>
   );
@@ -43,6 +34,7 @@ const CardContainerStyled = styled.ul`
   margin: 40px auto 80px;
   padding: 50px 0;
   border-radius: 15px;
+  box-shadow: 0px 1px 6px 3px rgba(179, 179, 179, 0.75);
   .empty-card {
     font-size: 18px;
     color: red;

@@ -6,7 +6,7 @@ import {
   handleDataRecoveredAfterClick,
 } from "../../../features/profile/museumsSlice";
 import { setIsAddSectionDisplayed } from "../../../features/profile/displaySettingsSlice";
-import { normalizeString } from "../../../utils/utils";
+import { getDatasMuseumsFiltered } from "../../../utils/utils";
 
 export default function Table() {
   const { datasMuseumsFromAPI, search } = useSelector((state) => state.museums);
@@ -16,27 +16,14 @@ export default function Table() {
     dispatch(getDatasMuseums());
   }, []);
 
-  const datasMuseumsFiltered = datasMuseumsFromAPI?.filter((data) => {
-    if (search.length > 1) {
-      return (
-        normalizeString(data.nom_officiel_du_musee).includes(
-          normalizeString(search)
-        ) ||
-        normalizeString(data.commune).includes(normalizeString(search)) ||
-        normalizeString(data.departement).includes(normalizeString(search)) ||
-        normalizeString(data.code_postal).includes(normalizeString(search))
-      );
-    } else {
-      return datasMuseumsFromAPI;
-    }
-  });
+  const datasMuseumsFiltered = getDatasMuseumsFiltered(
+    datasMuseumsFromAPI,
+    search
+  );
 
   const handleClick = (e) => {
     dispatch(setIsAddSectionDisplayed(true));
     dispatch(handleDataRecoveredAfterClick(e.target.id));
-    // handleScroll();
-    console.log(e)
-    // window.scrollIntoView({ behavior: "smooth" })
   };
 
   return (
@@ -47,28 +34,24 @@ export default function Table() {
           <th>Code Postal</th>
           <th>Commune</th>
           <th>Département</th>
-          <th></th>
         </tr>
-        {datasMuseumsFiltered &&
-          datasMuseumsFiltered.map((data) => {
-            return (
-              <tr key={data.identifiant_museofile}>
-                <td>{data.nom_officiel_du_musee.toUpperCase()}</td>
-                <td>{data.code_postal}</td>
-                <td>{data.commune}</td>
-                <td>{data.departement}</td>
-                <td>
-                  <button
-                    id={data.identifiant_museofile}
-                    className="visualization"
-                    onClick={(e) => handleClick(e)}
-                  >
-                    Visualiser
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
+        {datasMuseumsFiltered?.map((data) => (
+          <tr key={data.identifiant_museofile}>
+            <td>{data.nom_officiel_du_musee.toUpperCase()}</td>
+            <td>{data.code_postal}</td>
+            <td>{data.commune}</td>
+            <td>{data.departement}</td>
+            <td>
+              <button
+                id={data.identifiant_museofile}
+                className="visualization"
+                onClick={(e) => handleClick(e)}
+              >
+                Visualiser
+              </button>
+            </td>
+          </tr>
+        ))}
       </tbody>
     </TableStyled>
   );
@@ -96,7 +79,6 @@ const TableStyled = styled.table`
   }
   tbody {
     &:nth-child(odd) {
-      /* background-color: #f1b1f169; */
     }
   }
   .visualization {
