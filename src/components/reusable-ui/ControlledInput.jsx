@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export default function ControlledInput({
+  classNameContainer,
   type,
   placeholder,
   name,
@@ -11,7 +12,7 @@ export default function ControlledInput({
   error,
 }) {
   return (
-    <ControlledInputStyled>
+    <ControlledInputStyled className={classNameContainer}>
       {icon}
       <input
         type={type}

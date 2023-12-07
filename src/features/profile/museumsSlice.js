@@ -28,6 +28,7 @@ export const museumsSlice = createSlice({
   initialState: {
     datasMuseums: museumsFakeDatas,
     datasMuseumsFromAPI: [],
+    loadingDataFromAPI: true,
     dataRecoveredAfterClick: {},
     search: "",
     dataUpdatedCard: {},
@@ -38,8 +39,7 @@ export const museumsSlice = createSlice({
       state.datasMuseumsFromAPI = payload;
     },
     handleDataRecoveredAfterClick: (state, { payload }) => {
-      const copyDatasMuseumsFromAPI = [...state.datasMuseumsFromAPI];
-      state.dataRecoveredAfterClick = copyDatasMuseumsFromAPI.find(
+      state.dataRecoveredAfterClick = state.datasMuseumsFromAPI.find(
         (data) => data.identifiant_museofile === payload
       );
     },
@@ -62,8 +62,7 @@ export const museumsSlice = createSlice({
       state.datasMuseums = payload;
     },
     handleRecoverDataAfterClickingOnACard: (state, { payload }) => {
-      const copyDatasMuseums = [...state.datasMuseums];
-      state.dataRecoveredAfterClickingOnACard = copyDatasMuseums.find(
+      state.dataRecoveredAfterClickingOnACard = state.datasMuseums.find(
         (data) => data.identifiant_museofile === payload
       );
     },

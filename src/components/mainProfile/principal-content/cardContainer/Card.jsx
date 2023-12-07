@@ -1,15 +1,14 @@
 import styled from "styled-components";
 import { TiDelete } from "react-icons/ti";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
-import InfosCard from "../../reusable-ui/InfosCard";
+import InfosCard from "../../../reusable-ui/InfosCard";
 import CardButtons from "./CardButtons";
 import {
   handleDeleteCard,
   handleRecoverDataAfterClickingOnACard,
-} from "../../../features/profile/museumsSlice";
-import { deleteOneToBasket } from "../../../features/profile/basketSlice";
-import { setIsDetailsPanelDisplayed } from "../../../features/profile/displaySettingsSlice";
+} from "../../../../features/profile/museumsSlice";
+import { deleteOneToBasket } from "../../../../features/profile/basketSlice";
+import { setIsDetailsPanelDisplayed } from "../../../../features/profile/displaySettingsSlice";
 
 export default function Card({ data }) {
   const {
@@ -22,7 +21,6 @@ export default function Card({ data }) {
   const { isNavSwitchButtonActived, isDetailsPanelDisplayed } = useSelector(
     (state) => state.displaySettings
   );
-
   const dispatch = useDispatch();
 
   const handleDelete = () => {
@@ -30,31 +28,24 @@ export default function Card({ data }) {
     dispatch(deleteOneToBasket(identifiant_museofile));
   };
 
-  // const getCardClicked = (datas) => {
-  //   return datas.filter((data) => (data.isClicked = true));
-  // };
-  // const [isCardClicked, setIsCardClicked] = useState(isClicked);
-
   const handleClick = (id, e) => {
     if (!e.target.closest("button") || e.target.closest(".delete-card")) {
       dispatch(handleRecoverDataAfterClickingOnACard(id));
 
-      // setIsCardClicked(!isCardClicked);
       if (!isDetailsPanelDisplayed) {
         dispatch(setIsDetailsPanelDisplayed());
       }
     }
   };
 
-  // const cardBackground = {
-  //   backgroundColor: isCardClicked ? "#f6e9f6" : "white",
-  // };
+  const cardBackground = {
+    backgroundColor: !isNavSwitchButtonActived ? "#f6e9f6" : "white",
+  };
 
   return (
     <CardStyled
-      // id="card"
       onClick={(e) => handleClick(identifiant_museofile, e)}
-      // style={cardBackground}
+      style={cardBackground}
     >
       {isNavSwitchButtonActived && (
         <TiDelete className="delete-card" onClick={handleDelete} />

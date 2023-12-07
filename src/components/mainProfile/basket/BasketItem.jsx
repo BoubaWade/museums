@@ -5,14 +5,12 @@ import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { handleDeleteItemFromBasket } from "../../../features/profile/basketSlice";
 import { useEffect, useState } from "react";
-import BackBasketCard from "./BackBasketCard";
 const NUMBER_OF_MILLISECOND_IN_ONE_MINUTE = 60000;
 
 export default function BasketCard({ data }) {
   const { nom_officiel_du_musee, commune } = data;
   const dispatch = useDispatch();
   const [minutesElapsed, setMinutesElapsed] = useState(0);
-  const [isRotate, setIsRotate] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -25,30 +23,16 @@ export default function BasketCard({ data }) {
   const handleDeleteItem = () => {
     dispatch(handleDeleteItemFromBasket(data.identifiant_museofile));
   };
-  const handleClick = () => {
-    setIsRotate(!isRotate);
-  };
-
-  const rotateCard = {
-    background: isRotate && "#b659b6",
-    transform: isRotate ? "rotateY(180deg)" : "",
-  };
 
   return (
-    <BasketCardStyled onClick={handleClick} style={rotateCard}>
-      {!isRotate ? (
-        <>
-          <h3>{nom_officiel_du_musee.toUpperCase()}</h3>
-          <p>{commune}</p>
-          <MdDelete className="icon-delete" onClick={handleDeleteItem} />
-          <span className="minutes-elapsed">
-            Ajouté il y'a
-            {minutesElapsed === 1 ? " 1 minute" : ` ${minutesElapsed} minutes`}
-          </span>
-        </>
-      ) : (
-        <BackBasketCard />
-      )}
+    <BasketCardStyled>
+      <h3>{nom_officiel_du_musee.toUpperCase()}</h3>
+      <p>{commune}</p>
+      <MdDelete className="icon-delete" onClick={handleDeleteItem} />
+      <span className="minutes-elapsed">
+        Ajouté il y'a
+        {minutesElapsed === 1 ? " 1 minute" : ` ${minutesElapsed} minutes`}
+      </span>
     </BasketCardStyled>
   );
 }
@@ -60,11 +44,10 @@ const BasketCardStyled = styled.article`
   height: 80px;
   display: flex;
   align-items: center;
-  /* justify-content: center; */
   padding: 5px;
   border-radius: 5px;
   cursor: pointer;
-  transition: 0.5s ease-in-out;
+  transition: 0.3s ease-in-out;
   h3,
   p {
     height: 100%;

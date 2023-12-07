@@ -1,12 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import backgroundImage from "../../../assets/images/backgroundImage.gif";
-// import PrimaryButton from "../../../reusable-ui/PrimaryButton";
 import ListMuseumInfos from "../../reusable-ui/ListMuseumInfos";
 import ImageAndTitle from "./ImageAndTitle";
 import { useNavigate } from "react-router-dom";
-// import PrimaryButton from "../../reusable-ui/PrimaryButton";
-// import backgroundImage from "../../../../assets/images/backgroundImage.gif";
 import { BsFillArrowRightSquareFill } from "react-icons/bs";
 import { setIsDetailsPanelDisplayed } from "../../../features/profile/displaySettingsSlice";
 import PrimaryButton from "../../reusable-ui/PrimaryButton";
@@ -54,15 +51,11 @@ export default function MuseumDetailsPanel() {
 }
 
 const MuseumDetailsPanelStyled = styled.div`
-  /* display: none; */
-  /* max-width: 400px; */
   background-color: white;
-  /* width: 25%; */
   width: 400px;
   height: calc(100vh - 150px);
   position: absolute;
   left: 100%;
-  /* right: 0; */
   box-shadow: -6px 0px 6px -2px rgba(179, 179, 179, 0.75);
   overflow-y: auto;
   transition: all 500ms ease-in-out;
@@ -86,8 +79,6 @@ const MuseumDetailsPanelStyled = styled.div`
     color: #b659b6;
     border-radius: 0 30px 30px 0;
     left: -4px;
-    /* margin-bottom:10px; */
-    /* bottom: -48%; */
     bottom: 10px;
     cursor: pointer;
   }

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Card from "./Card";
 import { useSelector } from "react-redux";
-import { getDatasMuseumsFiltered } from "../../../utils/utils";
+import { getDatasMuseumsFiltered } from "../../../../utils/utils";
 
 export default function CardContainer() {
   const { datasMuseums, search } = useSelector((state) => state.museums);

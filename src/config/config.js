@@ -52,3 +52,26 @@ export const inputFieldsUpdateCard = (dataUpdated, handleChange) => {
     },
   ];
 };
+
+export const inputFieldsCardSection = (data) => {
+  return [
+    {
+      icon: data.FaImage,
+      placeholder: "URL de l'image du musée",
+      name: "url_image",
+      value: data.url_image,
+    },
+    {
+      icon: data.MdOutlineMuseum,
+      placeholder: "Entrer le nom du musée",
+      name: "nom_officiel_du_musee",
+      value: data.nom_officiel_du_musee,
+    },
+    {
+      icon: data.FaCity,
+      placeholder: "Ville du musée",
+      name: "commune",
+      value: data.commune,
+    },
+  ];
+};

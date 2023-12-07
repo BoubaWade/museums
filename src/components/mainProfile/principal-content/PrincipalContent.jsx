@@ -6,7 +6,7 @@ import {
   setIsBasketDisplayed,
   setIsMainSwitchButtonActived,
 } from "../../../features/profile/displaySettingsSlice";
-import CardContainer from "./CardContainer";
+import CardContainer from "./cardContainer/CardContainer";
 import SwitchButton from "../../reusable-ui/SwitchButton";
 import SearchSection from "./SearchSection";
 

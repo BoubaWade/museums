@@ -1,22 +1,15 @@
 import styled from "styled-components";
 import SearchForm from "../../reusable-ui/SearchForm";
-import Table from "./Table";
+import Table from "./table/Table.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearch } from "../../../features/profile/museumsSlice";
-import AddCardSection from "./AddCardSection";
+import AddCardSection from "./addCardSection/AddCardSection.jsx";
 
 export default function SearchSection() {
   const { isAddSectionDisplayed } = useSelector(
     (state) => state.displaySettings
   );
   const dispatch = useDispatch();
-
-  const handleScroll = () => {
-    const addCardSection = document.getElementById("add-card-section");
-    if (addCardSection) {
-      addCardSection.scrollIntoView({ behavior: "smooth" });
-    }
-  };
 
   const handleSearchChange = (value) => {
     dispatch(setSearch(value));
@@ -29,8 +22,7 @@ export default function SearchSection() {
         placeholder="Rechercher puis ajouter un nouveau musée"
         onSearch={handleSearchChange}
       />
-      {isAddSectionDisplayed && <AddCardSection id="add-card-section" />}
-      <Table />
+      {isAddSectionDisplayed ? <AddCardSection /> : <Table />}
     </SearchSectionStyled>
   );
 }

@@ -4,6 +4,7 @@ export const basketSlice = createSlice({
   name: "basket",
   initialState: {
     datasItemsOfBasket: [],
+    datePicked: null,
   },
   reducers: {
     handleAddItemToBasket: (state, { payload }) => {
@@ -15,6 +16,9 @@ export const basketSlice = createSlice({
       state.datasItemsOfBasket = copyDatasBasket.filter(
         (data) => data.identifiant_museofile !== payload
       );
+    },
+    handleRecoverDatePicked: (state, { payload }) => {
+      state.datePicked = payload;
     },
   },
 });
@@ -57,6 +61,6 @@ export function deleteOneToBasket(action) {
   };
 }
 
-export const { handleAddItemToBasket, handleDeleteItemFromBasket } =
+export const { handleAddItemToBasket, handleDeleteItemFromBasket, handleRecoverDatePicked } =
   basketSlice.actions;
 export default basketSlice.reducer;

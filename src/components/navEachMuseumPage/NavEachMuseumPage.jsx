@@ -19,7 +19,6 @@ export default function NavEachMuseumPage() {
     <NavEachMuseumPageStyled>
       <div className="logo-container">
         <GiElvenCastle className="icon-logo" />
-        {/* <h1>Museums</h1> */}
         <h1>{datasMuseum?.nom_officiel_du_musee}</h1>
       </div>
       <PrimaryButton
@@ -37,10 +36,8 @@ const NavEachMuseumPageStyled = styled.nav`
   width: 100vw;
   height: 70px;
   display: flex;
-  /* align-items: center; */
   margin-bottom: 30px;
   .logo-container {
-    /* width: 210px; */
     display: flex;
     justify-content: space-between;
     .icon-logo {

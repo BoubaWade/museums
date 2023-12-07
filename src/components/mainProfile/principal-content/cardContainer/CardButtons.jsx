@@ -3,10 +3,10 @@ import styled from "styled-components";
 import {
   setIsBasketDisplayed,
   setIsDisplayUpdateCardModal,
-} from "../../../features/profile/displaySettingsSlice";
-import { handleAddDataToUpdatedCard } from "../../../features/profile/museumsSlice";
-import { addOneToBasket } from "../../../features/profile/basketSlice";
-import PrimaryButton from "../../reusable-ui/PrimaryButton";
+} from "../../../../features/profile/displaySettingsSlice";
+import { handleAddDataToUpdatedCard } from "../../../../features/profile/museumsSlice";
+import { addOneToBasket } from "../../../../features/profile/basketSlice";
+import PrimaryButton from "../../../reusable-ui/PrimaryButton";
 
 export default function CardButtons({ data }) {
   const { isNavSwitchButtonActived } = useSelector(

@@ -8,7 +8,7 @@ export const normalizeString = (input) => {
 };
 
 export function addPropertyToDataFetched(datas) {
-  return datas.map((data) => ({
+  return datas?.map((data) => ({
     ...data,
     isAdded: false,
     isClicked: false,
@@ -57,4 +57,20 @@ export function calculateDistance(lat1, lon1, lat2, lon2) {
   const distanceRounded = Math.round(distance * 100) / 100;
 
   return distanceRounded;
+}
+
+export function getAllMuseumsId(datas) {
+  return datas.map((item) => item.identifiant_museofile);
+}
+
+export function getFormatedDate(date) {
+  const options = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+  if (date) {
+    const dateFormated = date.toLocaleDateString("fr-FR", options);
+    return dateFormated;
+  }
 }
