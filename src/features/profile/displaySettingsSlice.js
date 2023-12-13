@@ -9,6 +9,8 @@ const initialState = {
   isDisplayUpdateCardModal: false,
   isAddSectionDisplayed: false,
   isDetailsPanelDisplayed: false,
+  showEditProfile: true,
+  showSettingsProfile: false,
 };
 
 const displaySettingsSlice = createSlice({
@@ -39,6 +41,12 @@ const displaySettingsSlice = createSlice({
     setIsDetailsPanelDisplayed: (state) => {
       state.isDetailsPanelDisplayed = !state.isDetailsPanelDisplayed;
     },
+    setShowEditProfile: (state, { payload }) => {
+      state.showEditProfile = payload;
+    },
+    setShowSettingsProfile: (state, { payload }) => {
+      state.showSettingsProfile = payload;
+    },
   },
 });
 
@@ -51,6 +59,8 @@ export const {
   setIsDisplayUpdateCardModal,
   setIsAddSectionDisplayed,
   setIsDetailsPanelDisplayed,
+  setShowEditProfile,
+  setShowSettingsProfile,
 } = displaySettingsSlice.actions;
 
 export default displaySettingsSlice.reducer;

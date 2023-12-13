@@ -1,15 +1,15 @@
 import styled from "styled-components";
-import { GiElvenCastle } from "react-icons/gi";
 import { FaUserCircle } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import SwitchButton from "../reusable-ui/SwitchButton";
-import PopupUserProfile from "./PopupUserProfile";
+import PopupUserProfile from "./popupUserProfil/PopupUserProfile";
 import {
   setIsNavSwitchButtonActived,
   setIsPopUpDisplayed,
 } from "../../features/profile/displaySettingsSlice";
 import { setSearch } from "../../features/profile/museumsSlice";
 import SearchForm from "../reusable-ui/SearchForm";
+import Logo from "../reusable-ui/Logo";
 
 export default function NavBar() {
   const {
@@ -17,19 +17,21 @@ export default function NavBar() {
     isNavSwitchButtonActived,
     isMainSwitchButtonActived,
   } = useSelector((state) => state.displaySettings);
+  const { dataSettings, selectedFile } = useSelector((state) => state.museums);
   const dispatch = useDispatch();
 
   const handleSearchChange = (value) => {
     dispatch(setSearch(value));
   };
+  console.log(selectedFile);
 
   return (
     <NavBarProfileStyled>
-      <div className="logo-container">
-        <GiElvenCastle className="icon-logo" />
-        <h1>Museums</h1>
-      </div>
+      <Logo />
       <div className="nav-right-container">
+        <p className="pseudo">
+          Bienvenue : {dataSettings?.email?.split("@")[0]}
+        </p>
         {!isMainSwitchButtonActived && (
           <SearchForm
             placeholder="Rechercher un musée"
@@ -63,26 +65,17 @@ const NavBarProfileStyled = styled.nav`
   align-items: center;
   position: absolute;
   top: 0;
-  .logo-container {
-    width: 210px;
-    display: flex;
-    justify-content: space-between;
-    .icon-logo {
-      font-size: 50px;
-      color: #b659b6;
-      margin-left: 50px;
-      margin-bottom:15px;
-    }
-    h1 {
-      font-family: "Berkshire Swash", cursive;
-      color: #b659b6;
-      display: flex;
-      align-items: flex-end;
-    }
-  }
   .nav-right-container {
     display: flex;
     margin-right: 50px;
+    .pseudo {
+      position: absolute;
+      color: #b659b6;
+      font-size: 18px;
+      top: 75px;
+      right: 0;
+      margin: auto 40px;
+    }
     .switch-and-user-buttons {
       position: relative;
       width: 330px;

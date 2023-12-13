@@ -1,7 +1,7 @@
 import "react-calendar/dist/Calendar.css";
 import "react-date-picker/dist/DatePicker.css";
 import { MdDelete } from "react-icons/md";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { handleDeleteItemFromBasket } from "../../../features/profile/basketSlice";
 import { useEffect, useState } from "react";
@@ -9,6 +9,7 @@ const NUMBER_OF_MILLISECOND_IN_ONE_MINUTE = 60000;
 
 export default function BasketCard({ data }) {
   const { nom_officiel_du_musee, commune } = data;
+  const datePicked = useSelector((state) => state.basket.datePicked);
   const dispatch = useDispatch();
   const [minutesElapsed, setMinutesElapsed] = useState(0);
 
@@ -33,6 +34,7 @@ export default function BasketCard({ data }) {
         Ajouté il y'a
         {minutesElapsed === 1 ? " 1 minute" : ` ${minutesElapsed} minutes`}
       </span>
+      {/* <div>{datePicked}</div> */}
     </BasketCardStyled>
   );
 }

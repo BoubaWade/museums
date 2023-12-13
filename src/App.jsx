@@ -7,6 +7,7 @@ import EachMuseumPage from "./pages/profile/EachMuseumPage.jsx";
 import Error from "./pages/Error.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { checkAuthState } from "./features/sign/signSlice.js";
+import Settings from "./pages/profile/Settings.jsx";
 
 export default function App() {
   const loadingData = useSelector((state) => state.sign.loadingData);
@@ -29,6 +30,7 @@ export default function App() {
                 Component={EachMuseumPage}
               />
             </Route>
+            <Route path="/profile/settings" Component={Settings} />
             <Route path="*" Component={Error} />
           </Routes>
         </Router>

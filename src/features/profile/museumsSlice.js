@@ -33,6 +33,8 @@ export const museumsSlice = createSlice({
     search: "",
     dataUpdatedCard: {},
     dataRecoveredAfterClickingOnACard: null,
+    dataSettings: {},
+    selectedFile: null,
   },
   reducers: {
     setDatasMuseumsFromAPI: (state, { payload }) => {
@@ -65,6 +67,12 @@ export const museumsSlice = createSlice({
       state.dataRecoveredAfterClickingOnACard = state.datasMuseums.find(
         (data) => data.identifiant_museofile === payload
       );
+    },
+    setDataSettings: (state, { payload }) => {
+      state.dataSettings = payload;
+    },
+    setSelectedFile: (state, { payload }) => {
+      state.selectedFile = payload;
     },
   },
   extraReducers: (builder) => {
@@ -105,5 +113,7 @@ export const {
   handleAddDataToUpdatedCard,
   handleUpdateAMuseum,
   handleRecoverDataAfterClickingOnACard,
+  setDataSettings,
+  setSelectedFile,
 } = museumsSlice.actions;
 export default museumsSlice.reducer;

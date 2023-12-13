@@ -1,11 +1,16 @@
 import styled from "styled-components";
 import { GiElvenCastle } from "react-icons/gi";
+import defaultImage from "../../assets/images/default-image-museum.jpeg";
 
 export default function InfosCard({ className, image, name, city }) {
   return (
     <InfosCardStyled className={className}>
       <GiElvenCastle className="icon" />
-      <img src={image} className="picture" alt="image du musée" />
+      <img
+        src={image ? image : defaultImage}
+        className="picture"
+        alt="image du musée"
+      />
       <h2 className="name">{name?.toUpperCase()}</h2>
       <span className="city">{city}</span>
     </InfosCardStyled>

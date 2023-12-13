@@ -16,7 +16,6 @@ export default function Card({ data }) {
     url_image,
     nom_officiel_du_musee,
     commune,
-    isClicked,
   } = data;
   const { isNavSwitchButtonActived, isDetailsPanelDisplayed } = useSelector(
     (state) => state.displaySettings

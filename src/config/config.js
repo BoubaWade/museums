@@ -75,3 +75,28 @@ export const inputFieldsCardSection = (data) => {
     },
   ];
 };
+
+export const inputFieldsSettings = (data) => {
+  return [
+    {
+      placeholder: "Prénom",
+      name: "firstName",
+      value: data.firstName,
+    },
+    {
+      placeholder: "Nom",
+      name: "lastName",
+      value: data.lastName,
+    },
+    {
+      placeholder: "Pseudo",
+      name: "pseudo",
+      value: data.pseudo,
+    },
+    {
+      placeholder: "E-mail",
+      name: "email",
+      value: data.email,
+    },
+  ];
+};

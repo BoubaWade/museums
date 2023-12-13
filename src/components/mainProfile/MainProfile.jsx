@@ -4,7 +4,6 @@ import { setIsPopUpDisplayed } from "../../features/profile/displaySettingsSlice
 import Basket from "./basket/Basket";
 import PrincipalContent from "./principal-content/PrincipalContent";
 import MuseumDetailsPanel from "./museumDetailsPanel/MuseumDetailsPanel";
-// import MuseumDetailsPanel from "./principal-content/museumDetailsPanel/MuseumDetailsPanel";
 
 export default function MainProfile() {
   const dispatch = useDispatch();
