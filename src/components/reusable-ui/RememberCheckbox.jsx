@@ -1,9 +1,14 @@
 import styled from "styled-components";
 
-export default function RememberCheckbox({ onChange }) {
+export default function RememberCheckbox({ checked, onChange }) {
   return (
     <CheckboxStyled>
-      <input type="checkbox" id="remember-me" onChange={onChange} />
+      <input
+        type="checkbox"
+        id="remember-me"
+        onChange={onChange}
+        checked={checked}
+      />
       <label htmlFor="remember-me">Se souvenir de moi</label>
     </CheckboxStyled>
   );

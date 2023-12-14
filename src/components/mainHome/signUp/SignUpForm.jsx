@@ -7,22 +7,17 @@ import {
   setUserEmail,
   toggleModal,
 } from "../../../features/sign/signSlice";
-import { inputFieldsSignUp } from "../../../config/config";
+import {
+  initialCredentials,
+  initialErrorField,
+  inputFieldsSignUp,
+} from "../../../config/config";
 import { auth } from "../../../firebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import InputSignUp from "./InputSignUp";
 
 export default function SignUpForm() {
   const dispatch = useDispatch();
-  const initialCredentials = {
-    email: "",
-    password: "",
-    confirmPassword: "",
-  };
-  const initialErrorField = {
-    erroremail: "",
-    errorPassword: "",
-    errorConfirmPassword: "",
-  };
   const [credentials, setCredentials] = useState(initialCredentials);
   const [errorField, setErrorField] = useState(initialErrorField);
 
@@ -58,7 +53,7 @@ export default function SignUpForm() {
     if (credentials.confirmPassword !== credentials.password) {
       setErrorField({
         ...errorField,
-        errorConfirmPassword: "Mots de passe pas identiques",
+        errorConfirmPassword: "Mots de passe non identiques",
       });
       return;
     }
@@ -77,21 +72,13 @@ export default function SignUpForm() {
         }
       });
   };
+  
   return (
     <SignUpFormStyled onSubmit={(e) => handleSignUp(e)}>
       <h2>CRÉER UN COMPTE</h2>
       {inputFieldsSignUp(credentials, handleChange, errorField).map(
         (field, index) => (
-          <div className="input-container" key={index}>
-            <input
-              type={field.type}
-              name={field.name}
-              placeholder={field.placeholder}
-              value={field.value}
-              onChange={field.onChange}
-            />
-            <span>{field.error}</span>
-          </div>
+          <InputSignUp key={index} field={field} />
         )
       )}
       <PrimaryButton className="primary-button" label="VALIDER" />
@@ -107,35 +94,6 @@ const SignUpFormStyled = styled.form`
     color: white;
     text-align: center;
     margin: 10px 0 20px;
-  }
-  .input-container {
-    position: relative;
-    margin: 0 auto 25px;
-    input {
-      width: 250px;
-      height: 50px;
-      font-size: 1rem;
-      text-align: center;
-      border-radius: 5px;
-      outline: none;
-      border: none;
-      &::placeholder {
-        font-family: "Roboto", sans-serif;
-        font-size: 1rem;
-        color: gray;
-        text-align: center;
-      }
-      &:focus {
-        box-shadow: 2px 2px 2px 2px #b659b6;
-      }
-    }
-    span {
-      display: block;
-      color: red;
-      font-size: 0.7rem;
-      text-align: center;
-      margin-top: 5px;
-    }
   }
   .primary-button {
     font-size: 0.9rem;

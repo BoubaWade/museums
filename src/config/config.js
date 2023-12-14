@@ -1,3 +1,14 @@
+export const initialCredentials = {
+  email: "",
+  password: "",
+  confirmPassword: "",
+};
+export const initialErrorField = {
+  erroremail: "",
+  errorPassword: "",
+  errorConfirmPassword: "",
+};
+
 export const inputFieldsSignUp = (credentials, handleChange, errorField) => {
   return [
     {
@@ -7,6 +18,7 @@ export const inputFieldsSignUp = (credentials, handleChange, errorField) => {
       value: credentials.email,
       onChange: handleChange,
       error: errorField.errorEmail,
+      autoFocus: true,
     },
     {
       type: "password",
@@ -15,6 +27,7 @@ export const inputFieldsSignUp = (credentials, handleChange, errorField) => {
       value: credentials.password,
       onChange: handleChange,
       error: errorField.errorPassword,
+      autoFocus: false,
     },
     {
       type: "password",
@@ -23,6 +36,7 @@ export const inputFieldsSignUp = (credentials, handleChange, errorField) => {
       value: credentials.confirmPassword,
       onChange: handleChange,
       error: errorField.errorConfirmPassword,
+      autoFocus: false,
     },
   ];
 };
@@ -82,21 +96,51 @@ export const inputFieldsSettings = (data) => {
       placeholder: "Prénom",
       name: "firstName",
       value: data.firstName,
+      autoFocus: true,
     },
     {
       placeholder: "Nom",
       name: "lastName",
       value: data.lastName,
+      autoFocus: false,
     },
     {
       placeholder: "Pseudo",
       name: "pseudo",
       value: data.pseudo,
+      autoFocus: false,
     },
     {
       placeholder: "E-mail",
       name: "email",
       value: data.email,
+      autoFocus: false,
     },
   ];
+};
+
+export const inputFieldsSignIn = (emailRef, passwordRef, userEmail) => {
+  return [
+    {
+      type: "email",
+      className: "input",
+      placeholder: "E-mail",
+      defaultValue: userEmail,
+      ref: emailRef,
+    },
+    {
+      type: "password",
+      className: "input",
+      placeholder: "Mot de passe",
+      defaultValue: "",
+      ref: passwordRef,
+    },
+  ];
+};
+
+export const initialInputSettingsValue = {
+  firstName: "",
+  lastName: "",
+  pseudo: "",
+  email: "",
 };

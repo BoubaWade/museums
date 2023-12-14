@@ -22,10 +22,11 @@ export default function CalendarContent({ datasMuseumRecovered }) {
   const handleValidateDatePicked = () => {
     if (!datasItemsOfBasket.includes(datasMuseumRecovered)) {
       dispatch(handleAddItemToBasket(datasMuseumRecovered));
+      // addOneToBasket(datasMuseumRecovered.identifiant_museofile);
       dispatch(handleRecoverDatePicked(dateFormated));
     }
   };
-
+  // console.log(datasItemsOfBasket.length);
   return (
     <CalendarContentStyled>
       <p>Réserver votre date de visite</p>

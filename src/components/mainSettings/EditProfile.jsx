@@ -7,16 +7,13 @@ import {
   setSelectedFile,
 } from "../../features/profile/museumsSlice";
 import { useDispatch } from "react-redux";
-import { inputFieldsSettings } from "../../config/config";
+import {
+  initialInputSettingsValue,
+  inputFieldsSettings,
+} from "../../config/config";
 
 export default function EditProfile() {
-  const initialInputValue = {
-    firstName: "",
-    lastName: "",
-    pseudo: "",
-    email: "",
-  };
-  const [inputValue, setInputValue] = useState(initialInputValue);
+  const [inputValue, setInputValue] = useState(initialInputSettingsValue);
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
@@ -54,6 +51,7 @@ export default function EditProfile() {
             name={field.name}
             value={field.value}
             onChange={(e) => handleChange(e)}
+            autoFocus={field.autoFocus}
           />
         ))}
         <PrimaryButton label="Valider" className="submit-button" />

@@ -18,19 +18,19 @@ export default function NavBar() {
     isMainSwitchButtonActived,
   } = useSelector((state) => state.displaySettings);
   const { dataSettings, selectedFile } = useSelector((state) => state.museums);
+  const { currentUser } = useSelector((state) => state.sign);
   const dispatch = useDispatch();
 
   const handleSearchChange = (value) => {
     dispatch(setSearch(value));
   };
-  console.log(selectedFile);
 
   return (
     <NavBarProfileStyled>
       <Logo />
       <div className="nav-right-container">
         <p className="pseudo">
-          Bienvenue : {dataSettings?.email?.split("@")[0]}
+          Bienvenue : {currentUser?.email?.split("@")[0]}
         </p>
         {!isMainSwitchButtonActived && (
           <SearchForm

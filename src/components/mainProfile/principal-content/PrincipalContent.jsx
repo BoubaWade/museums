@@ -4,20 +4,23 @@ import styled from "styled-components";
 import { BsFillArrowRightSquareFill } from "react-icons/bs";
 import {
   setIsBasketDisplayed,
+  setIsFormAdminDisplayed,
   setIsMainSwitchButtonActived,
 } from "../../../features/profile/displaySettingsSlice";
 import CardContainer from "./cardContainer/CardContainer";
 import SwitchButton from "../../reusable-ui/SwitchButton";
 import SearchSection from "./SearchSection";
+import FormActiveAdmin from "./FormActiveAdmin";
 
 export default function PrincipalContent() {
   const {
     isBasketDisplayed,
     isNavSwitchButtonActived,
+    isFormAdminDisplayed,
     isMainSwitchButtonActived,
   } = useSelector((state) => state.displaySettings);
-
   const dispatch = useDispatch();
+
   const width = {
     width: isBasketDisplayed ? "75%" : "100%",
     transition: "width 0.3s ease",
@@ -26,17 +29,29 @@ export default function PrincipalContent() {
     ? "opener-arrow-hidden"
     : "arrow-open-basket";
 
+  const handleSubmit = () => {
+    dispatch(setIsFormAdminDisplayed(false));
+  };
+
   return (
     <PrincipalContentStyled style={width}>
       <img src={bgImage} className="bg-image" />
       {isNavSwitchButtonActived && (
-        <SwitchButton
-          className="switch-button"
-          actived={isMainSwitchButtonActived}
-          setActived={setIsMainSwitchButtonActived}
-          textActive="Activer mode recherche"
-          textInactive="Désactiver mode rech..."
-        />
+        <div>
+          <SwitchButton
+            className="switch-button"
+            actived={isMainSwitchButtonActived}
+            setActived={setIsMainSwitchButtonActived}
+            textActive="Activer mode recherche"
+            textInactive="Désactiver mode rech..."
+          />
+          {isFormAdminDisplayed && (
+            <FormActiveAdmin
+              isFormAdminDisplayed={isFormAdminDisplayed}
+              onSubmit={handleSubmit}
+            />
+          )}
+        </div>
       )}
       {!isBasketDisplayed && (
         <BsFillArrowRightSquareFill

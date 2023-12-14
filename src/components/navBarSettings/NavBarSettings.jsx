@@ -3,12 +3,21 @@ import PrimaryButton from "../reusable-ui/PrimaryButton";
 import Logo from "../reusable-ui/Logo";
 import { useNavigate } from "react-router-dom";
 import SettingsButtons from "./SettingsButtons";
+import { useDispatch, useSelector } from "react-redux";
+import { setIsFormAdminDisplayed } from "../../features/profile/displaySettingsSlice";
 
 export default function NavBarSettings() {
+  const { isNavSwitchButtonActived } = useSelector(
+    (state) => state.displaySettings
+  );
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleClick = () => {
     navigate("/profile/profile-home");
+    if (isNavSwitchButtonActived) {
+      dispatch(setIsFormAdminDisplayed(false));
+    }
   };
 
   return (

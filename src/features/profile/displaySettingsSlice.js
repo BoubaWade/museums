@@ -9,6 +9,7 @@ const initialState = {
   isDisplayUpdateCardModal: false,
   isAddSectionDisplayed: false,
   isDetailsPanelDisplayed: false,
+  isFormAdminDisplayed:true,
   showEditProfile: true,
   showSettingsProfile: false,
 };
@@ -41,6 +42,9 @@ const displaySettingsSlice = createSlice({
     setIsDetailsPanelDisplayed: (state) => {
       state.isDetailsPanelDisplayed = !state.isDetailsPanelDisplayed;
     },
+    setIsFormAdminDisplayed: (state, { payload }) => {
+      state.isFormAdminDisplayed = payload;
+    },
     setShowEditProfile: (state, { payload }) => {
       state.showEditProfile = payload;
     },
@@ -59,6 +63,7 @@ export const {
   setIsDisplayUpdateCardModal,
   setIsAddSectionDisplayed,
   setIsDetailsPanelDisplayed,
+  setIsFormAdminDisplayed,
   setShowEditProfile,
   setShowSettingsProfile,
 } = displaySettingsSlice.actions;

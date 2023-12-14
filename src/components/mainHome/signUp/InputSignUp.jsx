@@ -1,37 +1,30 @@
 import styled from "styled-components";
 
-export default function ControlledInput({
-  classNameContainer,
-  type,
-  placeholder,
-  name,
-  className,
-  value,
-  onChange,
-  icon,
-  error,
-  autoFocus
-}) {
+export default function InputSignUp({ field }) {
+  const { type, name, placeholder, value, onChange, error, autoFocus } = field;
+
   return (
-    <ControlledInputStyled className={classNameContainer}>
-      {icon}
+    <InputSignUpStyled>
       <input
         type={type}
         name={name}
-        className={className}
         placeholder={placeholder}
         value={value}
         onChange={onChange}
         autoFocus={autoFocus}
       />
       <span>{error}</span>
-    </ControlledInputStyled>
+    </InputSignUpStyled>
   );
 }
 
-const ControlledInputStyled = styled.div`
+const InputSignUpStyled = styled.div`
   position: relative;
+  margin: 0 auto 25px;
   input {
+    width: 250px;
+    height: 50px;
+    font-size: 1rem;
     text-align: center;
     border-radius: 5px;
     outline: none;
@@ -43,7 +36,7 @@ const ControlledInputStyled = styled.div`
       text-align: center;
     }
     &:focus {
-      box-shadow: 0px 0px 4px 0px rgba(182, 89, 182, 0.75);
+      box-shadow: 2px 2px 2px 2px #b659b6;
     }
   }
   span {

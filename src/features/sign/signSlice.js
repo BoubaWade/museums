@@ -17,7 +17,7 @@ export const checkAuthState = createAsyncThunk(
       } else {
         dispatch(setCurrentUser(null));
       }
-      unsubscribe();
+      return () => unsubscribe();
     });
   }
 );
