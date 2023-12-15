@@ -16,6 +16,7 @@ export default function SignUpModal() {
         <TiDeleteOutline
           className="close-modal"
           onClick={() => dispatch(toggleModal())}
+          tabIndex={0}
         />
         {isRegistered ? <p> INSCRIPTION VALIDÉ !</p> : <SignUpForm />}
       </div>
@@ -24,6 +25,14 @@ export default function SignUpModal() {
 }
 
 const SignUpModalStyled = styled.div`
+  max-width: 1500px;
+  max-height: 900px;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
   .form-container {
     width: 500px;
     height: 500px;

@@ -11,13 +11,12 @@ export default function PopupItem({ icon, label, onClick }) {
 }
 
 const PopupItemStyled = styled.li`
-  width: 100%;
+  width: 90%;
   height: 60px;
   display: flex;
   align-items: center;
   font-size: 14px;
   font-weight: 500;
-  padding-left: 15px;
   border-bottom: 1.5px solid #b3b3b369;
   &:hover {
     color: #b659b6;

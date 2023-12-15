@@ -58,7 +58,7 @@ const PopupUserProfileStyled = styled.div`
   color: #757474;
   font-size: 16px;
   top: 60px;
-  left: 64%;
+  left: 67%;
   .popup-items {
     position: relative;
     width: 145px;

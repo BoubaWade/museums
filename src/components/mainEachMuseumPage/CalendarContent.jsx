@@ -15,6 +15,7 @@ export default function CalendarContent({ datasMuseumRecovered }) {
     (state) => state.basket.datasItemsOfBasket
   );
   const [value, onChange] = useState(new Date());
+  const [showCalendar, setShowCalendar] = useState(false);
   const dispatch = useDispatch();
 
   const dateFormated = getFormatedDate(value);
@@ -25,8 +26,8 @@ export default function CalendarContent({ datasMuseumRecovered }) {
       // addOneToBasket(datasMuseumRecovered.identifiant_museofile);
       dispatch(handleRecoverDatePicked(dateFormated));
     }
+    setShowCalendar(false);
   };
-  // console.log(datasItemsOfBasket.length);
   return (
     <CalendarContentStyled>
       <p>Réserver votre date de visite</p>
@@ -34,10 +35,22 @@ export default function CalendarContent({ datasMuseumRecovered }) {
         onChange={onChange}
         value={value}
         className="calendar"
-        calendarClassName="close-calendar"
-        calendarIcon=""
+        calendarClassName="calendar-className"
+        // calendarIcon=""
+        onClick={() => {
+          setShowCalendar(!showCalendar);
+        }}
       />
-      <Calendar onChange={onChange} value={value} className="calendar" />
+      {showCalendar && (
+        <Calendar
+          onChange={onChange}
+          value={value}
+          className="calendar"
+          onClickDay={() => {
+            setShowCalendar(!showCalendar);
+          }}
+        />
+      )}
       <PrimaryButton
         id="validate-date"
         label="Valider"
@@ -49,17 +62,24 @@ export default function CalendarContent({ datasMuseumRecovered }) {
 }
 
 const CalendarContentStyled = styled.div`
+  padding: 0 10px;
   p {
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 500;
+    padding: 5px 0;
   }
   .calendar {
     background-color: #f6e9f6;
     width: 100%;
     border-radius: 5px;
     border: 1.5px solid #b659b65f;
+    padding: 10px 15px;
+    margin-bottom: 5px;
+    .react-date-picker__wrapper {
+      border: none;
+    }
   }
-  .close-calendar {
+  .calendar-className {
     display: none;
   }
   #validate-date {
@@ -69,7 +89,8 @@ const CalendarContentStyled = styled.div`
     margin-top: 10px;
   }
   .button-validate-date-Picker {
-    width: 90px;
-    height: 35px;
+    width: 100%;
+    height: 45px;
+    font-size: 16px;
   }
 `;

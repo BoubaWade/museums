@@ -51,14 +51,14 @@ export default function MuseumDetailsPanel() {
 }
 
 const MuseumDetailsPanelStyled = styled.div`
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   width: 400px;
   height: calc(100vh - 150px);
-  position: absolute;
+  position: fixed;
   left: 100%;
   box-shadow: -6px 0px 6px -2px rgba(179, 179, 179, 0.75);
-  overflow-y: auto;
   transition: all 500ms ease-in-out;
+  overflow-y: auto;
   .bg-image {
     display: block;
     width: 100%;
@@ -79,7 +79,6 @@ const MuseumDetailsPanelStyled = styled.div`
     color: #b659b6;
     border-radius: 0 30px 30px 0;
     left: -4px;
-    bottom: 10px;
     cursor: pointer;
   }
 `;

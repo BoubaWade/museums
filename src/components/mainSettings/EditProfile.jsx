@@ -64,6 +64,7 @@ const EditProfileStyled = styled.div`
   display: flex;
   flex-direction: column;
   form {
+    width: 100%;
     position: relative;
     margin-top: 50px;
     .input-container {

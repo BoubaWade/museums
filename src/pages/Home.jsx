@@ -18,6 +18,10 @@ export default function Home() {
 }
 
 const HomeSlyled = styled.div`
-  min-width: 100vw;
-  min-height: 100vh;
+  max-width: 1500px;
+  max-height: 900px;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0 auto;
 `;

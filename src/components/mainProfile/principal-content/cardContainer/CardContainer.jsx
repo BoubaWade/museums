@@ -30,9 +30,10 @@ const CardContainerStyled = styled.ul`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 50px;
+  column-gap:10px;
+  row-gap: 50px;
   margin: 40px auto 80px;
-  padding: 50px 0;
+  padding: 50px 20px;
   border-radius: 15px;
   box-shadow: 0px 1px 6px 3px rgba(179, 179, 179, 0.75);
   .empty-card {

@@ -11,8 +11,15 @@ export default function BackgroundImage() {
 
 const BackgroundImageStyled = styled.div`
   img {
+    max-width: 1500px;
+    max-height: 900px;
     width: 100vw;
     height: 100vh;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
     filter: brightness(30%);
     -webkit-filter: brightness(30%);
     -moz-filter: brightness(30%);

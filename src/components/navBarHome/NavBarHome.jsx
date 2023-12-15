@@ -17,7 +17,8 @@ export default function NavBar() {
   );
 }
 const NavBarHomeStyled = styled.nav`
-  width: 100%;
+  max-width: 1500px;
+  width: 100vw;
   height: 70px;
   position: absolute;
   top: 0;

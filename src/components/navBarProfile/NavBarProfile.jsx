@@ -66,6 +66,7 @@ const NavBarProfileStyled = styled.nav`
   position: absolute;
   top: 0;
   .nav-right-container {
+    width: 60%;
     display: flex;
     margin-right: 50px;
     .pseudo {

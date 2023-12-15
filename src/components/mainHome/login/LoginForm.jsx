@@ -17,7 +17,7 @@ export default function LoginForm() {
 const LoginFormStyled = styled.div`
   position: relative;
   width: 450px;
-  height: 400px;
+  height: 380px;
   display: flex;
   flex-direction: column;
   justify-content: center;

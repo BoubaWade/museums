@@ -40,7 +40,7 @@ export default function SettingsButtons() {
   );
 }
 const SettingsButtonsStyled = styled.div`
-  width: 70%;
+  width: 300px;
   display: flex;
   justify-content: center;
   align-items: center;

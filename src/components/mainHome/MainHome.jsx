@@ -28,12 +28,12 @@ export default function Main() {
   );
 }
 const MainStyled = styled.div`
-  height: calc(100vh - 70px);
+  /* height: calc(100vh - 70px); */
   display: flex;
   flex-direction: column;
   align-items: center;
   position: absolute;
-  top: 80px;
+  top: 70px;
   left: 50%;
   transform: translateX(-50%);
   h1 {
@@ -45,6 +45,6 @@ const MainStyled = styled.div`
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    margin-bottom: 45px;
+    margin-bottom: 30px;
   }
 `;

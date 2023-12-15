@@ -11,9 +11,12 @@ const OverlayStyled = styled.div`
   justify-content: center;
   width: 100vw;
   height: 100vh;
-  background-color: black;
-  opacity: 60%;
+  max-width: 1500px;
+  max-height: 900px;
   position: absolute;
   top: 0;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: black;
+  opacity: 60%;
 `;

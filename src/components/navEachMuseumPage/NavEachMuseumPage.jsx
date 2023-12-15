@@ -36,7 +36,7 @@ const NavEachMuseumPageStyled = styled.nav`
   width: 100vw;
   height: 70px;
   display: flex;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
   .logo-container {
     display: flex;
     justify-content: space-between;

@@ -47,6 +47,7 @@ const UpdateCardModalStyled = styled.div`
   .update-card-container {
     position: absolute;
     max-width: 620px;
+    max-height: 800px;
     width: 50%;
     height: 90vh;
     display: flex;

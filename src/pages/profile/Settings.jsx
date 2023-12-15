@@ -12,5 +12,9 @@ export default function Settings() {
 }
 
 const SettingsStyled = styled.div`
+  max-width: 1500px;
+  max-height: 900px;
   width: 100vw;
+  height: 100vh;
+  margin: 0 auto;
 `;

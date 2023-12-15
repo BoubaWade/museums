@@ -5,7 +5,7 @@ import defaultImage from "../../../assets/images/default-image-museum.jpeg";
 
 export default function PrincipalContent({ datasMuseumRecovered }) {
   const { url_image, nom_officiel_du_musee } = datasMuseumRecovered;
-  
+
   const handleRedirectToWebSite = (url) => {
     // if (url.startsWith("http")) {
     return (window.location.href = url);
@@ -21,7 +21,7 @@ export default function PrincipalContent({ datasMuseumRecovered }) {
           <PrimaryButton
             label="Accéder au site du musée"
             className="website-button"
-            onClick={() => handleRedirectToWebSite(datasMuseum.url)}
+            // onClick={() => handleRedirectToWebSite(datasMuseum.url)}
           />
         </div>
       </div>
@@ -30,8 +30,10 @@ export default function PrincipalContent({ datasMuseumRecovered }) {
 }
 
 const PrincipalContentStyled = styled.div`
+  width: 100%;
   background-color: #f6e9f6;
   border-radius: 5px;
+  box-shadow: 0 0 20px 2px rgba(179, 179, 179, 0.75);
   overflow: hidden;
   .bg-image {
     width: 100%;
