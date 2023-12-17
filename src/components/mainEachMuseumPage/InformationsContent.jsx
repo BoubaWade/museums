@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import ListMuseumInfos from "../reusable-ui/ListMuseumInfos";
 import CalendarContent from "./CalendarContent";
@@ -23,7 +22,7 @@ export default function InformationsContent({ datasMuseumRecovered }) {
 const InformationsContentStyled = styled.div`
   width: 100%;
   height: 610px;
-  box-shadow: 0 0 20px 2px rgba(179, 179, 179, 0.75);
+  border: 1.5px solid #b659b65f;
   border-radius: 5px;
   h3 {
     background-color: #f6e9f6;

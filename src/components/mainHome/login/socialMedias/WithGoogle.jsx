@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { FcGoogle } from "react-icons/fc";
 import { auth, googleProvider } from "../../../../firebaseConfig";
 import { signInWithPopup } from "firebase/auth";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCurrentUser } from "../../../../features/sign/signSlice";
 

@@ -14,6 +14,7 @@ export default function AddCardSection() {
   const { datasMuseums, dataRecoveredAfterClick } = useSelector(
     (state) => state.museums
   );
+
   const [data, setData] = useState(dataRecoveredAfterClick);
   const { identifiant_museofile, nom_officiel_du_musee, commune } = data;
   const [successToAddMuseum, setSuccessToAddMuseum] = useState(false);

@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 
 export default function PopupItem({ icon, label, onClick }) {
@@ -15,6 +14,7 @@ const PopupItemStyled = styled.li`
   height: 60px;
   display: flex;
   align-items: center;
+  justify-content: center;
   font-size: 14px;
   font-weight: 500;
   border-bottom: 1.5px solid #b3b3b369;
@@ -24,9 +24,10 @@ const PopupItemStyled = styled.li`
   .icon-item {
     font-size: 20px;
     color: #b659b6;
-    margin-right: 5px;
+    margin: 0 5px;
   }
   .item {
+    margin: 0;
     cursor: pointer;
   }
 `;

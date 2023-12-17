@@ -1,11 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import {
-  setIsBasketDisplayed,
   setIsDisplayUpdateCardModal,
+  setShowModalCalendar,
 } from "../../../../features/profile/displaySettingsSlice";
-import { handleAddDataToUpdatedCard } from "../../../../features/profile/museumsSlice";
-import { addOneToBasket } from "../../../../features/profile/basketSlice";
+import {
+  handleAddDataToUpdatedCard,
+  handleRecoverDataAfterClickingOnACard,
+} from "../../../../features/profile/museumsSlice";
 import PrimaryButton from "../../../reusable-ui/PrimaryButton";
 
 export default function CardButtons({ data }) {
@@ -14,9 +16,9 @@ export default function CardButtons({ data }) {
   );
   const dispatch = useDispatch();
 
-  const handleAddItemAndOpenBasket = () => {
-    dispatch(addOneToBasket(data.identifiant_museofile));
-    dispatch(setIsBasketDisplayed(true));
+  const handleShowModalCalendarAndDispatchDataOfTheCard = (e) => {
+    dispatch(setShowModalCalendar(true));
+    dispatch(handleRecoverDataAfterClickingOnACard(e.target.parentNode.id));
   };
 
   const handleAddDataUpdatedAndOpenModal = () => {
@@ -30,8 +32,8 @@ export default function CardButtons({ data }) {
         <PrimaryButton
           id={data.identifiant_museofile}
           className={!data.isAdded ? "add-button" : "confirm-add"}
-          label={!data.isAdded ? "Ajouter" : "Déja ajouté !"}
-          onClick={handleAddItemAndOpenBasket}
+          label={!data.isAdded ? "Réserver" : "Déja ajouté !"}
+          onClick={(e) => handleShowModalCalendarAndDispatchDataOfTheCard(e)}
         />
       ) : (
         <PrimaryButton
@@ -53,6 +55,9 @@ const CardButtonsStyled = styled.div`
     font-weight: 500;
     font-size: 14px;
     margin-bottom: 10px;
+    &:hover {
+      background-color: white;
+    }
   }
   .edit-button {
     background: white;

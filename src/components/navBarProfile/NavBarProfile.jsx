@@ -1,17 +1,17 @@
 import styled from "styled-components";
-import { FaUserCircle } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import SwitchButton from "../reusable-ui/SwitchButton";
 import PopupUserProfile from "./popupUserProfil/PopupUserProfile";
 import {
   setIsNavSwitchButtonActived,
-  setIsPopUpDisplayed,
+  setShowModalCalendar,
 } from "../../features/profile/displaySettingsSlice";
 import { setSearch } from "../../features/profile/museumsSlice";
 import SearchForm from "../reusable-ui/SearchForm";
 import Logo from "../reusable-ui/Logo";
+import ImageOrUserIcon from "./ImageOrUserIcon";
 
-export default function NavBar() {
+export default function NavBarProfile() {
   const {
     isPopUpDisplayed,
     isNavSwitchButtonActived,
@@ -26,7 +26,7 @@ export default function NavBar() {
   };
 
   return (
-    <NavBarProfileStyled>
+    <NavBarProfileStyled onClick={() => dispatch(setShowModalCalendar(false))}>
       <Logo />
       <div className="nav-right-container">
         <p className="pseudo">
@@ -46,9 +46,9 @@ export default function NavBar() {
             textActive="Activer mode ADMIN"
             textInactive="Désactiver mode ADMIN"
           />
-          <FaUserCircle
-            className="icon-user"
-            onClick={() => dispatch(setIsPopUpDisplayed(!isPopUpDisplayed))}
+          <ImageOrUserIcon
+            currentUser={currentUser}
+            isPopUpDisplayed={isPopUpDisplayed}
           />
           <PopupUserProfile />
         </div>
@@ -90,11 +90,6 @@ const NavBarProfileStyled = styled.nav`
         background-color: #ccc;
         border-color: #ccc;
         opacity: 0.4;
-      }
-      .icon-user {
-        font-size: 40px;
-        color: #b659b6;
-        cursor: pointer;
       }
     }
     .button-sign-out {

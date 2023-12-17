@@ -11,12 +11,8 @@ import { deleteOneToBasket } from "../../../../features/profile/basketSlice";
 import { setIsDetailsPanelDisplayed } from "../../../../features/profile/displaySettingsSlice";
 
 export default function Card({ data }) {
-  const {
-    identifiant_museofile,
-    url_image,
-    nom_officiel_du_musee,
-    commune,
-  } = data;
+  const { identifiant_museofile, url_image, nom_officiel_du_musee, commune } =
+    data;
   const { isNavSwitchButtonActived, isDetailsPanelDisplayed } = useSelector(
     (state) => state.displaySettings
   );

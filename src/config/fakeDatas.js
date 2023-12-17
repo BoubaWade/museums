@@ -236,4 +236,5 @@ export const museumsFakeDatas = fakeDatas.map((museum) => ({
   ...museum,
   isAdded: false,
   isClicked: false,
+  datePicked: "",
 }));

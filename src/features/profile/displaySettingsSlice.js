@@ -12,6 +12,7 @@ const initialState = {
   isFormAdminDisplayed:true,
   showEditProfile: true,
   showSettingsProfile: false,
+  showModalCalendar:false,
 };
 
 const displaySettingsSlice = createSlice({
@@ -51,6 +52,9 @@ const displaySettingsSlice = createSlice({
     setShowSettingsProfile: (state, { payload }) => {
       state.showSettingsProfile = payload;
     },
+    setShowModalCalendar: (state, { payload }) => {
+      state.showModalCalendar = payload;
+    },
   },
 });
 
@@ -66,6 +70,7 @@ export const {
   setIsFormAdminDisplayed,
   setShowEditProfile,
   setShowSettingsProfile,
+  setShowModalCalendar
 } = displaySettingsSlice.actions;
 
 export default displaySettingsSlice.reducer;

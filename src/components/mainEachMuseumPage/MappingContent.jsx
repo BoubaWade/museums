@@ -27,7 +27,7 @@ const MappingContentStyled = styled.div`
   width: 100%;
   height: 100%;
   border-radius: 5px;
-  box-shadow: 0 0 20px 2px rgba(179, 179, 179, 0.75);
+  border: 1.5px solid #b659b65f;
   overflow: hidden;
   .leaflet-container {
     width: 100%;

@@ -4,7 +4,8 @@ export const basketSlice = createSlice({
   name: "basket",
   initialState: {
     datasItemsOfBasket: [],
-    datePicked: null,
+    datePicked: "",
+    isReserved: false,
   },
   reducers: {
     handleAddItemToBasket: (state, { payload }) => {
@@ -19,6 +20,9 @@ export const basketSlice = createSlice({
     },
     handleRecoverDatePicked: (state, { payload }) => {
       state.datePicked = payload;
+    },
+    setIsReserved: (state, { payload }) => {
+      state.isReserved = payload;
     },
   },
 });
@@ -61,6 +65,10 @@ export function deleteOneToBasket(action) {
   };
 }
 
-export const { handleAddItemToBasket, handleDeleteItemFromBasket, handleRecoverDatePicked } =
-  basketSlice.actions;
+export const {
+  handleAddItemToBasket,
+  handleDeleteItemFromBasket,
+  handleRecoverDatePicked,
+  setIsReserved,
+} = basketSlice.actions;
 export default basketSlice.reducer;

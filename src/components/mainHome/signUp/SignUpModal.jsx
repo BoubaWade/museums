@@ -60,6 +60,12 @@ const SignUpModalStyled = styled.div`
       color: #b659b6;
       margin: 10px 0 0 10px;
       cursor: pointer;
+      &:hover {
+        color: #ff0000c5;
+      }
+      &:active {
+        color: white;
+      }
     }
   }
 `;

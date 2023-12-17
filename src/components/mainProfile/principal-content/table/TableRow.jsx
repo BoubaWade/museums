@@ -4,6 +4,13 @@ import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
 export default function TableRow({ data }) {
+  const {
+    nom_officiel_du_musee,
+    code_postal,
+    commune,
+    departement,
+    identifiant_museofile,
+  } = data;
   const dispatch = useDispatch();
 
   const handleClick = (e) => {
@@ -13,13 +20,13 @@ export default function TableRow({ data }) {
 
   return (
     <TableRowStyled>
-      <td>{data.nom_officiel_du_musee.toUpperCase()}</td>
-      <td>{data.code_postal}</td>
-      <td>{data.commune}</td>
-      <td>{data.departement}</td>
+      <td>{nom_officiel_du_musee.toUpperCase()}</td>
+      <td>{code_postal}</td>
+      <td>{commune}</td>
+      <td>{departement}</td>
       <td>
         <button
-          id={data.identifiant_museofile}
+          id={identifiant_museofile}
           className="visualization"
           onClick={(e) => handleClick(e)}
         >

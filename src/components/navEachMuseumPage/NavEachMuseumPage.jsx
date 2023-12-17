@@ -41,8 +41,9 @@ const NavEachMuseumPageStyled = styled.nav`
     display: flex;
     justify-content: space-between;
     .icon-logo {
-      font-size: 45px;
+      font-size: 35px;
       color: #b659b6;
+      margin-top:10px;
       margin-left: 50px;
     }
     h1 {

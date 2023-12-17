@@ -1,19 +1,29 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import ControlledInput from "../../reusable-ui/ControlledInput";
+import { GiElvenCastle } from "react-icons/gi";
+import { TiDelete } from "react-icons/ti";
+import ControlledInput from "../../../reusable-ui/ControlledInput";
 import { RiLockPasswordFill } from "react-icons/ri";
-import PrimaryButton from "../../reusable-ui/PrimaryButton";
-import { useSelector } from "react-redux";
+import PrimaryButton from "../../../reusable-ui/PrimaryButton";
+import { useDispatch, useSelector } from "react-redux";
+import { setIsNavSwitchButtonActived } from "../../../../features/profile/displaySettingsSlice";
 
 export default function FormActiveAdmin({ onSubmit }) {
   const currentUser = useSelector((state) => state.sign.currentUser);
   const [passwordAdmin, setPasswordAdmin] = useState("");
+  const dispatch = useDispatch();
+
   const handleChange = (e) => {
     setPasswordAdmin(e.target.value);
   };
-  console.log(currentUser);
+  const handleClick = () => {
+    dispatch(setIsNavSwitchButtonActived());
+  };
+
   return (
     <FormActiveAdminStyled onSubmit={onSubmit}>
+      <TiDelete className="close-modal" tabIndex={0} onClick={handleClick} />
+      <GiElvenCastle className="icon-logo" />
       <ControlledInput
         type="password"
         className="input"
@@ -41,7 +51,27 @@ const FormActiveAdminStyled = styled.form`
   top: 0;
   left: 0;
   z-index: 1;
+  .close-modal {
+    position: absolute;
+    font-size: 55px;
+    color: #b659b6;
+    top: 10px;
+    cursor: pointer;
+    &:hover {
+      color: #ff0000c5;
+    }
+    &:active {
+      color: white;
+    }
+  }
+  .icon-logo {
+    font-size: 50px;
+    color: #b659b6;
+    margin-bottom: 50px;
+  }
   .input-container {
+    max-width: 440px;
+    min-width: 290px;
     width: 30%;
     height: 50px;
     display: flex;

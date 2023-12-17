@@ -22,12 +22,13 @@ const LogoStyled = styled.div`
   justify-content: space-between;
   cursor: pointer;
   .icon-logo {
-    font-size: 50px;
+    font-size: 30px;
     color: #b659b6;
     margin-left: 50px;
     margin-bottom: 15px;
   }
   h1 {
+    font-size: 28px;
     font-family: "Berkshire Swash", cursive;
     color: #b659b6;
     display: flex;

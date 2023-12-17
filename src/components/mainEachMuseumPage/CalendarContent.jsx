@@ -1,33 +1,53 @@
+import "react-calendar/dist/Calendar.css";
+import "react-date-picker/dist/DatePicker.css";
 import { useState } from "react";
 import Calendar from "react-calendar";
 import DatePicker from "react-date-picker";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import handleAddDatePickedOnRecoverData, {
+  handleRecoveredDataWithDatePicked,
+} from "../../features/profile/museumsSlice";
 import {
+  addOneToBasket,
   handleAddItemToBasket,
   handleRecoverDatePicked,
+  setIsReserved,
 } from "../../features/profile/basketSlice";
-import PrimaryButton from "../reusable-ui/PrimaryButton";
+import CalendarValidationButton from "../reusable-ui/CalendarValidationButton.jsx";
 import { getFormatedDate } from "../../utils/utils";
 
 export default function CalendarContent({ datasMuseumRecovered }) {
-  const datasItemsOfBasket = useSelector(
-    (state) => state.basket.datasItemsOfBasket
+  const { datasItemsOfBasket, isReserved } = useSelector(
+    (state) => state.basket
   );
   const [value, onChange] = useState(new Date());
   const [showCalendar, setShowCalendar] = useState(false);
   const dispatch = useDispatch();
-
   const dateFormated = getFormatedDate(value);
 
+  const datasRecoveredWithDatePicked = {
+    ...datasMuseumRecovered,
+    datePicked: dateFormated,
+  };
+
   const handleValidateDatePicked = () => {
-    if (!datasItemsOfBasket.includes(datasMuseumRecovered)) {
-      dispatch(handleAddItemToBasket(datasMuseumRecovered));
-      // addOneToBasket(datasMuseumRecovered.identifiant_museofile);
-      dispatch(handleRecoverDatePicked(dateFormated));
+    if (!datasItemsOfBasket?.includes(datasRecoveredWithDatePicked)) {
+      // dispatch(handleAddItemToBasket(datasRecoveredWithDatePicked));
+      dispatch(
+        addOneToBasket(datasRecoveredWithDatePicked.identifiant_museofile)
+      );
+      dispatch(handleRecoveredDataWithDatePicked(datasRecoveredWithDatePicked));
+      // dispatch(handleRecoverDatePicked(dateFormated));
     }
     setShowCalendar(false);
+    dispatch(setIsReserved(true));
+    setTimeout(() => {
+      dispatch(setIsReserved(false));
+    }, 1000);
   };
+  console.log(datasItemsOfBasket);
+
   return (
     <CalendarContentStyled>
       <p>Réserver votre date de visite</p>
@@ -36,7 +56,6 @@ export default function CalendarContent({ datasMuseumRecovered }) {
         value={value}
         className="calendar"
         calendarClassName="calendar-className"
-        // calendarIcon=""
         onClick={() => {
           setShowCalendar(!showCalendar);
         }}
@@ -51,10 +70,8 @@ export default function CalendarContent({ datasMuseumRecovered }) {
           }}
         />
       )}
-      <PrimaryButton
-        id="validate-date"
-        label="Valider"
-        className="button-validate-date-Picker"
+      <CalendarValidationButton
+        isReserved={isReserved}
         onClick={handleValidateDatePicked}
       />
     </CalendarContentStyled>
@@ -81,16 +98,5 @@ const CalendarContentStyled = styled.div`
   }
   .calendar-className {
     display: none;
-  }
-  #validate-date {
-    display: flex;
-    justify-content: right;
-    align-items: center;
-    margin-top: 10px;
-  }
-  .button-validate-date-Picker {
-    width: 100%;
-    height: 45px;
-    font-size: 16px;
   }
 `;
