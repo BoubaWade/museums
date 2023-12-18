@@ -12,7 +12,7 @@ import {
   initialErrorField,
   inputFieldsSignUp,
 } from "../../../config/config";
-import { auth } from "../../../firebaseConfig";
+import { auth } from "../../../Firebase/firebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import InputSignUp from "./InputSignUp";
 
@@ -72,7 +72,7 @@ export default function SignUpForm() {
         }
       });
   };
-  
+
   return (
     <SignUpFormStyled onSubmit={(e) => handleSignUp(e)}>
       <h2>CRÉER UN COMPTE</h2>

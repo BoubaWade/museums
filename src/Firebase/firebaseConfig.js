@@ -6,6 +6,8 @@ import {
 } from "firebase/auth";
 // import { getAnalytics } from "firebase/analytics";
 
+import { getFirestore } from "firebase/firestore";
+
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
@@ -21,3 +23,4 @@ export const auth = getAuth(app);
 // const analytics = getAnalytics(app);
 export const googleProvider = new GoogleAuthProvider();
 export const facebookProvider = new FacebookAuthProvider();
+export const db = getFirestore(app);

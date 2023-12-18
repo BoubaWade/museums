@@ -9,6 +9,12 @@ export default function MainEachMuseumPage() {
   const datasMuseumRecovered = useSelector(
     (state) => state.museums.dataRecoveredAfterClickingOnACard
   );
+
+  const { datasItemsOfBasket } = useSelector(
+    (state) => state.basket
+  );
+  console.log(datasItemsOfBasket);
+
   const navigate = useNavigate();
   // if (datasMuseum) {
   //   localStorage.setItem("datasMuseumRecovered", datasMuseumRecovered);

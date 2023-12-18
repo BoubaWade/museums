@@ -3,12 +3,13 @@ import styled from "styled-components";
 import PrimaryButton from "../../reusable-ui/PrimaryButton.jsx";
 import RememberCheckbox from "../../reusable-ui/RememberCheckbox.jsx";
 import { useDispatch, useSelector } from "react-redux";
-import { auth } from "../../../firebaseConfig";
+import { auth } from "../../../Firebase/firebaseConfig.js";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { setCurrentUser } from "../../../features/sign/signSlice.js";
 import { inputFieldsSignIn } from "../../../config/config.js";
 import InputLogIn from "./InputLogIn.jsx";
+import { createUserDataBasketInFirestore, getUserDataBasketInFirestore } from "../../../Firebase/firebaseUtilities.jsx";
 
 export default function ClassicLoginForm() {
   const userEmail = useSelector((state) => state.sign.userEmail);
@@ -20,7 +21,7 @@ export default function ClassicLoginForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSignIn = (e) => {
+  const handleSignIn = async (e) => {
     e.preventDefault();
     const credentials = {
       email: emailRef.current.value,
@@ -33,6 +34,8 @@ export default function ClassicLoginForm() {
 
     signInWithEmailAndPassword(auth, credentials.email, credentials.password)
       .then((userCredential) => {
+        // createUserDataBasketInFirestore(credentials.email.split("@")[0])
+        
         dispatch(setCurrentUser(userCredential.user.providerData[0]));
         navigate("/profile/profile-home");
       })
@@ -41,6 +44,8 @@ export default function ClassicLoginForm() {
           setErrorCredentials("Email ou Mot de passe invalide");
         }
       });
+      const dataUserDataBasketInFirestore= await getUserDataBasketInFirestore(credentials.email.split("@")[0])
+        console.log("dataUserDataBasketInFirestore",dataUserDataBasketInFirestore) 
   };
   const handleChecked = () => {
     setIsChecked(!isChecked);

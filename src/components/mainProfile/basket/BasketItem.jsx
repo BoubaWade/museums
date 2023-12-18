@@ -3,16 +3,22 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { handleDeleteItemFromBasket } from "../../../features/profile/basketSlice";
 import { useEffect, useState } from "react";
+import { createUserDataBasketInFirestore } from "../../../Firebase/firebaseUtilities";
 const NUMBER_OF_MILLISECOND_IN_ONE_MINUTE = 60000;
 
 export default function BasketCard({ data }) {
+  const { datasItemsOfBasket } = useSelector((state) => state.basket);
+
   const { nom_officiel_du_musee, commune } = data;
   // const datePicked = useSelector((state) => state.basket.datePicked);
   const { dataRecoveredWithDatePicked } = useSelector((state) => state.museums);
+  const { currentUser } = useSelector((state) => state.sign);
+
   console.log(dataRecoveredWithDatePicked);
   const dispatch = useDispatch();
   const [minutesElapsed, setMinutesElapsed] = useState(0);
 
+  console.log(datasItemsOfBasket);
   useEffect(() => {
     const interval = setInterval(() => {
       setMinutesElapsed((prevMinutes) => prevMinutes + 1);
@@ -24,6 +30,19 @@ export default function BasketCard({ data }) {
   const handleDeleteItem = () => {
     dispatch(handleDeleteItemFromBasket(data.identifiant_museofile));
   };
+  // useEffect(() => {
+  createUserDataBasketInFirestore(
+    datasItemsOfBasket,
+    currentUser?.email?.split("@")[0]
+  );
+  // }, []);
+
+  // if (
+  //   data.identifiant_museofile ===
+  //   dataRecoveredWithDatePicked.identifiant_museofile
+  // ) {
+  //   return <div>{dataRecoveredWithDatePicked.datePicked}</div>;
+  // }
 
   return (
     <BasketCardStyled>
@@ -34,7 +53,12 @@ export default function BasketCard({ data }) {
         Ajouté il y'a
         {minutesElapsed === 1 ? " 1 minute" : ` ${minutesElapsed} minutes`}
       </span>
-      <div>{dataRecoveredWithDatePicked.datePicked}</div>
+      <div>
+        {data.identifiant_museofile ===
+          dataRecoveredWithDatePicked.identifiant_museofile && (
+          <span>{dataRecoveredWithDatePicked.datePicked}</span>
+        )}
+      </div>
     </BasketCardStyled>
   );
 }

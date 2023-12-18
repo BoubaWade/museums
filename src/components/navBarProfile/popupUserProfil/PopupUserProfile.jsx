@@ -5,7 +5,7 @@ import { RiSendPlaneFill } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
-import { auth } from "../../../firebaseConfig";
+import { auth } from "../../../Firebase/firebaseConfig";
 import { setCurrentUser } from "../../../features/sign/signSlice";
 import PopupItem from "./PopupItem";
 
@@ -32,7 +32,7 @@ export default function PopupUserProfile() {
           <PopupItem
             icon={<RiSendPlaneFill className="icon-item" />}
             label="Visite"
-            onClick={()=>{}}
+            onClick={() => {}}
           />
           <PopupItem
             icon={<FiSettings className="icon-item" />}

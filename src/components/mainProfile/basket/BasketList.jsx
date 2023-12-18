@@ -1,9 +1,23 @@
 import styled from "styled-components";
 import BasketItem from "./BasketItem.jsx";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserDataBasketInFirestore } from "../../../Firebase/firebaseUtilities.jsx";
+import { useEffect } from "react";
+import { addOneToBasket } from "../../../features/profile/basketSlice.js";
 
 export default function BasketList() {
   const { datasItemsOfBasket } = useSelector((state) => state.basket);
+  const { currentUser } = useSelector((state) => state.sign);
+  const dispatch=useDispatch()
+
+  console.log(datasItemsOfBasket);
+  getUserDataBasketInFirestore(currentUser?.email?.split("@")[0]);
+  // useEffect(()=>{
+  //   dispatch(
+  //     addOneToBasket(datasRecoveredWithDatePicked.identifiant_museofile)
+  //   );
+  // },[])
+  
 
   return (
     <BasketListStyled>
