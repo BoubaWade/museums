@@ -1,13 +1,24 @@
 import styled from "styled-components";
 import Card from "./Card";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getDatasMuseumsFiltered } from "../../../../utils/utils";
+import { useEffect } from "react";
+import { getDatasMuseumsFromFirestore } from "../../../../features/profile/museumsSlice";
 
 export default function CardContainer() {
   const { datasMuseums, search } = useSelector((state) => state.museums);
+  const dispatch = useDispatch();
   const datasMuseumsFiltered = getDatasMuseumsFiltered(datasMuseums, search);
 
-  if (!datasMuseumsFiltered || datasMuseumsFiltered.length === 0) {
+  useEffect(() => {
+    dispatch(getDatasMuseumsFromFirestore());
+  }, []);
+
+  if (!datasMuseumsFiltered) {
+    return;
+  }
+
+  if (datasMuseumsFiltered.length === 0) {
     return (
       <CardContainerStyled>
         <p className="empty-card">Pas de musées trouvés</p>
@@ -30,7 +41,7 @@ const CardContainerStyled = styled.ul`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  column-gap:10px;
+  column-gap: 10px;
   row-gap: 50px;
   margin: 40px auto 80px;
   padding: 50px 20px;

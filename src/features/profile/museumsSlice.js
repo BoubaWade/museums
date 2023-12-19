@@ -1,12 +1,26 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { museumsFakeDatas } from "../../config/fakeDatas";
+// import { museumsFakeDatas } from "../../config/fakeDatas";
 import {
   handleAddItemToBasket,
   handleDeleteItemFromBasket,
 } from "./basketSlice";
 import { addPropertyToDataFetched } from "../../utils/utils";
+import { getDatasMuseumsInFirestore } from "../../Firebase/firebaseUtilities";
 
-export const getDatasMuseums = createAsyncThunk(
+export const getDatasMuseumsFromFirestore = createAsyncThunk(
+  "user/getDatasMuseums",
+  async (_, { dispatch, getState }) => {
+    getDatasMuseumsInFirestore("JpUUO3A2iLNNk4CAp60m")
+      .then((response) => {
+        dispatch(setDatasMuseumsFromFirestore(response));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+);
+
+export const getDatasMuseumsFromAPI = createAsyncThunk(
   "user/getDatasMuseums",
   async (_, { dispatch, getState }) => {
     fetch(
@@ -26,7 +40,9 @@ export const getDatasMuseums = createAsyncThunk(
 export const museumsSlice = createSlice({
   name: "museums",
   initialState: {
-    datasMuseums: museumsFakeDatas,
+    // datasMuseums: museumsFakeDatas,
+    datasMuseums: [],
+    loadingData: true,
     datasMuseumsFromAPI: [],
     loadingDataFromAPI: true,
     dataRecoveredAfterClick: {},
@@ -38,6 +54,9 @@ export const museumsSlice = createSlice({
     dataRecoveredWithDatePicked: {},
   },
   reducers: {
+    setDatasMuseumsFromFirestore: (state, { payload }) => {
+      state.datasMuseums = payload;
+    },
     setDatasMuseumsFromAPI: (state, { payload }) => {
       state.datasMuseumsFromAPI = payload;
     },
@@ -81,14 +100,14 @@ export const museumsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getDatasMuseums.pending, (state) => {
+      .addCase(getDatasMuseumsFromAPI.pending, (state) => {
         state.loadingDataFromAPI = true;
       })
-      .addCase(getDatasMuseums.fulfilled, (state, { payload }) => {
+      .addCase(getDatasMuseumsFromAPI.fulfilled, (state, { payload }) => {
         state.loadingDataFromAPI = false;
         state.datasMuseumsFromAPI = payload;
       })
-      .addCase(getDatasMuseums.rejected, (state, action) => {
+      .addCase(getDatasMuseumsFromAPI.rejected, (state, action) => {
         state.loadingDataFromAPI = false;
         state.error = action.error.message;
       })
@@ -106,9 +125,24 @@ export const museumsSlice = createSlice({
         }
       });
   },
+  extraReducers: (builder) => {
+    builder
+      .addCase(getDatasMuseumsFromFirestore.pending, (state) => {
+        state.loadingData = true;
+      })
+      .addCase(getDatasMuseumsFromFirestore.fulfilled, (state, { payload }) => {
+        state.loadingData = false;
+        state.datasMuseums = payload;
+      })
+      .addCase(getDatasMuseumsFromFirestore.rejected, (state, action) => {
+        state.loadingData = false;
+        state.error = action.error.message;
+      });
+  },
 });
 
 export const {
+  setDatasMuseumsFromFirestore,
   setDatasMuseumsFromAPI,
   handleDataRecoveredAfterClick,
   setSearch,

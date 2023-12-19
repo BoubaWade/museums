@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { getDatasMuseums } from "../../../../features/profile/museumsSlice";
+import { getDatasMuseumsFromAPI } from "../../../../features/profile/museumsSlice";
 import { getDatasMuseumsFiltered } from "../../../../utils/utils";
 import TableRow from "./TableRow";
 
@@ -10,7 +10,7 @@ export default function Table() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getDatasMuseums());
+    dispatch(getDatasMuseumsFromAPI());
   }, []);
 
   const datasMuseumsFiltered = getDatasMuseumsFiltered(

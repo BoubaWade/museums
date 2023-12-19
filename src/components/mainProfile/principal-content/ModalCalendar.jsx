@@ -17,15 +17,14 @@ import {
 } from "../../../features/profile/basketSlice.js";
 import CalendarValidationButton from "../../reusable-ui/CalendarValidationButton.jsx";
 import { getFormatedDate } from "../../../utils/utils.js";
-import { createUserDataBasketInFirestore } from "../../../Firebase/firebaseUtilities.jsx";
+// import { createUserDataBasketInFirestore } from "../../../Firebase/firebaseUtilities.jsx";
 
 export default function ModalCalendar() {
   const { dataRecoveredAfterClickingOnACard } = useSelector(
     (state) => state.museums
   );
-  const { currentUser } = useSelector((state) => state.sign);
 
-  const { datasItemsOfBasket, isReserved } = useSelector(
+  const { isReserved } = useSelector(
     (state) => state.basket
   );
   const [value, onChange] = useState(new Date());
@@ -42,6 +41,10 @@ export default function ModalCalendar() {
     dispatch(
       addOneToBasket(datasRecoveredWithDatePicked.identifiant_museofile)
     );
+    // createUserDataBasketInFirestore(
+    //   datasItemsOfBasket,
+    //   currentUser?.email?.split("@")[0]
+    // );
 
     dispatch(setShowModalCalendar(true));
     dispatch(setIsReserved(true));
@@ -50,10 +53,7 @@ export default function ModalCalendar() {
       dispatch(setIsReserved(false));
     }, 1000);
   };
-  createUserDataBasketInFirestore(
-    datasItemsOfBasket,
-    currentUser?.email?.split("@")[0]
-  );
+
   return (
     <ModalCalendarStyled>
       <Overlay className="overlay-calendar" />

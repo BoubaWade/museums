@@ -20,35 +20,23 @@ import { useSelector } from "react-redux";
 //   console.log(user);
 // };
 
-export const createUserDataBasketInFirestore = (datas, userName) => {
-  const documentReference = doc(db, "Users", userName);
+export const createDatasMuseumsInFirestore = (docId) => {
+  const documentReference = doc(db, "ListMuseums", docId);
 
   const newDocument = {
-    userName: userName,
+    docId: docId,
     // MuseumsCardsList: museumsFakeDatas,
-    BasketCardsList: datas,
+    datasMuseums: museumsFakeDatas,
   };
   setDoc(documentReference, newDocument);
-
-  // const emptyDocument = {
-  //   userName: userName,
-  //   BasketCardsList: [],
-  // };
-  // if (datas.length !== 0) {
-  //   setDoc(document, newDocument);
-  // } else {
-  //   setDoc(document, emptyDocument);
-  // }
 };
 
-export const getUserDataBasketInFirestore = async (userName) => {
-  const documentRef = doc(db, "Users", userName);
-
+export const getDatasMuseumsInFirestore = async (docId) => {
+  const documentRef = doc(db, "ListMuseums", docId);
   const docSnapshot = await getDoc(documentRef);
-  // console.log("docSnapshot", docSnapshot);
+
   if (docSnapshot.exists()) {
-    const dataUserBasket = docSnapshot.data();
-    // console.log(dataUserBasket);
-    return dataUserBasket;
+    const { datasMuseums } = docSnapshot.data();
+    return datasMuseums;
   }
 };
