@@ -10,6 +10,7 @@ export const normalizeString = (input) => {
 export function addPropertyToDataFetched(datas) {
   return datas?.map((data) => ({
     ...data,
+    url_image: "",
     isAdded: false,
     isClicked: false,
   }));
@@ -60,7 +61,7 @@ export function getDatasMuseumsFiltered(datas, search) {
 // }
 
 export function getAllMuseumsId(datas) {
-  return datas.map((item) => item.identifiant_museofile);
+  return datas?.map((item) => item.identifiant_museofile);
 }
 
 export function getFormatedDate(date) {
@@ -76,19 +77,19 @@ export function getFormatedDate(date) {
 }
 
 // useEffect(() => {
-  //   if (navigator.geolocation) {
-  //     navigator.geolocation.getCurrentPosition(
-  //       (position) => {
-  //         const { latitude, longitude } = position.coords;
-  //         setUserLocation({ latitude, longitude });
-  //       },
-  //       (error) => {
-  //         console.error("Erreur de géolocalisation : ", error);
-  //       }
-  //     );
-  //   } else {
-  //     console.log(
-  //       "La géolocalisation n'est pas prise en charge par ce navigateur."
-  //     );
-  //   }
-  // }, []);
+//   if (navigator.geolocation) {
+//     navigator.geolocation.getCurrentPosition(
+//       (position) => {
+//         const { latitude, longitude } = position.coords;
+//         setUserLocation({ latitude, longitude });
+//       },
+//       (error) => {
+//         console.error("Erreur de géolocalisation : ", error);
+//       }
+//     );
+//   } else {
+//     console.log(
+//       "La géolocalisation n'est pas prise en charge par ce navigateur."
+//     );
+//   }
+// }, []);

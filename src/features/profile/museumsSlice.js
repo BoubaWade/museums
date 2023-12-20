@@ -1,28 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-// import { museumsFakeDatas } from "../../config/fakeDatas";
 import {
   handleAddItemToBasket,
   handleDeleteItemFromBasket,
 } from "./basketSlice";
 import { addPropertyToDataFetched } from "../../utils/utils";
-import { getDatasMuseumsInFirestore } from "../../Firebase/firebaseUtilities";
-
-export const getDatasMuseumsFromFirestore = createAsyncThunk(
-  "user/getDatasMuseums",
-  async (_, { dispatch, getState }) => {
-    getDatasMuseumsInFirestore("JpUUO3A2iLNNk4CAp60m")
-      .then((response) => {
-        dispatch(setDatasMuseumsFromFirestore(response));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-);
+import { syncBothListMuseums } from "../../Firebase/firebaseUtilities";
 
 export const getDatasMuseumsFromAPI = createAsyncThunk(
   "user/getDatasMuseums",
-  async (_, { dispatch, getState }) => {
+  async (_, { dispatch }) => {
     fetch(
       "https://data.culture.gouv.fr/api/explore/v2.1/catalog/datasets/liste-et-localisation-des-musees-de-france/records?limit=100&refine=region_administrative%3A%22%C3%8Ele-de-France%22"
     )
@@ -54,13 +40,13 @@ export const museumsSlice = createSlice({
     dataRecoveredWithDatePicked: {},
   },
   reducers: {
-    setDatasMuseumsFromFirestore: (state, { payload }) => {
+    setDatasMuseums: (state, { payload }) => {
       state.datasMuseums = payload;
     },
     setDatasMuseumsFromAPI: (state, { payload }) => {
       state.datasMuseumsFromAPI = payload;
     },
-    handleDataRecoveredAfterClick: (state, { payload }) => {
+    handleRecoverOneMuseumDataFromAPI: (state, { payload }) => {
       state.dataRecoveredAfterClick = state.datasMuseumsFromAPI.find(
         (data) => data.identifiant_museofile === payload
       );
@@ -69,21 +55,29 @@ export const museumsSlice = createSlice({
       state.search = payload;
     },
     handleAddMuseum: (state, { payload }) => {
-      state.datasMuseums.unshift(payload);
+      const isPresentToMuseumsList = state.datasMuseums.find(
+        (data) => data.identifiant_museofile === payload.identifiant_museofile
+      );
+      if (!isPresentToMuseumsList) {
+        state.datasMuseums?.unshift(payload);
+        syncBothListMuseums(state.datasMuseums);
+      }
     },
-    handleDeleteCard: (state, { payload }) => {
+    handleDeleteMuseum: (state, { payload }) => {
       const copyDatasMuseums = [...state.datasMuseums];
-      state.datasMuseums = copyDatasMuseums.filter(
+      const datasMuseumsFiltered = copyDatasMuseums.filter(
         (data) => data.identifiant_museofile !== payload
       );
+      syncBothListMuseums(datasMuseumsFiltered);
     },
+
     handleAddDataToUpdatedCard: (state, { payload }) => {
       state.dataUpdatedCard = payload;
     },
     handleUpdateAMuseum: (state, { payload }) => {
       state.datasMuseums = payload;
     },
-    handleRecoverDataAfterClickingOnACard: (state, { payload }) => {
+    handleRecoverDataAfterClick: (state, { payload }) => {
       state.dataRecoveredAfterClickingOnACard = state.datasMuseums.find(
         (data) => data.identifiant_museofile === payload
       );
@@ -125,32 +119,18 @@ export const museumsSlice = createSlice({
         }
       });
   },
-  extraReducers: (builder) => {
-    builder
-      .addCase(getDatasMuseumsFromFirestore.pending, (state) => {
-        state.loadingData = true;
-      })
-      .addCase(getDatasMuseumsFromFirestore.fulfilled, (state, { payload }) => {
-        state.loadingData = false;
-        state.datasMuseums = payload;
-      })
-      .addCase(getDatasMuseumsFromFirestore.rejected, (state, action) => {
-        state.loadingData = false;
-        state.error = action.error.message;
-      });
-  },
 });
 
 export const {
-  setDatasMuseumsFromFirestore,
+  setDatasMuseums,
   setDatasMuseumsFromAPI,
-  handleDataRecoveredAfterClick,
+  handleRecoverOneMuseumDataFromAPI,
   setSearch,
   handleAddMuseum,
-  handleDeleteCard,
+  handleDeleteMuseum,
   handleAddDataToUpdatedCard,
   handleUpdateAMuseum,
-  handleRecoverDataAfterClickingOnACard,
+  handleRecoverDataAfterClick,
   handleRecoveredDataWithDatePicked,
   setDataSettings,
   setSelectedFile,

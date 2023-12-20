@@ -13,6 +13,7 @@ export default defineConfig({
       "VITE_FIREBASE_MESSAGING_SENDER_ID",
       "VITE_FIREBASE_APP_ID",
       "VITE_FIREBASE_MEASUREMENT_ID",
+      "VITE_FIREBASE_FIRESTORE_DOC_ID",
     ]),
   ],
 });

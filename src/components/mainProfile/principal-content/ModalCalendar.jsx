@@ -24,9 +24,7 @@ export default function ModalCalendar() {
     (state) => state.museums
   );
 
-  const { isReserved } = useSelector(
-    (state) => state.basket
-  );
+  const { isReserved } = useSelector((state) => state.basket);
   const [value, onChange] = useState(new Date());
   const dispatch = useDispatch();
   const dateFormated = getFormatedDate(value);
@@ -35,12 +33,13 @@ export default function ModalCalendar() {
     ...dataRecoveredAfterClickingOnACard,
     datePicked: dateFormated,
   };
-
+  
   const handleAddItemAndOpenBasket = () => {
     dispatch(setIsBasketDisplayed(true));
     dispatch(
       addOneToBasket(datasRecoveredWithDatePicked.identifiant_museofile)
     );
+
     // createUserDataBasketInFirestore(
     //   datasItemsOfBasket,
     //   currentUser?.email?.split("@")[0]

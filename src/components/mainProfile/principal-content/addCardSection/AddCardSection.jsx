@@ -5,39 +5,43 @@ import imageStop from "../../../../assets/images/imageStop.jpeg";
 import { TiDeleteOutline } from "react-icons/ti";
 import { useState } from "react";
 import PrimaryButton from "../../../reusable-ui/PrimaryButton";
-import { handleAddMuseum } from "../../../../features/profile/museumsSlice";
+import {
+  handleAddMuseum,
+  setDatasMuseums,
+} from "../../../../features/profile/museumsSlice";
 import { setIsAddSectionDisplayed } from "../../../../features/profile/displaySettingsSlice";
 import InputsContainer from "./InputsContainer";
-import { getAllMuseumsId } from "../../../../utils/utils";
+import { getDatasMuseumsInFirestore } from "../../../../Firebase/firebaseUtilities";
 
 export default function AddCardSection() {
   const { datasMuseums, dataRecoveredAfterClick } = useSelector(
     (state) => state.museums
   );
-
-  const [data, setData] = useState(dataRecoveredAfterClick);
-  const { identifiant_museofile, nom_officiel_du_musee, commune } = data;
-  const [successToAddMuseum, setSuccessToAddMuseum] = useState(false);
-  const [errorToAddMuseum, setErrorToAddMuseum] = useState(false);
+ 
+  const [dataRecovered, setDataRecovered] = useState(dataRecoveredAfterClick);
+  const { identifiant_museofile, url_image, nom_officiel_du_musee, commune } =
+    dataRecovered;
+  const [isAddMuseumSuccessful, setIsAddMuseumSuccessful] = useState(false);
+  const [isAddMuseumRejected, setIsAddMuseumRejected] = useState(false);
   const dispatch = useDispatch();
 
-  const AllMuseumsId = getAllMuseumsId(datasMuseums);
-
-  const handleAddMuseumAndCloseSection = (e) => {
-    if (!AllMuseumsId.includes(identifiant_museofile)) {
-      dispatch(handleAddMuseum(data));
-      dispatch(setIsAddSectionDisplayed(true));
-      setSuccessToAddMuseum(true);
-      setTimeout(() => {
-        dispatch(setIsAddSectionDisplayed(false));
-      }, 2000);
+  const handleAddMuseumAndCloseSection = async () => {
+    const dataMuseumFinded = datasMuseums.find(
+      (data) => data.identifiant_museofile === identifiant_museofile
+    );
+    if (!dataMuseumFinded) {
+      dispatch(handleAddMuseum(dataRecovered));
+      setIsAddMuseumSuccessful(true);
+      const museumsList = await getDatasMuseumsInFirestore();
+      dispatch(setDatasMuseums(museumsList));
     } else {
-      setErrorToAddMuseum(true);
-      dispatch(setIsAddSectionDisplayed(true));
-      setTimeout(() => {
-        dispatch(setIsAddSectionDisplayed(false));
-      }, 2000);
+      setIsAddMuseumRejected(true);
     }
+
+    dispatch(setIsAddSectionDisplayed(true));
+    setTimeout(() => {
+      dispatch(setIsAddSectionDisplayed(false));
+    }, 2000);
   };
 
   return (
@@ -46,10 +50,10 @@ export default function AddCardSection() {
         className="close-section"
         onClick={() => dispatch(setIsAddSectionDisplayed(false))}
       />
-      {!errorToAddMuseum ? (
+      {!isAddMuseumRejected ? (
         <InfosCard
           className="infos-card"
-          image={data.url_image}
+          image={url_image ? url_image : ""}
           name={nom_officiel_du_musee}
           city={commune}
         />
@@ -59,9 +63,9 @@ export default function AddCardSection() {
           Musée déjà éxistant
         </div>
       )}
-      {!successToAddMuseum ? (
+      {!isAddMuseumSuccessful ? (
         <>
-          <InputsContainer data={data} setData={setData} />
+          <InputsContainer data={dataRecovered} setData={setDataRecovered} />
           <PrimaryButton
             className="add-button"
             label="Ajouter dans l'application"

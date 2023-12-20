@@ -12,9 +12,8 @@ import {
   initialErrorField,
   inputFieldsSignUp,
 } from "../../../config/config";
-import { auth } from "../../../Firebase/firebaseConfig";
-import { createUserWithEmailAndPassword } from "firebase/auth";
 import InputSignUp from "./InputSignUp";
+import { signUp } from "../../../Firebase/firebaseUtilities";
 
 export default function SignUpForm() {
   const dispatch = useDispatch();
@@ -57,11 +56,8 @@ export default function SignUpForm() {
       });
       return;
     }
-    createUserWithEmailAndPassword(
-      auth,
-      credentials.email,
-      credentials.password
-    )
+
+    signUp(credentials.email, credentials.password)
       .then((response) => {
         dispatch(setUserEmail(response.user.email));
         resetForm();

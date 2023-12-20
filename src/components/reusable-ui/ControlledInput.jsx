@@ -10,6 +10,7 @@ export default function ControlledInput({
   onChange,
   icon,
   error,
+  classNameError,
   autoFocus
 }) {
   return (
@@ -24,7 +25,7 @@ export default function ControlledInput({
         onChange={onChange}
         autoFocus={autoFocus}
       />
-      <span>{error}</span>
+      <span className={classNameError}>{error}</span>
     </ControlledInputStyled>
   );
 }
@@ -49,7 +50,7 @@ const ControlledInputStyled = styled.div`
   span {
     display: block;
     color: red;
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     text-align: center;
     margin-top: 5px;
   }

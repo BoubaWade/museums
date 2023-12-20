@@ -3,13 +3,15 @@ import styled from "styled-components";
 import PrimaryButton from "../../reusable-ui/PrimaryButton.jsx";
 import RememberCheckbox from "../../reusable-ui/RememberCheckbox.jsx";
 import { useDispatch, useSelector } from "react-redux";
-import { auth } from "../../../Firebase/firebaseConfig.js";
-import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { setCurrentUser } from "../../../features/sign/signSlice";
 import { inputFieldsSignIn } from "../../../config/config.js";
 import InputLogIn from "./InputLogIn.jsx";
-import { createDatasMuseumsInFirestore } from "../../../Firebase/firebaseUtilities.jsx";
+import {
+  createDatasMuseumsInFirestore,
+  signIn,
+} from "../../../Firebase/firebaseUtilities.jsx";
+// import { museumsFakeDatas } from "../../../config/fakeDatas.js";
 
 export default function ClassicLoginForm() {
   const userEmail = useSelector((state) => state.sign.userEmail);
@@ -32,9 +34,9 @@ export default function ClassicLoginForm() {
       localStorage.setItem("password", credentials.password);
     }
 
-    signInWithEmailAndPassword(auth, credentials.email, credentials.password)
+    signIn(credentials.email, credentials.password)
       .then((userCredential) => {
-        // createDatasMuseumsInFirestore("JpUUO3A2iLNNk4CAp60m");
+        // createDatasMuseumsInFirestore(museumsFakeDatas);
         dispatch(setCurrentUser(userCredential.user.providerData[0]));
         navigate("/profile/profile-home");
       })
@@ -43,9 +45,6 @@ export default function ClassicLoginForm() {
           setErrorCredentials("Email ou Mot de passe invalide");
         }
       });
-  };
-  const handleChecked = () => {
-    setIsChecked(!isChecked);
   };
 
   useEffect(() => {
@@ -69,7 +68,10 @@ export default function ClassicLoginForm() {
       )}
       <span>{errorCredentials}</span>
       <PrimaryButton className="primary-button" label="CONNEXION" />
-      <RememberCheckbox onChange={handleChecked} checked={isChecked} />
+      <RememberCheckbox
+        onChange={() => setIsChecked(!isChecked)}
+        checked={isChecked}
+      />
     </ClassicLoginFormStyled>
   );
 }

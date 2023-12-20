@@ -6,11 +6,12 @@ import {
 } from "../../../../features/profile/displaySettingsSlice";
 import {
   handleAddDataToUpdatedCard,
-  handleRecoverDataAfterClickingOnACard,
+  handleRecoverDataAfterClick,
 } from "../../../../features/profile/museumsSlice";
 import PrimaryButton from "../../../reusable-ui/PrimaryButton";
 
 export default function CardButtons({ data }) {
+  const { identifiant_museofile, isAdded } = data;
   const { isNavSwitchButtonActived } = useSelector(
     (state) => state.displaySettings
   );
@@ -18,7 +19,7 @@ export default function CardButtons({ data }) {
 
   const handleShowModalCalendarAndDispatchDataOfTheCard = (e) => {
     dispatch(setShowModalCalendar(true));
-    dispatch(handleRecoverDataAfterClickingOnACard(e.target.parentNode.id));
+    dispatch(handleRecoverDataAfterClick(e.target.parentNode.id));
   };
 
   const handleAddDataUpdatedAndOpenModal = () => {

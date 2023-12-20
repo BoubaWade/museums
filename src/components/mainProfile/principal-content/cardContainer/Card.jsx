@@ -4,11 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import InfosCard from "../../../reusable-ui/InfosCard";
 import CardButtons from "./CardButtons";
 import {
-  handleDeleteCard,
-  handleRecoverDataAfterClickingOnACard,
+  handleDeleteMuseum,
+  handleRecoverDataAfterClick,
+  setDatasMuseums,
 } from "../../../../features/profile/museumsSlice";
 import { deleteOneToBasket } from "../../../../features/profile/basketSlice";
 import { setIsDetailsPanelDisplayed } from "../../../../features/profile/displaySettingsSlice";
+import { getDatasMuseumsInFirestore } from "../../../../Firebase/firebaseUtilities";
 
 export default function Card({ data }) {
   const { identifiant_museofile, url_image, nom_officiel_du_musee, commune } =
@@ -18,19 +20,23 @@ export default function Card({ data }) {
   );
   const dispatch = useDispatch();
 
-  const handleDelete = () => {
-    dispatch(handleDeleteCard(identifiant_museofile));
-    dispatch(deleteOneToBasket(identifiant_museofile));
-  };
-
-  const handleClick = (id, e) => {
+  const handleClickOnACardBody = (e, id) => {
     if (!e.target.closest("button") || e.target.closest(".delete-card")) {
-      dispatch(handleRecoverDataAfterClickingOnACard(id));
+      dispatch(handleRecoverDataAfterClick(id));
 
       if (!isDetailsPanelDisplayed) {
         dispatch(setIsDetailsPanelDisplayed());
       }
     }
+  };
+
+  const handleClickToDeleteMuseum = async (e) => {
+    e.stopPropagation();
+    dispatch(handleDeleteMuseum(identifiant_museofile));
+    const museumsList = await getDatasMuseumsInFirestore();
+    dispatch(setDatasMuseums(museumsList));
+
+    dispatch(deleteOneToBasket(identifiant_museofile));
   };
 
   const cardBackground = {
@@ -39,11 +45,14 @@ export default function Card({ data }) {
 
   return (
     <CardStyled
-      onClick={(e) => handleClick(identifiant_museofile, e)}
+      onClick={(e) => handleClickOnACardBody(e, identifiant_museofile)}
       style={cardBackground}
     >
       {isNavSwitchButtonActived && (
-        <TiDelete className="delete-card" onClick={handleDelete} />
+        <TiDelete
+          className="delete-card"
+          onClick={(e) => handleClickToDeleteMuseum(e)}
+        />
       )}
       <InfosCard
         image={url_image}

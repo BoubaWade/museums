@@ -48,7 +48,7 @@ export function deleteOneToBasket(action) {
   return function (dispatch, getState) {
     const storeState = getState();
 
-    const isPresentToMuseumsList = storeState.museums.datasMuseums.find(
+    const isPresentToMuseumsList = storeState.museums.datasMuseums?.find(
       (data) => data.identifiant_museofile === action
     );
 
