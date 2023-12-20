@@ -6,23 +6,40 @@ import ControlledInput from "../../../reusable-ui/ControlledInput";
 import { RiLockPasswordFill } from "react-icons/ri";
 import PrimaryButton from "../../../reusable-ui/PrimaryButton";
 import { useDispatch, useSelector } from "react-redux";
-import { setIsNavSwitchButtonActived } from "../../../../features/profile/displaySettingsSlice";
+import {
+  setIsFormAdminDisplayed,
+  setIsNavSwitchButtonActived,
+} from "../../../../features/profile/displaySettingsSlice";
+import { signIn } from "../../../../Firebase/firebaseUtilities";
 
-export default function FormActiveAdmin({ onSubmit }) {
+export default function FormActiveAdmin() {
   const currentUser = useSelector((state) => state.sign.currentUser);
   const [passwordAdmin, setPasswordAdmin] = useState("");
+  const [errorPasswordAdmin, setErrorPasswordAdmin] = useState(false);
   const dispatch = useDispatch();
 
-  const handleChange = (e) => {
-    setPasswordAdmin(e.target.value);
-  };
-  const handleClick = () => {
-    dispatch(setIsNavSwitchButtonActived());
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    signIn(currentUser.email, passwordAdmin)
+      .then((userCredential) => {
+        if (userCredential) {
+          dispatch(setIsFormAdminDisplayed(false));
+        }
+      })
+      .catch((error) => {
+        if (error.code === "auth/invalid-login-credentials") {
+          setErrorPasswordAdmin(true);
+        }
+      });
   };
 
   return (
-    <FormActiveAdminStyled onSubmit={onSubmit}>
-      <TiDelete className="close-modal" tabIndex={0} onClick={handleClick} />
+    <FormActiveAdminStyled onSubmit={handleSubmit}>
+      <TiDelete
+        className="close-modal"
+        tabIndex={0}
+        onClick={() => dispatch(setIsNavSwitchButtonActived())}
+      />
       <GiElvenCastle className="icon-logo" />
       <ControlledInput
         type="password"
@@ -31,7 +48,9 @@ export default function FormActiveAdmin({ onSubmit }) {
         icon={<RiLockPasswordFill className="icon" />}
         classNameContainer="input-container"
         value={passwordAdmin}
-        onChange={handleChange}
+        onChange={(e) => setPasswordAdmin(e.target.value)}
+        error={errorPasswordAdmin && "Mot de passe admin incorrect"}
+        classNameError="error-password-admin-message"
       />
       <PrimaryButton label="Valider" className="submit-button" />
     </FormActiveAdminStyled>
@@ -75,7 +94,8 @@ const FormActiveAdminStyled = styled.form`
     width: 30%;
     height: 50px;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     border: 2px solid #b659b6;
     border-radius: 7px;
     margin-bottom: 20px;
@@ -88,9 +108,14 @@ const FormActiveAdminStyled = styled.form`
       top: 8px;
     }
     .input {
+      display: block;
       width: 100%;
       height: 100%;
       font-size: 18px;
+    }
+    .error-password-admin-message {
+      position: absolute;
+      top: 50px;
     }
   }
   .submit-button {

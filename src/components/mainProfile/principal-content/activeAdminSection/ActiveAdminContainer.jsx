@@ -1,21 +1,13 @@
 import styled from "styled-components";
 import SwitchButton from "../../../reusable-ui/SwitchButton";
-import {
-  setIsFormAdminDisplayed,
-  setIsMainSwitchButtonActived,
-} from "../../../../features/profile/displaySettingsSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { setIsMainSwitchButtonActived } from "../../../../features/profile/displaySettingsSlice";
+import { useSelector } from "react-redux";
 import FormActiveAdmin from "./FormActiveAdmin";
 
 export default function ActiveAdminContainer() {
   const { isFormAdminDisplayed, isMainSwitchButtonActived } = useSelector(
     (state) => state.displaySettings
   );
-  const dispatch = useDispatch();
-
-  const handleSubmit = () => {
-    dispatch(setIsFormAdminDisplayed(false));
-  };
 
   return (
     <ActiveAdminContainerStyled>
@@ -27,10 +19,7 @@ export default function ActiveAdminContainer() {
         textInactive="Désactiver mode rech..."
       />
       {isFormAdminDisplayed && (
-        <FormActiveAdmin
-          isFormAdminDisplayed={isFormAdminDisplayed}
-          onSubmit={handleSubmit}
-        />
+        <FormActiveAdmin />
       )}
     </ActiveAdminContainerStyled>
   );
