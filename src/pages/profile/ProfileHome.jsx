@@ -6,7 +6,6 @@ import styled from "styled-components";
 import { useEffect } from "react";
 import { getDatasMuseumsInFirestore } from "../../Firebase/firebaseUtilities.jsx";
 import { setDatasMuseums } from "../../features/profile/museumsSlice.js";
-// import { museumsFakeDatas } from "../../config/fakeDatas.js";
 
 export default function ProfileHome() {
   const { isDisplayUpdateCardModal } = useSelector(
@@ -18,11 +17,6 @@ export default function ProfileHome() {
     const museumsList = await getDatasMuseumsInFirestore();
     if (museumsList) {
       dispatch(setDatasMuseums(museumsList));
-    } else {
-      console.log(
-        "les données firestore ne sont disponible, il faut passer sur museumsFakeDatas"
-      );
-      // dispatch(setDatasMuseums(museumsFakeDatas));
     }
   };
 
