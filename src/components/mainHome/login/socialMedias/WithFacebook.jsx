@@ -1,7 +1,7 @@
 import UncontrolledInput from "../../../reusable-ui/UncontrolledInput";
 import { AiFillFacebook } from "react-icons/ai";
 import styled from "styled-components";
-import { auth, facebookProvider } from "../../../../Firebase/firebaseConfig";
+import { auth, facebookProvider } from "../../../../Firebase/firebase-config";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { signInWithPopup } from "firebase/auth";

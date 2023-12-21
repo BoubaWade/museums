@@ -1,7 +1,7 @@
 import UncontrolledInput from "../../../reusable-ui/UncontrolledInput";
 import styled from "styled-components";
 import { FcGoogle } from "react-icons/fc";
-import { auth, googleProvider } from "../../../../Firebase/firebaseConfig";
+import { auth, googleProvider } from "../../../../Firebase/firebase-config";
 import { signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";

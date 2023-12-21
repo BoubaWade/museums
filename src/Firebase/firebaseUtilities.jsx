@@ -4,7 +4,7 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
-import { auth, db, DOC_ID } from "./firebaseConfig";
+import { auth, db, DOC_ID } from "./firebase-config";
 
 export const signUp = async (email, password) => {
   const userCredential = await createUserWithEmailAndPassword(

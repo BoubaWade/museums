@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../../Firebase/firebaseConfig";
+import { auth } from "../../Firebase/firebase-config";
 // export const signUp = async (email, password) => {
 //   await createUserWithEmailAndPassword(auth, email, password);
 // };
