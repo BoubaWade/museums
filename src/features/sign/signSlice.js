@@ -1,24 +1,46 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../../Firebase/firebase-config";
-// export const signUp = async (email, password) => {
-//   await createUserWithEmailAndPassword(auth, email, password);
-// };
-// export const signIn = async (email, password) => {
-//   await signInWithEmailAndPassword(auth, email, password);
-// };
-export const checkAuthState = createAsyncThunk(
-  "checkAuth/checkAuthState",
-  async (_, { dispatch }) => {
-    const unsubscribe = await onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
-        dispatch(setCurrentUser(currentUser.providerData[0]));
-      } else {
-        dispatch(setCurrentUser(null));
+// import { onAuthStateChanged } from "firebase/auth";
+// import { auth } from "../../Firebase/firebase-config";
+import { signIn } from "../../Firebase/firebaseUtilities";
+
+// export const checkAuthState = createAsyncThunk(
+//   "checkAuth/checkAuthState",
+//   async (_, { dispatch }) => {
+//     const unsubscribe = await onAuthStateChanged(auth, (currentUser) => {
+//       if (currentUser) {
+//         console.log("je suis connecté", currentUser.email);
+//         dispatch(setUserEmail(currentUser.email));
+//       }
+//       else {
+//         console.log("je ne suis pas connecté");
+
+//         dispatch(setUserEmail(""));
+//       }
+//     });
+//     // console.log(unsubscribe());
+//     return () => unsubscribe();
+//   }
+// );
+
+export const getSignInWithEmailAndPassword = createAsyncThunk(
+  "sign/getSignInWithEmailAndPassword",
+  async (credentials, { dispatch }) => {
+    try {
+      const userCredential = await signIn(
+        credentials.email,
+        credentials.password
+      );
+      dispatch(setCurrentUser(userCredential.user.providerData[0]));
+      // createDatasMuseumsInFirestore(museumsFakeDatas);
+      const { accessToken, email } = userCredential.user;
+      localStorage.setItem("token", accessToken);
+      localStorage.setItem("email", email);
+    } catch (error) {
+      if (error.code === "auth/invalid-login-credentials") {
+        dispatch(setErrorLogIn("Email ou Mot de passe invalide"));
       }
-      return () => unsubscribe();
-    });
+    }
   }
 );
 
@@ -27,8 +49,8 @@ export const signSlice = createSlice({
   initialState: {
     userEmail: "",
     currentUser: null,
-    loadingData: true,
-    error: null,
+    loading: true,
+    errorLogin: "",
     isToggleModal: false,
     isToggleLoginForm: true,
     isRegistered: false,
@@ -40,6 +62,9 @@ export const signSlice = createSlice({
     },
     setCurrentUser: (state, action) => {
       state.currentUser = action.payload;
+    },
+    setErrorLogIn: (state, action) => {
+      state.errorLogin = action.payload;
     },
     toggleLoginForm: (state) => {
       state.isToggleLoginForm = !state.isToggleLoginForm;
@@ -53,22 +78,36 @@ export const signSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(checkAuthState.pending, (state) => {
-        state.loadingData = true;
+      .addCase(getSignInWithEmailAndPassword.pending, (state) => {
+        state.loading = true;
       })
-      .addCase(checkAuthState.fulfilled, (state, action) => {
-        state.loadingData = false;
+      .addCase(getSignInWithEmailAndPassword.fulfilled, (state, action) => {
+        state.loading = false;
       })
-      .addCase(checkAuthState.rejected, (state, action) => {
-        state.loadingData = false;
-        state.error = action.error.message;
+      .addCase(getSignInWithEmailAndPassword.rejected, (state, action) => {
+        state.loading = false;
+        state.errorLogin = action.error.message;
       });
   },
+  // extraReducers: (builder) => {
+  //   builder
+  //     .addCase(checkAuthState.pending, (state) => {
+  //       state.loading = true;
+  //     })
+  //     .addCase(checkAuthState.fulfilled, (state, action) => {
+  //       state.loading = false;
+  //     })
+  //     .addCase(checkAuthState.rejected, (state, action) => {
+  //       state.loading = false;
+  //       state.error = action.error.message;
+  //     });
+  // },
 });
 
 export const {
   setUserEmail,
   setCurrentUser,
+  setErrorLogIn,
   toggleLoginForm,
   toggleModal,
   setIsRegistered,

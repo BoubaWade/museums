@@ -4,25 +4,20 @@ import PrimaryButton from "../../reusable-ui/PrimaryButton.jsx";
 import RememberCheckbox from "../../reusable-ui/RememberCheckbox.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setCurrentUser } from "../../../features/sign/signSlice";
+import { getSignInWithEmailAndPassword } from "../../../features/sign/signSlice";
 import { inputFieldsSignIn } from "../../../config/config.js";
 import InputLogIn from "./InputLogIn.jsx";
-import {
-  createDatasMuseumsInFirestore,
-  signIn,
-} from "../../../Firebase/firebaseUtilities.jsx";
-// import { museumsFakeDatas } from "../../../config/fakeDatas.js";
 
 export default function ClassicLoginForm() {
-  const userEmail = useSelector((state) => state.sign.userEmail);
-  const [errorCredentials, setErrorCredentials] = useState("");
+  const { userEmail, errorLogin } = useSelector((state) => state.sign);
+  // const [errorCredentials, setErrorCredentials] = useState("");
   const [isChecked, setIsChecked] = useState(false);
   const formRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  
   const handleSignIn = async (e) => {
     e.preventDefault();
     const credentials = {
@@ -34,17 +29,10 @@ export default function ClassicLoginForm() {
       localStorage.setItem("password", credentials.password);
     }
 
-    signIn(credentials.email, credentials.password)
-      .then((userCredential) => {
-        // createDatasMuseumsInFirestore(museumsFakeDatas);
-        dispatch(setCurrentUser(userCredential.user.providerData[0]));
-        navigate("/profile/profile-home");
-      })
-      .catch((error) => {
-        if (error.code === "auth/invalid-login-credentials") {
-          setErrorCredentials("Email ou Mot de passe invalide");
-        }
-      });
+    const signIn = await dispatch(getSignInWithEmailAndPassword(credentials));
+    if (signIn) {
+      navigate("/profile/profile-home");
+    }
   };
 
   useEffect(() => {
@@ -66,7 +54,8 @@ export default function ClassicLoginForm() {
           <InputLogIn key={index} field={field} />
         )
       )}
-      <span>{errorCredentials}</span>
+      {/* <span>{errorCredentials}</span> */}
+      <span>{errorLogin}</span>
       <PrimaryButton className="primary-button" label="CONNEXION" />
       <RememberCheckbox
         onChange={() => setIsChecked(!isChecked)}

@@ -17,8 +17,9 @@ export default function NavBarProfile() {
     isNavSwitchButtonActived,
     isMainSwitchButtonActived,
   } = useSelector((state) => state.displaySettings);
-  const { dataSettings, selectedFile } = useSelector((state) => state.museums);
-  const { currentUser } = useSelector((state) => state.sign);
+  // const { dataSettings, selectedFile } = useSelector((state) => state.museums);
+  const email = localStorage.getItem("email");
+
   const dispatch = useDispatch();
 
   const handleSearchChange = (value) => {
@@ -29,9 +30,7 @@ export default function NavBarProfile() {
     <NavBarProfileStyled onClick={() => dispatch(setShowModalCalendar(false))}>
       <Logo />
       <div className="nav-right-container">
-        <p className="pseudo">
-          Bienvenue : {currentUser?.email?.split("@")[0]}
-        </p>
+        <p className="pseudo">Bienvenue : {email?.split("@")[0]}</p>
         {!isMainSwitchButtonActived && (
           <SearchForm
             placeholder="Rechercher un musée"
@@ -46,10 +45,7 @@ export default function NavBarProfile() {
             textActive="Activer mode ADMIN"
             textInactive="Désactiver mode ADMIN"
           />
-          <ImageOrUserIcon
-            currentUser={currentUser}
-            isPopUpDisplayed={isPopUpDisplayed}
-          />
+          <ImageOrUserIcon isPopUpDisplayed={isPopUpDisplayed} />
           <PopupUserProfile />
         </div>
       </div>

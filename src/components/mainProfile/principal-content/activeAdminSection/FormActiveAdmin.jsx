@@ -13,14 +13,14 @@ import {
 import { signIn } from "../../../../Firebase/firebaseUtilities";
 
 export default function FormActiveAdmin() {
-  const currentUser = useSelector((state) => state.sign.currentUser);
   const [passwordAdmin, setPasswordAdmin] = useState("");
   const [errorPasswordAdmin, setErrorPasswordAdmin] = useState(false);
   const dispatch = useDispatch();
+  const email = localStorage.getItem("email");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    signIn(currentUser.email, passwordAdmin)
+    signIn(email, passwordAdmin)
       .then((userCredential) => {
         if (userCredential) {
           dispatch(setIsFormAdminDisplayed(false));

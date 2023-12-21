@@ -6,7 +6,7 @@ import SignUpModal from "../components/mainHome/signUp/SignUpModal.jsx";
 import { useSelector } from "react-redux";
 
 export default function Home() {
-  const isToggleModal = useSelector((state) => state.sign.isToggleModal);
+  const { isToggleModal } = useSelector((state) => state.sign);
 
   return (
     <HomeSlyled>

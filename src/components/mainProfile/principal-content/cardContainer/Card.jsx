@@ -40,7 +40,7 @@ export default function Card({ data }) {
   };
 
   const cardBackground = {
-    backgroundColor: !isNavSwitchButtonActived ? "#f6e9f6" : "white",
+    backgroundColor: !isNavSwitchButtonActived && "#f3a3f333",
   };
 
   return (
@@ -65,7 +65,7 @@ export default function Card({ data }) {
 }
 
 const CardStyled = styled.article`
-  background-color: white;
+  /* background-color: white; */
   position: relative;
   width: 250px;
   height: 340px;

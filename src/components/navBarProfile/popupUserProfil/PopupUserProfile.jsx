@@ -17,11 +17,11 @@ export default function PopupUserProfile() {
   const handleClick = () => {
     navigate("/profile/settings");
   };
-  const logOut = () => {
-    signOut(auth).then(() => {
-      dispatch(setCurrentUser(null));
-      navigate("/");
-    });
+  const logOut = async () => {
+    await signOut(auth);
+    dispatch(setCurrentUser(null));
+    localStorage.removeItem("token");
+    navigate("/");
   };
 
   return (

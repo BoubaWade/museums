@@ -1,10 +1,12 @@
 import { FaUserCircle } from "react-icons/fa";
 import { setIsPopUpDisplayed } from "../../features/profile/displaySettingsSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
-export default function ImageOrUserIcon({ currentUser, isPopUpDisplayed }) {
+export default function ImageOrUserIcon({ isPopUpDisplayed }) {
+  const { currentUser } = useSelector((state) => state.sign);
   const dispatch = useDispatch();
+
   return (
     <ImageOrUserIconStyled>
       {!currentUser?.photoURL ? (

@@ -7,7 +7,7 @@ export default function CardContainer() {
   const { datasMuseums, search } = useSelector((state) => state.museums);
   const datasMuseumsFiltered = getDatasMuseumsFiltered(datasMuseums, search);
 
-  if (datasMuseumsFiltered?.length === 0) {
+  if (datasMuseumsFiltered.length === 0) {
     return (
       <CardContainerStyled>
         <p className="empty-card">Pas de musées trouvés</p>
@@ -17,7 +17,7 @@ export default function CardContainer() {
 
   return (
     <CardContainerStyled>
-      {datasMuseumsFiltered?.map((data) => (
+      {datasMuseumsFiltered.map((data) => (
         <Card key={data.identifiant_museofile} data={data} />
       ))}
     </CardContainerStyled>
