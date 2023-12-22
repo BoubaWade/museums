@@ -55,10 +55,10 @@ export const museumsSlice = createSlice({
       state.search = payload;
     },
     handleAddMuseum: (state, { payload }) => {
-      const isPresentToMuseumsList = state.datasMuseums.find(
+      const museumDataFound = state.datasMuseums.find(
         (data) => data.identifiant_museofile === payload.identifiant_museofile
       );
-      if (!isPresentToMuseumsList) {
+      if (!museumDataFound) {
         state.datasMuseums?.unshift(payload);
         syncBothListMuseums(state.datasMuseums);
       }
@@ -70,12 +70,30 @@ export const museumsSlice = createSlice({
       );
       syncBothListMuseums(datasMuseumsFiltered);
     },
-
+    handleUpdateAMuseum: (state, { payload }) => {
+      const {
+        identifiant_museofile,
+        url_image,
+        nom_officiel_du_musee,
+        commune,
+      } = payload;
+      const copyDatasMuseums = [...state.datasMuseums];
+      const datasMuseumsListUpdated = copyDatasMuseums.map((data) => {
+        if (data.identifiant_museofile === identifiant_museofile) {
+          return {
+            ...data,
+            url_image: url_image,
+            nom_officiel_du_musee: nom_officiel_du_musee,
+            commune: commune,
+          };
+        } else {
+          return data;
+        }
+      });
+      syncBothListMuseums(datasMuseumsListUpdated);
+    },
     handleAddDataToUpdatedCard: (state, { payload }) => {
       state.dataUpdatedCard = payload;
-    },
-    handleUpdateAMuseum: (state, { payload }) => {
-      state.datasMuseums = payload;
     },
     handleRecoverDataAfterClick: (state, { payload }) => {
       state.dataRecoveredAfterClickingOnACard = state.datasMuseums.find(

@@ -1,15 +1,18 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { BsCheckCircleFill } from "react-icons/bs";
 import { setIsDisplayUpdateCardModal } from "../../features/profile/displaySettingsSlice";
-import { handleUpdateAMuseum } from "../../features/profile/museumsSlice";
+import {
+  handleUpdateAMuseum,
+  setDatasMuseums,
+} from "../../features/profile/museumsSlice";
 import PrimaryButton from "../reusable-ui/PrimaryButton";
-import { inputFieldsUpdateCard } from "../../config/config";
+import InputsFormUpdateCard from "./InputsFormUpdateCard";
+import { getDatasMuseumsInFirestore } from "../../Firebase/firebaseUtilities";
 
 export default function FormUpdateCard({ cardDatas, onDataChange }) {
   const [dataUpdated, setDataUpdated] = useState(cardDatas);
-  const datasMuseums = useSelector((state) => state.museums.datasMuseums);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const dispatch = useDispatch();
 
@@ -25,22 +28,12 @@ export default function FormUpdateCard({ cardDatas, onDataChange }) {
     onDataChange(dataUpdated);
   }, [dataUpdated]);
 
-  const datasMuseumsListUpdated = datasMuseums.map((data) => {
-    if (data.identifiant_museofile === dataUpdated.identifiant_museofile) {
-      return {
-        ...data,
-        url_image: dataUpdated.url_image,
-        nom_officiel_du_musee: dataUpdated.nom_officiel_du_musee,
-        commune: dataUpdated.commune,
-      };
-    } else {
-      return data;
-    }
-  });
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(handleUpdateAMuseum(datasMuseumsListUpdated));
+    dispatch(handleUpdateAMuseum(dataUpdated));
+    const museumsList = await getDatasMuseumsInFirestore();
+    dispatch(setDatasMuseums(museumsList));
+
     setIsSubmitted(true);
     setTimeout(() => {
       setIsSubmitted(false);
@@ -52,18 +45,10 @@ export default function FormUpdateCard({ cardDatas, onDataChange }) {
     <FormUpdateCardStyled onSubmit={(e) => handleSubmit(e)}>
       {!isSubmitted ? (
         <div className="form-container">
-          {inputFieldsUpdateCard(dataUpdated, handleChange).map(
-            (field, index) => (
-              <input
-                key={index}
-                type={field.type}
-                placeholder={field.placeholder}
-                name={field.name}
-                value={field.value}
-                onChange={field.onChange}
-              />
-            )
-          )}
+          <InputsFormUpdateCard
+            dataUpdated={dataUpdated}
+            handleChange={handleChange}
+          />
           <PrimaryButton
             className="submit-button"
             label="Valider les modifications"
@@ -86,18 +71,7 @@ const FormUpdateCardStyled = styled.form`
     display: flex;
     flex-direction: column;
     align-items: center;
-    row-gap: 17px;
     margin: 0 auto;
-    input {
-      width: 100%;
-      height: 45px;
-      font-size: 16px;
-      color: #3a3939;
-      padding: 0 10px;
-      border: none;
-      border-radius: 3px;
-      outline: none;
-    }
     .submit-button {
       width: 100%;
       height: 45px;

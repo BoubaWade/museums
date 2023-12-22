@@ -15,7 +15,6 @@ export default function WithFacebook() {
     signInWithPopup(auth, facebookProvider)
       .then((response) => {
         dispatch(setCurrentUser(response.user.providerData[0]));
-        console.log(response.user);
         navigate("/profile/profile-home");
       })
       .catch((error) => {

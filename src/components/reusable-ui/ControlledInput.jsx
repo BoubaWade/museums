@@ -11,7 +11,7 @@ export default function ControlledInput({
   icon,
   error,
   classNameError,
-  autoFocus
+  autoFocus,
 }) {
   return (
     <ControlledInputStyled className={classNameContainer}>

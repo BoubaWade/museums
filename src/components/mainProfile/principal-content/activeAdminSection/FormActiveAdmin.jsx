@@ -51,6 +51,7 @@ export default function FormActiveAdmin() {
         onChange={(e) => setPasswordAdmin(e.target.value)}
         error={errorPasswordAdmin && "Mot de passe admin incorrect"}
         classNameError="error-password-admin-message"
+        autoFocus
       />
       <PrimaryButton label="Valider" className="submit-button" />
     </FormActiveAdminStyled>

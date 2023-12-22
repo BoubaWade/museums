@@ -42,7 +42,6 @@ export default function CalendarContent({ datasMuseumRecovered }) {
       );
       // dispatch(handleRecoveredDataWithDatePicked(datasRecoveredWithDatePicked));
       // dispatch(handleRecoverDatePicked(dateFormated));
-      console.log(datasRecoveredWithDatePicked);
     }
 
     setShowCalendar(false);
@@ -51,7 +50,7 @@ export default function CalendarContent({ datasMuseumRecovered }) {
       dispatch(setIsReserved(false));
     }, 1000);
   };
-  console.log(datasRecoveredWithDatePicked);
+
   return (
     <CalendarContentStyled>
       <p>Réserver votre date de visite</p>
