@@ -24,15 +24,6 @@ export const signIn = async (email, password) => {
   return userCredential;
 };
 
-export const signInOnAdminCompt = async (email, password) => {
-  const userCredential = await signInWithEmailAndPassword(
-    auth,
-    email,
-    password
-  );
-  return userCredential;
-};
-
 export const createDatasMuseumsInFirestore = (data) => {
   const documentReference = doc(db, "ListMuseums", DOC_ID);
   const newDocument = {

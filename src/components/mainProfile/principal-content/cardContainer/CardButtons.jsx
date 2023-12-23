@@ -31,9 +31,9 @@ export default function CardButtons({ data }) {
     <CardButtonsStyled>
       {!isNavSwitchButtonActived ? (
         <PrimaryButton
-          id={data.identifiant_museofile}
-          className={!data.isAdded ? "add-button" : "confirm-add"}
-          label={!data.isAdded ? "Réserver" : "Déja ajouté !"}
+          id={identifiant_museofile}
+          className={isAdded ? "confirm-add" : "add-button"}
+          label={isAdded ? "Déja ajouté !" : "Réserver"}
           onClick={(e) => handleShowModalCalendarAndDispatchDataOfTheCard(e)}
         />
       ) : (

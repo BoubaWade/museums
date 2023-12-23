@@ -124,20 +124,60 @@ export const museumsSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(handleAddItemToBasket, (state, { payload }) => {
-        state.datasMuseums.find(
-          (data) => data.identifiant_museofile === payload.identifiant_museofile
-        ).isAdded = true;
+        const copyDatasMuseums = [...state.datasMuseums];
+        const datasMuseumsListUpdated = copyDatasMuseums.map((data) => {
+          if (data.identifiant_museofile === payload.identifiant_museofile) {
+            return {
+              ...data,
+              isAdded: true,
+            };
+          } else {
+            return data;
+          }
+        });
+        syncBothListMuseums(datasMuseumsListUpdated);
       })
-      .addCase(handleDeleteItemFromBasket, (state, { payload }) => {
-        const item = state.datasMuseums.find(
-          (data) => data.identifiant_museofile === payload
-        );
-        if (item) {
-          item.isAdded = false;
-        }
-      });
+      // .addCase(handleDeleteItemFromBasket, (state, { payload }) => {
+      //   const copyDatasMuseums = [...state.datasMuseums];
+      //   const datasMuseumsListUpdated = copyDatasMuseums.map((data) => {
+      //     if (data.identifiant_museofile === payload.identifiant_museofile) {
+      //       return {
+      //         ...data,
+      //         isAdded: false,
+      //       };
+      //     } else {
+      //       return data;
+      //     }
+      //   });
+      //   syncBothListMuseums(datasMuseumsListUpdated);
+      // });
   },
 });
+
+export function updateAddedPropertyForDatasMuseums(action) {
+  return function (dispatch, getState) {
+    const storeState = getState();
+
+    const isPresentToBasket = storeState.basket.datasListOfBasket?.find(
+      (data) => data.identifiant_museofile === action
+    );
+    if (!isPresentToBasket) {
+      const datasMuseumsListUpdated = storeState.museums.datasMuseums.map(
+        (data) => {
+          if (data.identifiant_museofile === action) {
+            return {
+              ...data,
+              isAdded: false,
+            };
+          } else {
+            return data;
+          }
+        }
+      );
+      syncBothListMuseums(datasMuseumsListUpdated);
+    }
+  };
+}
 
 export const {
   setDatasMuseums,

@@ -6,7 +6,7 @@ import { setIsBasketDisplayed } from "../../../features/profile/displaySettingsS
 import CardContainer from "./cardContainer/CardContainer";
 import SearchSection from "./SearchSection";
 import ActiveAdminContainer from "./activeAdminSection/ActiveAdminContainer";
-import ModalCalendar from "./ModalCalendar";
+import ModalCalendar from "./ModalCalendar/ModalCalendar";
 
 export default function PrincipalContent() {
   const {

@@ -1,16 +1,21 @@
+import styled from "styled-components";
 import { MdDelete } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
-import { handleDeleteItemFromBasket } from "../../../features/profile/basketSlice";
+import {
+  deleteOneToBasket,
+  handleDeleteItemFromBasket,
+  setDatasListOfBasket,
+} from "../../../features/profile/basketSlice";
 import { useEffect, useState } from "react";
+import { getDatasMuseumsInFirestore } from "../../../Firebase/firebaseUtilities";
+import { setDatasMuseums, updateAddedPropertyForDatasMuseums } from "../../../features/profile/museumsSlice";
 const NUMBER_OF_MILLISECOND_IN_ONE_MINUTE = 60000;
 
-export default function BasketCard({ data }) {
-  const { nom_officiel_du_musee, commune } = data;
+export default function BasketItem({ data }) {
+  const { identifiant_museofile, nom_officiel_du_musee, commune } = data;
   // const datePicked = useSelector((state) => state.basket.datePicked);
   const { dataRecoveredWithDatePicked } = useSelector((state) => state.museums);
   const [minutesElapsed, setMinutesElapsed] = useState(0);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -21,19 +26,22 @@ export default function BasketCard({ data }) {
     return () => clearInterval(interval);
   }, []);
 
-  const handleDeleteItem = () => {
-    dispatch(handleDeleteItemFromBasket(data.identifiant_museofile));
+  const handleDeleteItem = async () => {
+    dispatch(handleDeleteItemFromBasket(identifiant_museofile));
+    const datasBasketListFromLocalStorage = JSON.parse(
+      localStorage.getItem("Basket")
+    );
+    dispatch(setDatasListOfBasket(datasBasketListFromLocalStorage));
+    dispatch(updateAddedPropertyForDatasMuseums(identifiant_museofile));
+
+    const museumsList = await getDatasMuseumsInFirestore();
+    if (museumsList) {
+      dispatch(setDatasMuseums(museumsList));
+    }
   };
 
-  // if (
-  //   data.identifiant_museofile ===
-  //   dataRecoveredWithDatePicked.identifiant_museofile
-  // ) {
-  //   return <div>{dataRecoveredWithDatePicked.datePicked}</div>;
-  // }
-
   return (
-    <BasketCardStyled>
+    <BasketItemStyled>
       <h3>{nom_officiel_du_musee.toUpperCase()}</h3>
       <p>{commune}</p>
       <MdDelete className="icon-delete" onClick={handleDeleteItem} />
@@ -47,11 +55,11 @@ export default function BasketCard({ data }) {
           <span>{dataRecoveredWithDatePicked.datePicked}</span>
         )}
       </div>
-    </BasketCardStyled>
+    </BasketItemStyled>
   );
 }
 
-const BasketCardStyled = styled.article`
+const BasketItemStyled = styled.article`
   position: relative;
   background-color: #0080008a;
   width: 90%;

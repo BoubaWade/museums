@@ -10,7 +10,7 @@ export default function MainEachMuseumPage() {
     (state) => state.museums.dataRecoveredAfterClickingOnACard
   );
 
-  // const { datasItemsOfBasket } = useSelector(
+  // const { datasListOfBasket } = useSelector(
   //   (state) => state.basket
   // );
 

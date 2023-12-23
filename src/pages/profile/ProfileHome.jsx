@@ -12,7 +12,7 @@ export default function ProfileHome() {
     (state) => state.displaySettings
   );
   const dispatch = useDispatch();
-  
+
   const getInitialMuseumsList = async () => {
     const museumsList = await getDatasMuseumsInFirestore();
     if (museumsList) {

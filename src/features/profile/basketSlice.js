@@ -3,20 +3,24 @@ import { createSlice } from "@reduxjs/toolkit";
 export const basketSlice = createSlice({
   name: "basket",
   initialState: {
-    datasItemsOfBasket: [],
+    datasListOfBasket: [],
     datePicked: "",
     isReserved: false,
   },
   reducers: {
-    handleAddItemToBasket: (state, { payload }) => {
-      state.datasItemsOfBasket.push(payload);
+    setDatasListOfBasket: (state, { payload }) => {
+      state.datasListOfBasket = payload;
     },
-
+    handleAddItemToBasket: (state, { payload }) => {
+      state.datasListOfBasket.push(payload);
+      localStorage.setItem("Basket", JSON.stringify(state.datasListOfBasket));
+    },
     handleDeleteItemFromBasket: (state, { payload }) => {
-      const copyDatasBasket = [...state.datasItemsOfBasket];
-      state.datasItemsOfBasket = copyDatasBasket.filter(
+      const copyDatasBasket = [...state.datasListOfBasket];
+      const datasListOfBasketUpdated = copyDatasBasket.filter(
         (data) => data.identifiant_museofile !== payload
       );
+      localStorage.setItem("Basket", JSON.stringify(datasListOfBasketUpdated));
     },
     handleRecoverDatePicked: (state, { payload }) => {
       state.datePicked = payload;
@@ -27,14 +31,13 @@ export const basketSlice = createSlice({
   },
 });
 
-export function addOneToBasket(action) {
+export function addOneMuseumToBasket(action) {
   return function (dispatch, getState) {
     const storeState = getState();
 
-    const isPresentToBasket = storeState.basket.datasItemsOfBasket.find(
+    const isPresentToBasket = storeState.basket.datasListOfBasket.find(
       (data) => data.identifiant_museofile === action
     );
-
     if (!isPresentToBasket) {
       const itemToAdd = storeState.museums.datasMuseums.find(
         (data) => data.identifiant_museofile === action
@@ -48,12 +51,11 @@ export function deleteOneToBasket(action) {
   return function (dispatch, getState) {
     const storeState = getState();
 
-    const isPresentToMuseumsList = storeState.museums.datasMuseums?.find(
+    const isPresentToMuseums = storeState.museums.datasMuseums?.find(
       (data) => data.identifiant_museofile === action
     );
-
-    if (!isPresentToMuseumsList) {
-      const itemToDelete = storeState.basket.datasItemsOfBasket.find(
+    if (!isPresentToMuseums) {
+      const itemToDelete = storeState.basket.datasListOfBasket.find(
         (data) => data.identifiant_museofile === action
       );
       if (itemToDelete) {
@@ -66,6 +68,7 @@ export function deleteOneToBasket(action) {
 }
 
 export const {
+  setDatasListOfBasket,
   handleAddItemToBasket,
   handleDeleteItemFromBasket,
   handleRecoverDatePicked,

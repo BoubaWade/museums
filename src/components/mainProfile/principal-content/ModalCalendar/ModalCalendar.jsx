@@ -1,7 +1,7 @@
 import "react-calendar/dist/Calendar.css";
 import "react-date-picker/dist/DatePicker.css";
 import styled from "styled-components";
-import Overlay from "../../reusable-ui/Overlay.jsx";
+import Overlay from "../../../reusable-ui/Overlay.jsx";
 import Calendar from "react-calendar";
 import DatePicker from "react-date-picker";
 import { useState } from "react";
@@ -9,15 +9,16 @@ import { TiDelete } from "react-icons/ti";
 import {
   setIsBasketDisplayed,
   setShowModalCalendar,
-} from "../../../features/profile/displaySettingsSlice.js";
+} from "../../../../features/profile/displaySettingsSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  addOneToBasket,
+  addOneMuseumToBasket,
   setIsReserved,
-} from "../../../features/profile/basketSlice.js";
-import CalendarValidationButton from "../../reusable-ui/CalendarValidationButton.jsx";
-import { getFormatedDate } from "../../../utils/utils.js";
-// import { createUserDataBasketInFirestore } from "../../../Firebase/firebaseUtilities.jsx";
+} from "../../../../features/profile/basketSlice.js";
+import CalendarValidationButton from "../../../reusable-ui/CalendarValidationButton.jsx";
+import { getFormatedDate } from "../../../../utils/utils.js";
+import { getDatasMuseumsInFirestore } from "../../../../Firebase/firebaseUtilities.jsx";
+import { setDatasMuseums } from "../../../../features/profile/museumsSlice.js";
 
 export default function ModalCalendar() {
   const { dataRecoveredAfterClickingOnACard } = useSelector(
@@ -33,17 +34,17 @@ export default function ModalCalendar() {
     ...dataRecoveredAfterClickingOnACard,
     datePicked: dateFormated,
   };
-  
-  const handleAddItemAndOpenBasket = () => {
-    dispatch(setIsBasketDisplayed(true));
-    dispatch(
-      addOneToBasket(datasRecoveredWithDatePicked.identifiant_museofile)
-    );
 
-    // createUserDataBasketInFirestore(
-    //   datasItemsOfBasket,
-    //   currentUser?.email?.split("@")[0]
-    // );
+  const handleAddItemAndOpenBasket = async () => {
+    dispatch(
+      addOneMuseumToBasket(datasRecoveredWithDatePicked.identifiant_museofile)
+    );
+    const museumsList = await getDatasMuseumsInFirestore();
+    if (museumsList) {
+      dispatch(setDatasMuseums(museumsList));
+    }
+
+    dispatch(setIsBasketDisplayed(true));
 
     dispatch(setShowModalCalendar(true));
     dispatch(setIsReserved(true));

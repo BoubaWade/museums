@@ -9,7 +9,7 @@ import handleAddDatePickedOnRecoverData, {
   handleRecoveredDataWithDatePicked,
 } from "../../features/profile/museumsSlice";
 import {
-  addOneToBasket,
+  addOneMuseumToBasket,
   handleAddItemToBasket,
   handleRecoverDatePicked,
   setIsReserved,
@@ -19,7 +19,7 @@ import { getFormatedDate } from "../../utils/utils";
 import { setIsBasketDisplayed } from "../../features/profile/displaySettingsSlice.js";
 
 export default function CalendarContent({ datasMuseumRecovered }) {
-  const { datasItemsOfBasket, isReserved } = useSelector(
+  const { datasListOfBasket, isReserved } = useSelector(
     (state) => state.basket
   );
   const [value, onChange] = useState(new Date());
@@ -33,7 +33,7 @@ export default function CalendarContent({ datasMuseumRecovered }) {
   };
 
   const handleValidateDatePicked = async () => {
-    if (!datasItemsOfBasket?.includes(datasRecoveredWithDatePicked)) {
+    if (!datasListOfBasket?.includes(datasRecoveredWithDatePicked)) {
       dispatch(setIsBasketDisplayed(true));
       // dispatch(handleAddItemToBasket(datasRecoveredWithDatePicked));
 
