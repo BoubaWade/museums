@@ -7,18 +7,18 @@ import { useState } from "react";
 import PrimaryButton from "../../../reusable-ui/PrimaryButton";
 import {
   handleAddMuseum,
-  setDatasMuseums,
+  setMuseums,
 } from "../../../../features/profile/museumsSlice";
 import { setIsAddSectionDisplayed } from "../../../../features/profile/displaySettingsSlice";
 import InputsContainer from "./InputsContainer";
-import { getDatasMuseumsInFirestore } from "../../../../Firebase/firebaseUtilities";
+import { getMuseumsInFirestore } from "../../../../Firebase/firebaseUtilities";
 
 export default function AddCardSection() {
-  const { datasMuseums, dataRecoveredAfterClick } = useSelector(
+  const { museums, museumRecoveredAfterClick } = useSelector(
     (state) => state.museums
   );
 
-  const [dataRecovered, setDataRecovered] = useState(dataRecoveredAfterClick);
+  const [dataRecovered, setDataRecovered] = useState(museumRecoveredAfterClick);
   const { identifiant_museofile, url_image, nom_officiel_du_musee, commune } =
     dataRecovered;
   const [isAddMuseumSuccessful, setIsAddMuseumSuccessful] = useState(false);
@@ -26,14 +26,14 @@ export default function AddCardSection() {
   const dispatch = useDispatch();
 
   const handleAddMuseumAndCloseSection = async () => {
-    const dataMuseumFinded = datasMuseums.find(
+    const dataMuseumFinded = museums.find(
       (data) => data.identifiant_museofile === identifiant_museofile
     );
     if (!dataMuseumFinded) {
       dispatch(handleAddMuseum(dataRecovered));
       setIsAddMuseumSuccessful(true);
-      const museumsList = await getDatasMuseumsInFirestore();
-      dispatch(setDatasMuseums(museumsList));
+      const museumsList = await getMuseumsInFirestore();
+      dispatch(setMuseums(museumsList));
     } else {
       setIsAddMuseumRejected(true);
     }

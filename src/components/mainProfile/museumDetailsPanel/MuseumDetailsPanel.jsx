@@ -9,8 +9,8 @@ import { setIsDetailsPanelDisplayed } from "../../../features/profile/displaySet
 import PrimaryButton from "../../reusable-ui/PrimaryButton";
 
 export default function MuseumDetailsPanel() {
-  const dataRecovered = useSelector(
-    (state) => state.museums.dataRecoveredAfterClickingOnACard
+  const museumRecovered = useSelector(
+    (state) => state.museums.museumRecoveredAfterClickingOnACard
   );
   const isDetailsPanelDisplayed = useSelector(
     (state) => state.displaySettings.isDetailsPanelDisplayed
@@ -28,15 +28,15 @@ export default function MuseumDetailsPanel() {
     dispatch(setIsDetailsPanelDisplayed());
   };
 
-  if (!dataRecovered) {
+  if (!museumRecovered) {
     return;
   }
 
   return (
     <MuseumDetailsPanelStyled style={panelDisplayStyle}>
       <img src={backgroundImage} className="bg-image" />
-      <ImageAndTitle datas={dataRecovered} />
-      <ListMuseumInfos datas={dataRecovered} />
+      <ImageAndTitle museumRecovered={museumRecovered} />
+      <ListMuseumInfos museumRecovered={museumRecovered} />
       <PrimaryButton
         className="button-read-more"
         label="En savoir plus"

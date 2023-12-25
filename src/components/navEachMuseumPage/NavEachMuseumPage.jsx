@@ -6,8 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 export default function NavEachMuseumPage() {
-  const datasMuseum = useSelector(
-    (state) => state.museums.dataRecoveredAfterClickingOnACard
+  const museumRecovered = useSelector(
+    (state) => state.museums.museumRecoveredAfterClickingOnACard
   );
   const navigate = useNavigate();
 
@@ -19,7 +19,7 @@ export default function NavEachMuseumPage() {
     <NavEachMuseumPageStyled>
       <div className="logo-container">
         <GiElvenCastle className="icon-logo" />
-        <h1>{datasMuseum?.nom_officiel_du_musee}</h1>
+        <h1>{museumRecovered?.nom_officiel_du_musee}</h1>
       </div>
       <PrimaryButton
         label="Retour "

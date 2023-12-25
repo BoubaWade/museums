@@ -2,13 +2,17 @@ import styled from "styled-components";
 import { MdDelete } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  deleteOneToBasket,
   handleDeleteItemFromBasket,
-  setDatasListOfBasket,
+  setBasket,
 } from "../../../features/profile/basketSlice";
 import { useEffect, useState } from "react";
-import { getDatasMuseumsInFirestore } from "../../../Firebase/firebaseUtilities";
-import { setDatasMuseums, updateAddedPropertyForDatasMuseums } from "../../../features/profile/museumsSlice";
+import { getMuseumsInFirestore } from "../../../Firebase/firebaseUtilities";
+import {
+  setMuseums,
+  updateAddedPropertyForMuseums,
+} from "../../../features/profile/museumsSlice";
+import { getLocalStorage } from "../../../utils/utils";
+import { setIsMuseumsRendered } from "../../../features/profile/displaySettingsSlice";
 const NUMBER_OF_MILLISECOND_IN_ONE_MINUTE = 60000;
 
 export default function BasketItem({ data }) {
@@ -26,25 +30,26 @@ export default function BasketItem({ data }) {
     return () => clearInterval(interval);
   }, []);
 
-  const handleDeleteItem = async () => {
+  const handleDeleteBasketItem = async () => {
     dispatch(handleDeleteItemFromBasket(identifiant_museofile));
-    const datasBasketListFromLocalStorage = JSON.parse(
-      localStorage.getItem("Basket")
-    );
-    dispatch(setDatasListOfBasket(datasBasketListFromLocalStorage));
-    dispatch(updateAddedPropertyForDatasMuseums(identifiant_museofile));
+    // const basketLocalStorage = await JSON.parse(localStorage.getItem("Basket"));
+    const basketLocalStorage = getLocalStorage("Basket");
+    if (basketLocalStorage) dispatch(setBasket(basketLocalStorage));
+    dispatch(updateAddedPropertyForMuseums(identifiant_museofile));
 
-    const museumsList = await getDatasMuseumsInFirestore();
+    const museumsList = await getMuseumsInFirestore();
     if (museumsList) {
-      dispatch(setDatasMuseums(museumsList));
+      dispatch(setMuseums(museumsList));
+
     }
+    // window.location.reload();
   };
 
   return (
     <BasketItemStyled>
       <h3>{nom_officiel_du_musee.toUpperCase()}</h3>
       <p>{commune}</p>
-      <MdDelete className="icon-delete" onClick={handleDeleteItem} />
+      <MdDelete className="icon-delete" onClick={handleDeleteBasketItem} />
       <span className="minutes-elapsed">
         Ajouté il y'a
         {minutesElapsed === 1 ? " 1 minute" : ` ${minutesElapsed} minutes`}

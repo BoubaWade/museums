@@ -16,7 +16,68 @@ export function addPropertyToDataFetched(datas) {
   }));
 }
 
-export function getDatasMuseumsFiltered(datas, search) {
+export function deepCopy(originalArray) {
+  const copyArray = JSON.parse(JSON.stringify(originalArray));
+  return copyArray;
+}
+
+export function findObjectInArray(array, objectId) {
+  if (array) {
+    const objectFinded = array?.find(
+      (data) => data.identifiant_museofile === objectId
+    );
+
+    return objectFinded;
+  }
+}
+export function filterArrayById(array, objectId) {
+  const arrayFiltered = array.filter(
+    (data) => data.identifiant_museofile !== objectId
+  );
+  return arrayFiltered;
+}
+export function mapArrayForChangeAddedProperty(array, objectId, isAdded) {
+  const arrayMapped = array.map((data) => {
+    if (data.identifiant_museofile === objectId) {
+      return {
+        ...data,
+        isAdded: isAdded,
+      };
+    } else {
+      return data;
+    }
+  });
+  return arrayMapped;
+}
+
+export function arrayUpdatedById(array, payload) {
+  const { identifiant_museofile, url_image, nom_officiel_du_musee, commune } =
+    payload;
+  const arrayUpdated = array.map((data) => {
+    if (data.identifiant_museofile === identifiant_museofile) {
+      return {
+        ...data,
+        url_image: url_image,
+        nom_officiel_du_musee: nom_officiel_du_musee,
+        commune: commune,
+      };
+    } else {
+      return data;
+    }
+  });
+  return arrayUpdated;
+}
+
+export function setLocalStorage(key, value) {
+  localStorage.setItem(key, JSON.stringify(value));
+}
+
+export function getLocalStorage(key) {
+ return JSON.parse(localStorage.getItem(key));
+
+}
+
+export function getMuseumsFiltered(datas, search) {
   return datas?.filter((data) => {
     const nameOfMuseum = normalizeString(data.nom_officiel_du_musee).includes(
       normalizeString(search)

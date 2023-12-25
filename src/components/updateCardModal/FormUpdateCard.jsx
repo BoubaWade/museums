@@ -4,12 +4,12 @@ import { useDispatch } from "react-redux";
 import { BsCheckCircleFill } from "react-icons/bs";
 import { setIsDisplayUpdateCardModal } from "../../features/profile/displaySettingsSlice";
 import {
-  handleUpdateAMuseum,
-  setDatasMuseums,
+  handleUpdateMuseum,
+  setMuseums,
 } from "../../features/profile/museumsSlice";
 import PrimaryButton from "../reusable-ui/PrimaryButton";
 import InputsFormUpdateCard from "./InputsFormUpdateCard";
-import { getDatasMuseumsInFirestore } from "../../Firebase/firebaseUtilities";
+import { getMuseumsInFirestore } from "../../Firebase/firebaseUtilities";
 
 export default function FormUpdateCard({ cardDatas, onDataChange }) {
   const [dataUpdated, setDataUpdated] = useState(cardDatas);
@@ -30,9 +30,9 @@ export default function FormUpdateCard({ cardDatas, onDataChange }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(handleUpdateAMuseum(dataUpdated));
-    const museumsList = await getDatasMuseumsInFirestore();
-    dispatch(setDatasMuseums(museumsList));
+    dispatch(handleUpdateMuseum(dataUpdated));
+    const museumsList = await getMuseumsInFirestore();
+    dispatch(setMuseums(museumsList));
 
     setIsSubmitted(true);
     setTimeout(() => {

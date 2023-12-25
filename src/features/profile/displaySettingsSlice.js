@@ -5,6 +5,7 @@ const initialState = {
   isMainSwitchButtonActived: false,
   isPopUpDisplayed: false,
   isBasketDisplayed: false,
+  isMuseumsRended:true,
   isButtonAddDisplayed: true,
   isDisplayUpdateCardModal: false,
   isAddSectionDisplayed: false,
@@ -30,6 +31,9 @@ const displaySettingsSlice = createSlice({
     },
     setIsBasketDisplayed: (state, { payload }) => {
       state.isBasketDisplayed = payload;
+    },
+    setIsMuseumsRendered: (state, { payload }) => {
+      state.isMuseumsRended = payload;
     },
     setIsButtonAddDisplayed: (state, { payload }) => {
       state.isButtonAddDisplayed = payload;
@@ -63,6 +67,7 @@ export const {
   setIsMainSwitchButtonActived,
   setIsPopUpDisplayed,
   setIsBasketDisplayed,
+  setIsMuseumsRendered,
   setIsButtonAddDisplayed,
   setIsDisplayUpdateCardModal,
   setIsAddSectionDisplayed,

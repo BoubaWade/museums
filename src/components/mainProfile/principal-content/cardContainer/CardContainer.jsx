@@ -1,23 +1,48 @@
 import styled from "styled-components";
 import Card from "./Card";
-import { useSelector } from "react-redux";
-import { getDatasMuseumsFiltered } from "../../../../utils/utils";
+import {useDispatch, useSelector } from "react-redux";
+import { getLocalStorage, getMuseumsFiltered } from "../../../../utils/utils";
+import { getMuseumsInFirestore } from "../../../../Firebase/firebaseUtilities";
+import { setMuseums } from "../../../../features/profile/museumsSlice";
+import { useEffect } from "react";
+import { setBasket } from "../../../../features/profile/basketSlice";
 
 export default function CardContainer() {
-  const { datasMuseums, search } = useSelector((state) => state.museums);
-  const datasMuseumsFiltered = getDatasMuseumsFiltered(datasMuseums, search);
+  const { museums, search } = useSelector((state) => state.museums);
+  const museumsFiltered = getMuseumsFiltered(museums, search);
 
-  if (datasMuseumsFiltered.length === 0) {
+  const dispatch = useDispatch();
+
+  const initialiseMuseumsList = async () => {
+    const museumsList = await getMuseumsInFirestore();
+    if (museumsList) dispatch(setMuseums(museumsList));
+  };
+  const initialiseBasketList = async () => {
+    const basketLocalStorage = getLocalStorage("Basket");
+    dispatch(setBasket(basketLocalStorage));
+  };
+  const initialiseBasketAndMuseums = async () => {
+    await initialiseMuseumsList();
+    initialiseBasketList();
+  };
+
+  useEffect(() => {
+    initialiseBasketAndMuseums();
+  }, []);
+
+  if (museumsFiltered === undefined) return <div>Chargement...</div>;
+
+  if (museumsFiltered.length === 0) {
     return (
       <CardContainerStyled>
         <p className="empty-card">Pas de musées trouvés</p>
       </CardContainerStyled>
     );
   }
-  
+
   return (
     <CardContainerStyled>
-      {datasMuseumsFiltered.map((data) => (
+      {museumsFiltered.map((data) => (
         <Card key={data.identifiant_museofile} data={data} />
       ))}
     </CardContainerStyled>

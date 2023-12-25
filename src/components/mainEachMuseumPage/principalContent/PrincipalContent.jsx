@@ -3,8 +3,8 @@ import styled from "styled-components";
 import Counter from "./Counter";
 import defaultImage from "../../../assets/images/default-image-museum.jpeg";
 
-export default function PrincipalContent({ datasMuseumRecovered }) {
-  const { url_image, nom_officiel_du_musee } = datasMuseumRecovered;
+export default function PrincipalContent({ museumRecovered }) {
+  const { url_image, nom_officiel_du_musee } = museumRecovered;
 
   const handleRedirectToWebSite = (url) => {
     // if (url.startsWith("http")) {

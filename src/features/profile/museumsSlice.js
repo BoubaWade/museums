@@ -1,13 +1,17 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { handleAddItemToBasket } from "./basketSlice";
 import {
-  handleAddItemToBasket,
-  handleDeleteItemFromBasket,
-} from "./basketSlice";
-import { addPropertyToDataFetched } from "../../utils/utils";
+  addPropertyToDataFetched,
+  arrayUpdatedById,
+  deepCopy,
+  filterArrayById,
+  findObjectInArray,
+  mapArrayForChangeAddedProperty,
+} from "../../utils/utils";
 import { syncBothListMuseums } from "../../Firebase/firebaseUtilities";
 
-export const getDatasMuseumsFromAPI = createAsyncThunk(
-  "user/getDatasMuseums",
+export const getMuseumsFromAPI = createAsyncThunk(
+  "user/getMuseums",
   async (_, { dispatch }) => {
     fetch(
       "https://data.culture.gouv.fr/api/explore/v2.1/catalog/datasets/liste-et-localisation-des-musees-de-france/records?limit=100&refine=region_administrative%3A%22%C3%8Ele-de-France%22"
@@ -15,7 +19,7 @@ export const getDatasMuseumsFromAPI = createAsyncThunk(
       .then((res) => res.json())
       .then((response) => {
         const datas = addPropertyToDataFetched(response.results);
-        dispatch(setDatasMuseumsFromAPI(datas));
+        dispatch(setMuseumsFromAPI(datas));
       })
       .catch((error) => {
         console.log(error);
@@ -26,78 +30,65 @@ export const getDatasMuseumsFromAPI = createAsyncThunk(
 export const museumsSlice = createSlice({
   name: "museums",
   initialState: {
-    // datasMuseums: museumsFakeDatas,
-    datasMuseums: [],
+    museums: undefined,
     loadingData: true,
-    datasMuseumsFromAPI: [],
+    museumsFromAPI: [],
     loadingDataFromAPI: true,
-    dataRecoveredAfterClick: {},
+    museumRecoveredAfterClick: {},
     search: "",
-    dataUpdatedCard: {},
-    dataRecoveredAfterClickingOnACard: null,
+    museumUpdated: {},
+    museumRecoveredAfterClickingOnACard: null,
     dataSettings: {},
     selectedFile: null,
     dataRecoveredWithDatePicked: {},
   },
   reducers: {
-    setDatasMuseums: (state, { payload }) => {
-      state.datasMuseums = payload;
+    setMuseums: (state, { payload }) => {
+      state.museums = payload;
     },
-    setDatasMuseumsFromAPI: (state, { payload }) => {
-      state.datasMuseumsFromAPI = payload;
+    setMuseumsFromAPI: (state, { payload }) => {
+      state.museumsFromAPI = payload;
     },
     handleRecoverOneMuseumDataFromAPI: (state, { payload }) => {
-      state.dataRecoveredAfterClick = state.datasMuseumsFromAPI.find(
-        (data) => data.identifiant_museofile === payload
+      state.museumRecoveredAfterClick = findObjectInArray(
+        state.museumsFromAPI,
+        payload
       );
     },
     setSearch: (state, { payload }) => {
       state.search = payload;
     },
+
     handleAddMuseum: (state, { payload }) => {
-      const museumDataFound = state.datasMuseums.find(
-        (data) => data.identifiant_museofile === payload.identifiant_museofile
+      const isPresentToMuseums = findObjectInArray(
+        state.museums,
+        payload.identifiant_museofile
       );
-      if (!museumDataFound) {
-        state.datasMuseums?.unshift(payload);
-        syncBothListMuseums(state.datasMuseums);
+      if (!isPresentToMuseums) {
+        state.museums?.unshift(payload);
+        syncBothListMuseums(state.museums);
       }
     },
+
     handleDeleteMuseum: (state, { payload }) => {
-      const copyDatasMuseums = [...state.datasMuseums];
-      const datasMuseumsFiltered = copyDatasMuseums.filter(
-        (data) => data.identifiant_museofile !== payload
-      );
-      syncBothListMuseums(datasMuseumsFiltered);
+      const museumsCopy = deepCopy(state.museums);
+      const museumsFiltered = filterArrayById(museumsCopy, payload);
+      syncBothListMuseums(museumsFiltered);
     },
-    handleUpdateAMuseum: (state, { payload }) => {
-      const {
-        identifiant_museofile,
-        url_image,
-        nom_officiel_du_musee,
-        commune,
-      } = payload;
-      const copyDatasMuseums = [...state.datasMuseums];
-      const datasMuseumsListUpdated = copyDatasMuseums.map((data) => {
-        if (data.identifiant_museofile === identifiant_museofile) {
-          return {
-            ...data,
-            url_image: url_image,
-            nom_officiel_du_musee: nom_officiel_du_musee,
-            commune: commune,
-          };
-        } else {
-          return data;
-        }
-      });
-      syncBothListMuseums(datasMuseumsListUpdated);
+
+    handleUpdateMuseum: (state, { payload }) => {
+      const museumsCopy = deepCopy(state.museums);
+      const museumsUpdated = arrayUpdatedById(museumsCopy, payload);
+      syncBothListMuseums(museumsUpdated);
     },
+
     handleAddDataToUpdatedCard: (state, { payload }) => {
-      state.dataUpdatedCard = payload;
+      state.museumUpdated = payload;
     },
     handleRecoverDataAfterClick: (state, { payload }) => {
-      state.dataRecoveredAfterClickingOnACard = state.datasMuseums.find(
-        (data) => data.identifiant_museofile === payload
+      state.museumRecoveredAfterClickingOnACard = findObjectInArray(
+        state.museums,
+        payload
       );
     },
     handleRecoveredDataWithDatePicked: (state, { payload }) => {
@@ -112,82 +103,57 @@ export const museumsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getDatasMuseumsFromAPI.pending, (state) => {
+      .addCase(getMuseumsFromAPI.pending, (state) => {
         state.loadingDataFromAPI = true;
       })
-      .addCase(getDatasMuseumsFromAPI.fulfilled, (state, { payload }) => {
+      .addCase(getMuseumsFromAPI.fulfilled, (state, { payload }) => {
         state.loadingDataFromAPI = false;
-        state.datasMuseumsFromAPI = payload;
+        state.museumsFromAPI = payload;
       })
-      .addCase(getDatasMuseumsFromAPI.rejected, (state, action) => {
+      .addCase(getMuseumsFromAPI.rejected, (state, action) => {
         state.loadingDataFromAPI = false;
         state.error = action.error.message;
       })
       .addCase(handleAddItemToBasket, (state, { payload }) => {
-        const copyDatasMuseums = [...state.datasMuseums];
-        const datasMuseumsListUpdated = copyDatasMuseums.map((data) => {
-          if (data.identifiant_museofile === payload.identifiant_museofile) {
-            return {
-              ...data,
-              isAdded: true,
-            };
-          } else {
-            return data;
-          }
-        });
-        syncBothListMuseums(datasMuseumsListUpdated);
-      })
-      // .addCase(handleDeleteItemFromBasket, (state, { payload }) => {
-      //   const copyDatasMuseums = [...state.datasMuseums];
-      //   const datasMuseumsListUpdated = copyDatasMuseums.map((data) => {
-      //     if (data.identifiant_museofile === payload.identifiant_museofile) {
-      //       return {
-      //         ...data,
-      //         isAdded: false,
-      //       };
-      //     } else {
-      //       return data;
-      //     }
-      //   });
-      //   syncBothListMuseums(datasMuseumsListUpdated);
-      // });
+        const museumsCopy = deepCopy(state.museums);
+        const museumsUpdated = mapArrayForChangeAddedProperty(
+          museumsCopy,
+          payload.identifiant_museofile,
+          true
+        );
+        syncBothListMuseums(museumsUpdated);
+      });
   },
 });
 
-export function updateAddedPropertyForDatasMuseums(action) {
+export function updateAddedPropertyForMuseums(objectId) {
   return function (dispatch, getState) {
     const storeState = getState();
+    const { basket } = storeState.basket;
+    const { museums } = storeState.museums;
 
-    const isPresentToBasket = storeState.basket.datasListOfBasket?.find(
-      (data) => data.identifiant_museofile === action
-    );
+    const isPresentToBasket = findObjectInArray(basket, objectId);
+
     if (!isPresentToBasket) {
-      const datasMuseumsListUpdated = storeState.museums.datasMuseums.map(
-        (data) => {
-          if (data.identifiant_museofile === action) {
-            return {
-              ...data,
-              isAdded: false,
-            };
-          } else {
-            return data;
-          }
-        }
+      const museumsListUpdated = mapArrayForChangeAddedProperty(
+        museums,
+        objectId,
+        false
       );
-      syncBothListMuseums(datasMuseumsListUpdated);
+      syncBothListMuseums(museumsListUpdated);
     }
   };
 }
 
 export const {
-  setDatasMuseums,
-  setDatasMuseumsFromAPI,
+  setMuseums,
+  setMuseumsFromAPI,
   handleRecoverOneMuseumDataFromAPI,
   setSearch,
   handleAddMuseum,
   handleDeleteMuseum,
   handleAddDataToUpdatedCard,
-  handleUpdateAMuseum,
+  handleUpdateMuseum,
   handleRecoverDataAfterClick,
   handleRecoveredDataWithDatePicked,
   setDataSettings,

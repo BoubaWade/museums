@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import defaultImage from "../../../assets/images/default-image-museum.jpeg"
 
-export default function ImageAndTitle({ datas }) {
-  const { url_image, nom_officiel_du_musee } = datas;
+export default function ImageAndTitle({ museumRecovered }) {
+  const { url_image, nom_officiel_du_musee } = museumRecovered;
 
   return (
     <ImageAndTitleStyled>

@@ -14,6 +14,7 @@ export default function PrincipalContent() {
     isNavSwitchButtonActived,
     isMainSwitchButtonActived,
     showModalCalendar,
+    isMuseumsRended,
   } = useSelector((state) => state.displaySettings);
   const dispatch = useDispatch();
 
@@ -35,7 +36,7 @@ export default function PrincipalContent() {
           onClick={() => dispatch(setIsBasketDisplayed(true))}
         />
       )}
-      {isMainSwitchButtonActived ? <SearchSection /> : <CardContainer />}
+      {isMainSwitchButtonActived ? <SearchSection /> : isMuseumsRended&&<CardContainer />}
       {showModalCalendar && <ModalCalendar />}
     </PrincipalContentStyled>
   );

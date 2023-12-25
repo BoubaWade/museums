@@ -6,28 +6,21 @@ import InformationsContent from "./InformationsContent";
 import MappingContent from "./MappingContent";
 
 export default function MainEachMuseumPage() {
-  const datasMuseumRecovered = useSelector(
-    (state) => state.museums.dataRecoveredAfterClickingOnACard
+  const museumRecovered = useSelector(
+    (state) => state.museums.museumRecoveredAfterClickingOnACard
   );
-
-  // const { datasListOfBasket } = useSelector(
-  //   (state) => state.basket
-  // );
-
   const navigate = useNavigate();
-  // if (datasMuseum) {
-  //   localStorage.setItem("datasMuseumRecovered", datasMuseumRecovered);
-  // }
-  if (!datasMuseumRecovered) {
+
+  if (!museumRecovered) {
     navigate("/profile/profile-home");
     return;
   }
 
   return (
     <MainEachMuseumPageStyled>
-      <PrincipalContent datasMuseumRecovered={datasMuseumRecovered} />
-      <InformationsContent datasMuseumRecovered={datasMuseumRecovered} />
-      <MappingContent datasMuseumRecovered={datasMuseumRecovered} />
+      <PrincipalContent museumRecovered={museumRecovered} />
+      <InformationsContent museumRecovered={museumRecovered} />
+      <MappingContent museumRecovered={museumRecovered} />
     </MainEachMuseumPageStyled>
   );
 }

@@ -1,48 +1,33 @@
 import "react-calendar/dist/Calendar.css";
 import "react-date-picker/dist/DatePicker.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Calendar from "react-calendar";
 import DatePicker from "react-date-picker";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import handleAddDatePickedOnRecoverData, {
-  handleRecoveredDataWithDatePicked,
-} from "../../features/profile/museumsSlice";
 import {
   addOneMuseumToBasket,
-  handleAddItemToBasket,
-  handleRecoverDatePicked,
   setIsReserved,
 } from "../../features/profile/basketSlice";
 import CalendarValidationButton from "../reusable-ui/CalendarValidationButton.jsx";
 import { getFormatedDate } from "../../utils/utils";
 import { setIsBasketDisplayed } from "../../features/profile/displaySettingsSlice.js";
 
-export default function CalendarContent({ datasMuseumRecovered }) {
-  const { datasListOfBasket, isReserved } = useSelector(
-    (state) => state.basket
-  );
+export default function CalendarContent({ museumRecovered }) {
+  const { isReserved } = useSelector((state) => state.basket);
   const [value, onChange] = useState(new Date());
   const [showCalendar, setShowCalendar] = useState(false);
   const dispatch = useDispatch();
 
   const dateFormated = getFormatedDate(value);
-  const datasRecoveredWithDatePicked = {
-    ...datasMuseumRecovered,
+  const museumWithDatePicked = {
+    ...museumRecovered,
     datePicked: dateFormated,
   };
 
-  const handleValidateDatePicked = async () => {
-    if (!datasListOfBasket?.includes(datasRecoveredWithDatePicked)) {
-      dispatch(setIsBasketDisplayed(true));
-      // dispatch(handleAddItemToBasket(datasRecoveredWithDatePicked));
-
-      dispatch(
-        addOneToBasket(await datasRecoveredWithDatePicked.identifiant_museofile)
-      );
-      // dispatch(handleRecoveredDataWithDatePicked(datasRecoveredWithDatePicked));
-      // dispatch(handleRecoverDatePicked(dateFormated));
-    }
+  const handleValidateDatePicked = () => {
+    dispatch(addOneMuseumToBasket(museumWithDatePicked.identifiant_museofile));
+    dispatch(setIsBasketDisplayed(true));
 
     setShowCalendar(false);
     dispatch(setIsReserved(true));

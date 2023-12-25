@@ -2,23 +2,21 @@ import styled from "styled-components";
 import BasketItem from "./BasketItem.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { setDatasListOfBasket } from "../../../features/profile/basketSlice.js";
+import { setBasket } from "../../../features/profile/basketSlice.js";
 
 export default function BasketList() {
-  const { datasListOfBasket } = useSelector((state) => state.basket);
+  const { basket } = useSelector((state) => state.basket);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const datasBasketListFromLocalStorage = JSON.parse(
-      localStorage.getItem("Basket")
-    );
-    dispatch(setDatasListOfBasket(datasBasketListFromLocalStorage));
-  }, []);
+  // useEffect(() => {
+  //   const basketLocalStorage = localStorage.getItem("Basket");
+  //   dispatch(setBasket(JSON.parse(basketLocalStorage)));
+  // }, []);
 
   return (
     <BasketListStyled>
-      {datasListOfBasket.length > 0 ? (
-        datasListOfBasket.map((data) => {
+      {basket.length > 0 ? (
+        basket.map((data) => {
           return <BasketItem key={data.identifiant_museofile} data={data} />;
         })
       ) : (

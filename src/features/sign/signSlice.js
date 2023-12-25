@@ -32,7 +32,7 @@ export const getSignInWithEmailAndPassword = createAsyncThunk(
         credentials.password
       );
       dispatch(setCurrentUser(userCredential.user.providerData[0]));
-      // createDatasMuseumsInFirestore(museumsFakeDatas);
+      // createMuseumsInFirestore(museumsFakeDatas);
       const { accessToken, email } = userCredential.user;
       localStorage.setItem("token", accessToken);
       localStorage.setItem("email", email);

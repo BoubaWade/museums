@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import {
   setIsDisplayUpdateCardModal,
+  setIsMuseumsRendered,
   setShowModalCalendar,
 } from "../../../../features/profile/displaySettingsSlice";
 import {
@@ -20,6 +21,7 @@ export default function CardButtons({ data }) {
   const handleShowModalCalendarAndDispatchDataOfTheCard = (e) => {
     dispatch(setShowModalCalendar(true));
     dispatch(handleRecoverDataAfterClick(e.target.parentNode.id));
+    dispatch(setIsMuseumsRendered(false))
   };
 
   const handleAddDataUpdatedAndOpenModal = () => {

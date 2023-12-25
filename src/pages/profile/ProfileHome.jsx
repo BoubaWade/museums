@@ -4,8 +4,10 @@ import UpdateCardModal from "../../components/updateCardModal/UpdateCardModal.js
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { useEffect } from "react";
-import { getDatasMuseumsInFirestore } from "../../Firebase/firebaseUtilities.jsx";
-import { setDatasMuseums } from "../../features/profile/museumsSlice.js";
+import { getMuseumsInFirestore } from "../../Firebase/firebaseUtilities.jsx";
+import { setMuseums } from "../../features/profile/museumsSlice.js";
+import { setBasket } from "../../features/profile/basketSlice.js";
+import { getLocalStorage } from "../../utils/utils.js";
 
 export default function ProfileHome() {
   const { isDisplayUpdateCardModal } = useSelector(
@@ -13,15 +15,21 @@ export default function ProfileHome() {
   );
   const dispatch = useDispatch();
 
-  const getInitialMuseumsList = async () => {
-    const museumsList = await getDatasMuseumsInFirestore();
-    if (museumsList) {
-      dispatch(setDatasMuseums(museumsList));
-    }
+  const initialiseMuseumsList = async () => {
+    const museumsList = await getMuseumsInFirestore();
+    if (museumsList) dispatch(setMuseums(museumsList));
+  };
+  const initialiseBasketList = async () => {
+    const basketLocalStorage = getLocalStorage("Basket");
+    dispatch(setBasket(basketLocalStorage));
+  };
+  const initialiseBasketAndMuseums = async () => {
+    await initialiseMuseumsList();
+    initialiseBasketList();
   };
 
   useEffect(() => {
-    getInitialMuseumsList();
+    initialiseBasketAndMuseums();
   }, []);
 
   return (

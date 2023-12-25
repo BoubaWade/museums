@@ -8,8 +8,8 @@ import { useState } from "react";
 import { setIsDisplayUpdateCardModal } from "../../features/profile/displaySettingsSlice";
 
 export default function UpdateCardModal() {
-  const dataUpdatedCard = useSelector((state) => state.museums.dataUpdatedCard);
-  const [cardDatas, setCardDatas] = useState(dataUpdatedCard);
+  const museumUpdated = useSelector((state) => state.museums.museumUpdated);
+  const [cardDatas, setCardDatas] = useState(museumUpdated);
   const { url_image, nom_officiel_du_musee, commune } = cardDatas;
   const dispatch = useDispatch();
 

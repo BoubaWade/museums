@@ -6,11 +6,11 @@ import CardButtons from "./CardButtons";
 import {
   handleDeleteMuseum,
   handleRecoverDataAfterClick,
-  setDatasMuseums,
+  setMuseums,
 } from "../../../../features/profile/museumsSlice";
 import { deleteOneToBasket } from "../../../../features/profile/basketSlice";
 import { setIsDetailsPanelDisplayed } from "../../../../features/profile/displaySettingsSlice";
-import { getDatasMuseumsInFirestore } from "../../../../Firebase/firebaseUtilities";
+import { getMuseumsInFirestore } from "../../../../Firebase/firebaseUtilities";
 
 export default function Card({ data }) {
   const { identifiant_museofile, url_image, nom_officiel_du_musee, commune } =
@@ -33,8 +33,8 @@ export default function Card({ data }) {
   const handleClickToDeleteMuseum = async (e) => {
     e.stopPropagation();
     dispatch(handleDeleteMuseum(identifiant_museofile));
-    const museumsList = await getDatasMuseumsInFirestore();
-    dispatch(setDatasMuseums(museumsList));
+    const museumsList = await getMuseumsInFirestore();
+    dispatch(setMuseums(museumsList));
 
     dispatch(deleteOneToBasket(identifiant_museofile));
   };

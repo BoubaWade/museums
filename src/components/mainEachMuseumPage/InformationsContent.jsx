@@ -2,7 +2,7 @@ import styled from "styled-components";
 import ListMuseumInfos from "../reusable-ui/ListMuseumInfos";
 import CalendarContent from "./CalendarContent";
 
-export default function InformationsContent({ datasMuseumRecovered }) {
+export default function InformationsContent({ museumRecovered }) {
   return (
     <InformationsContentStyled>
       <h3>Informations</h3>
@@ -12,8 +12,8 @@ export default function InformationsContent({ datasMuseumRecovered }) {
           autem officia consequuntur placeat quia optio facilis aliquam
           dignissimos tenetur, consectetur ipsam maxime rerum rem ipsa?
         </p>
-        <ListMuseumInfos datas={datasMuseumRecovered} />
-        <CalendarContent datasMuseumRecovered={datasMuseumRecovered} />
+        <ListMuseumInfos museumRecovered={museumRecovered} />
+        <CalendarContent museumRecovered={museumRecovered} />
       </div>
     </InformationsContentStyled>
   );

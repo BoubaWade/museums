@@ -6,53 +6,41 @@ import Calendar from "react-calendar";
 import DatePicker from "react-date-picker";
 import { useState } from "react";
 import { TiDelete } from "react-icons/ti";
-import {
-  setIsBasketDisplayed,
-  setShowModalCalendar,
-} from "../../../../features/profile/displaySettingsSlice.js";
+import { setIsMuseumsRendered, setShowModalCalendar } from "../../../../features/profile/displaySettingsSlice.js";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addOneMuseumToBasket,
-  setIsReserved,
-} from "../../../../features/profile/basketSlice.js";
+import { addOneMuseumToBasket } from "../../../../features/profile/basketSlice.js";
 import CalendarValidationButton from "../../../reusable-ui/CalendarValidationButton.jsx";
 import { getFormatedDate } from "../../../../utils/utils.js";
-import { getDatasMuseumsInFirestore } from "../../../../Firebase/firebaseUtilities.jsx";
-import { setDatasMuseums } from "../../../../features/profile/museumsSlice.js";
+import { getMuseumsInFirestore } from "../../../../Firebase/firebaseUtilities.jsx";
+import { setMuseums } from "../../../../features/profile/museumsSlice.js";
+import useModalCalendarValidation from "../../../../hooks/useModalCalendarValidation.js";
 
 export default function ModalCalendar() {
-  const { dataRecoveredAfterClickingOnACard } = useSelector(
+  const { museumRecoveredAfterClickingOnACard } = useSelector(
     (state) => state.museums
   );
-
   const { isReserved } = useSelector((state) => state.basket);
   const [value, onChange] = useState(new Date());
-  const dispatch = useDispatch();
   const dateFormated = getFormatedDate(value);
+  const dispatch = useDispatch();
 
-  const datasRecoveredWithDatePicked = {
-    ...dataRecoveredAfterClickingOnACard,
+  const datasWithDatePicked = {
+    ...museumRecoveredAfterClickingOnACard,
     datePicked: dateFormated,
   };
 
   const handleAddItemAndOpenBasket = async () => {
-    dispatch(
-      addOneMuseumToBasket(datasRecoveredWithDatePicked.identifiant_museofile)
-    );
-    const museumsList = await getDatasMuseumsInFirestore();
+    dispatch(addOneMuseumToBasket(datasWithDatePicked.identifiant_museofile));
+    const museumsList = await getMuseumsInFirestore();
     if (museumsList) {
-      dispatch(setDatasMuseums(museumsList));
+      dispatch(setMuseums(museumsList));
     }
-
-    dispatch(setIsBasketDisplayed(true));
-
-    dispatch(setShowModalCalendar(true));
-    dispatch(setIsReserved(true));
-    setTimeout(() => {
-      dispatch(setShowModalCalendar(false));
-      dispatch(setIsReserved(false));
-    }, 1000);
+    useModalCalendarValidation(dispatch);
   };
+  const handleCloseModalCalendar=()=>{
+    dispatch(setIsMuseumsRendered(true))
+    dispatch(setShowModalCalendar(false))
+  }
 
   return (
     <ModalCalendarStyled>
@@ -61,7 +49,7 @@ export default function ModalCalendar() {
         <TiDelete
           className="close-modal"
           tabIndex={0}
-          onClick={() => dispatch(setShowModalCalendar(false))}
+          onClick={handleCloseModalCalendar}
         />
         <DatePicker
           onChange={onChange}

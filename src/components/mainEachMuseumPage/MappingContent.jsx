@@ -2,8 +2,8 @@ import styled from "styled-components";
 import "leaflet/dist/leaflet.css";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 
-export default function MappingContent({ datasMuseumRecovered }) {
-  const { nom_officiel_du_musee, latitude, longitude } = datasMuseumRecovered;
+export default function MappingContent({ museumRecovered }) {
+  const { nom_officiel_du_musee, latitude, longitude } = museumRecovered;
   return (
     <MappingContentStyled>
       <MapContainer

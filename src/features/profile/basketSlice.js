@@ -1,26 +1,30 @@
 import { createSlice } from "@reduxjs/toolkit";
+import {
+  deepCopy,
+  filterArrayById,
+  findObjectInArray,
+  setLocalStorage,
+} from "../../utils/utils";
 
 export const basketSlice = createSlice({
   name: "basket",
   initialState: {
-    datasListOfBasket: [],
+    basket: [],
     datePicked: "",
     isReserved: false,
   },
   reducers: {
-    setDatasListOfBasket: (state, { payload }) => {
-      state.datasListOfBasket = payload;
+    setBasket: (state, { payload }) => {
+      state.basket = payload;
     },
     handleAddItemToBasket: (state, { payload }) => {
-      state.datasListOfBasket.push(payload);
-      localStorage.setItem("Basket", JSON.stringify(state.datasListOfBasket));
+      state.basket.push(payload);
+      setLocalStorage("Basket", state.basket);
     },
     handleDeleteItemFromBasket: (state, { payload }) => {
-      const copyDatasBasket = [...state.datasListOfBasket];
-      const datasListOfBasketUpdated = copyDatasBasket.filter(
-        (data) => data.identifiant_museofile !== payload
-      );
-      localStorage.setItem("Basket", JSON.stringify(datasListOfBasketUpdated));
+      const basketCopy = deepCopy(state.basket);
+      const basketUpdated = filterArrayById(basketCopy, payload);
+      setLocalStorage("Basket", basketUpdated);
     },
     handleRecoverDatePicked: (state, { payload }) => {
       state.datePicked = payload;
@@ -34,14 +38,12 @@ export const basketSlice = createSlice({
 export function addOneMuseumToBasket(action) {
   return function (dispatch, getState) {
     const storeState = getState();
+    const { basket } = storeState.basket;
+    const isPresentToBasket = findObjectInArray(basket, action);
 
-    const isPresentToBasket = storeState.basket.datasListOfBasket.find(
-      (data) => data.identifiant_museofile === action
-    );
     if (!isPresentToBasket) {
-      const itemToAdd = storeState.museums.datasMuseums.find(
-        (data) => data.identifiant_museofile === action
-      );
+      const { museums } = storeState.museums;
+      const itemToAdd = findObjectInArray(museums, action);
       dispatch(handleAddItemToBasket(itemToAdd));
     }
   };
@@ -50,25 +52,23 @@ export function addOneMuseumToBasket(action) {
 export function deleteOneToBasket(action) {
   return function (dispatch, getState) {
     const storeState = getState();
+    const { museums } = storeState.museums;
+    const isPresentToMuseums = findObjectInArray(museums, action);
 
-    const isPresentToMuseums = storeState.museums.datasMuseums?.find(
-      (data) => data.identifiant_museofile === action
-    );
     if (!isPresentToMuseums) {
-      const itemToDelete = storeState.basket.datasListOfBasket.find(
-        (data) => data.identifiant_museofile === action
-      );
+      const { basket } = storeState.basket;
+      const itemToDelete = findObjectInArray(basket, action);
+
       if (itemToDelete) {
-        dispatch(
-          handleDeleteItemFromBasket(itemToDelete?.identifiant_museofile)
-        );
+        const { identifiant_museofile } = itemToDelete;
+        dispatch(handleDeleteItemFromBasket(identifiant_museofile));
       }
     }
   };
 }
 
 export const {
-  setDatasListOfBasket,
+  setBasket,
   handleAddItemToBasket,
   handleDeleteItemFromBasket,
   handleRecoverDatePicked,

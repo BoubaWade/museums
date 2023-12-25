@@ -1,20 +1,20 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { getDatasMuseumsFromAPI } from "../../../../features/profile/museumsSlice";
-import { getDatasMuseumsFiltered } from "../../../../utils/utils";
+import { getMuseumsFromAPI } from "../../../../features/profile/museumsSlice";
+import { getMuseumsFiltered } from "../../../../utils/utils";
 import TableRow from "./TableRow";
 
 export default function Table() {
-  const { datasMuseumsFromAPI, search } = useSelector((state) => state.museums);
+  const { museumsFromAPI, search } = useSelector((state) => state.museums);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getDatasMuseumsFromAPI());
+    dispatch(getMuseumsFromAPI());
   }, []);
 
-  const datasMuseumsFiltered = getDatasMuseumsFiltered(
-    datasMuseumsFromAPI,
+  const museumsFiltered = getMuseumsFiltered(
+    museumsFromAPI,
     search
   );
 
@@ -27,7 +27,7 @@ export default function Table() {
           <th>Commune</th>
           <th>Département</th>
         </tr>
-        {datasMuseumsFiltered?.map((data) => (
+        {museumsFiltered?.map((data) => (
           <TableRow key={data.identifiant_museofile} data={data} />
         ))}
       </tbody>

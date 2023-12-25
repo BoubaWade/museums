@@ -5,13 +5,13 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 export default function EachMuseumPage() {
-  const datasMuseum = useSelector(
-    (state) => state.museums.dataRecoveredAfterClickingOnACard
+  const museumRecovered = useSelector(
+    (state) => state.museums.museumRecoveredAfterClickingOnACard
   );
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!datasMuseum) {
+    if (!museumRecovered) {
       navigate("/profile/profile-home");
     }
   }, []);

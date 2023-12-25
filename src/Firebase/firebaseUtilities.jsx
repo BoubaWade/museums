@@ -24,7 +24,7 @@ export const signIn = async (email, password) => {
   return userCredential;
 };
 
-export const createDatasMuseumsInFirestore = (data) => {
+export const createMuseumsInFirestore = (data) => {
   const documentReference = doc(db, "ListMuseums", DOC_ID);
   const newDocument = {
     docId: DOC_ID,
@@ -33,7 +33,7 @@ export const createDatasMuseumsInFirestore = (data) => {
   setDoc(documentReference, newDocument);
 };
 
-export const getDatasMuseumsInFirestore = async () => {
+export const getMuseumsInFirestore = async () => {
   const documentRef = doc(db, "ListMuseums", DOC_ID);
   const docSnapshot = await getDoc(documentRef);
 
