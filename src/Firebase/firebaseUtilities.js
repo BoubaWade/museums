@@ -68,7 +68,7 @@ export const initialiseMyListMuseumsInFirestore = async (userEmail) => {
 //   setDoc(documentReference, newDocument);
 // };
 export const syncBothMuseums = (museumsUpdated) => {
-  const userEmail = localStorage.getItem ("email");
+  const userEmail = localStorage.getItem("email");
   const documentReference = doc(db, "ListMuseums", userEmail);
   const newDocument = {
     docId: userEmail,

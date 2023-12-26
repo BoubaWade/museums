@@ -4,7 +4,7 @@ import UpdateCardModal from "../../components/updateCardModal/UpdateCardModal.js
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { useEffect } from "react";
-import { getMuseumsInFirestore } from "../../Firebase/firebaseUtilities.jsx";
+import { getMuseumsInFirestore } from "../../Firebase/firebaseUtilities.js";
 import { setMuseums } from "../../features/profile/museumsSlice.js";
 import { setBasket } from "../../features/profile/basketSlice.js";
 import { getLocalStorage } from "../../utils/utils.js";

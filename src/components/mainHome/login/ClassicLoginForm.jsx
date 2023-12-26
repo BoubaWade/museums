@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { getSignInWithEmailAndPassword } from "../../../features/sign/signSlice";
 import { inputFieldsSignIn } from "../../../config/config.js";
 import InputLogIn from "./InputLogIn.jsx";
-import { initialiseMyListMuseumsInFirestore } from "../../../Firebase/firebaseUtilities.jsx";
+import { initialiseMyListMuseumsInFirestore } from "../../../Firebase/firebaseUtilities.js";
 
 export default function ClassicLoginForm() {
   const { userEmail, errorLogin } = useSelector((state) => state.sign);

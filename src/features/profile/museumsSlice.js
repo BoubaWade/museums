@@ -37,7 +37,7 @@ export const museumsSlice = createSlice({
     museumRecoveredAfterClick: {},
     search: "",
     museumUpdated: {},
-    museumRecoveredAfterClickingOnACard: null,
+    museumRecovered: null,
     dataSettings: {},
     selectedFile: null,
     dataRecoveredWithDatePicked: {},
@@ -86,7 +86,7 @@ export const museumsSlice = createSlice({
       state.museumUpdated = payload;
     },
     handleRecoverDataAfterClick: (state, { payload }) => {
-      state.museumRecoveredAfterClickingOnACard = findObjectInArray(
+      state.museumRecovered = findObjectInArray(
         state.museums,
         payload
       );
