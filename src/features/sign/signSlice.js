@@ -2,11 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 // import { onAuthStateChanged } from "firebase/auth";
 // import { auth } from "../../Firebase/firebase-config";
-import {
-  getMuseumsInFirestore,
-  initialiseMyListMuseumsInFirestore,
-  signIn,
-} from "../../Firebase/firebaseUtilities";
+import { signIn } from "../../Firebase/firebaseUtilities";
 
 // export const checkAuthState = createAsyncThunk(
 //   "checkAuth/checkAuthState",

@@ -3,7 +3,7 @@ import "leaflet/dist/leaflet.css";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 
 export default function MappingContent({ museumRecovered }) {
-  const { nom_officiel_du_musee, latitude, longitude } = museumRecovered;
+  const { nom, latitude, longitude } = museumRecovered;
   return (
     <MappingContentStyled>
       <MapContainer
@@ -16,7 +16,7 @@ export default function MappingContent({ museumRecovered }) {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <Marker position={[latitude, longitude]}>
-          <Popup>{nom_officiel_du_musee.toUpperCase()}.</Popup>
+          <Popup>{nom.toUpperCase()}.</Popup>
         </Marker>
       </MapContainer>
     </MappingContentStyled>

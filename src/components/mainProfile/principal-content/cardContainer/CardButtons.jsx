@@ -12,7 +12,7 @@ import {
 import PrimaryButton from "../../../reusable-ui/PrimaryButton";
 
 export default function CardButtons({ data }) {
-  const { identifiant_museofile, isAdded } = data;
+  const { id, isAdded } = data;
   const { isNavSwitchButtonActived } = useSelector(
     (state) => state.displaySettings
   );
@@ -21,7 +21,7 @@ export default function CardButtons({ data }) {
   const handleShowModalCalendarAndDispatchDataOfTheCard = (e) => {
     dispatch(setShowModalCalendar(true));
     dispatch(handleRecoverDataAfterClick(e.target.parentNode.id));
-    dispatch(setIsMuseumsRendered(false))
+    dispatch(setIsMuseumsRendered(false));
   };
 
   const handleAddDataUpdatedAndOpenModal = () => {
@@ -33,7 +33,7 @@ export default function CardButtons({ data }) {
     <CardButtonsStyled>
       {!isNavSwitchButtonActived ? (
         <PrimaryButton
-          id={identifiant_museofile}
+          id={id}
           className={isAdded ? "confirm-add" : "add-button"}
           label={isAdded ? "Déja ajouté !" : "Réserver"}
           onClick={(e) => handleShowModalCalendarAndDispatchDataOfTheCard(e)}

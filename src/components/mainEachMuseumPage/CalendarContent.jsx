@@ -26,7 +26,7 @@ export default function CalendarContent({ museumRecovered }) {
   };
 
   const handleValidateDatePicked = () => {
-    dispatch(addOneMuseumToBasket(museumWithDatePicked.identifiant_museofile));
+    dispatch(addOneMuseumToBasket(museumWithDatePicked.id));
     dispatch(setIsBasketDisplayed(true));
 
     setShowCalendar(false);

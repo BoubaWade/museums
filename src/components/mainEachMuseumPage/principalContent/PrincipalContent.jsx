@@ -4,7 +4,7 @@ import Counter from "./Counter";
 import defaultImage from "../../../assets/images/default-image-museum.jpeg";
 
 export default function PrincipalContent({ museumRecovered }) {
-  const { url_image, nom_officiel_du_musee } = museumRecovered;
+  const { url_image, nom } = museumRecovered;
 
   const handleRedirectToWebSite = (url) => {
     // if (url.startsWith("http")) {
@@ -16,7 +16,7 @@ export default function PrincipalContent({ museumRecovered }) {
       <img src={url_image ? url_image : defaultImage} className="bg-image" />
       <div className="header">
         <div className="title-buttons">
-          <h2>{nom_officiel_du_musee.toUpperCase()}</h2>
+          <h2>{nom.toUpperCase()}</h2>
           <Counter />
           <PrimaryButton
             label="Accéder au site du musée"

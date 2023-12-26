@@ -24,7 +24,8 @@ export default function ModalCalendar() {
     </ModalCalendarStyled>
   );
 }
-
+const animationModalCalendar = keyframes`
+`;
 const ModalCalendarStyled = styled.div`
   display: flex;
   justify-content: center;

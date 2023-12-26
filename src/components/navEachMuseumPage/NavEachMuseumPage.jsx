@@ -19,7 +19,7 @@ export default function NavEachMuseumPage() {
     <NavEachMuseumPageStyled>
       <div className="logo-container">
         <GiElvenCastle className="icon-logo" />
-        <h1>{museumRecovered?.nom_officiel_du_musee}</h1>
+        <h1>{museumRecovered?.nom}</h1>
       </div>
       <PrimaryButton
         label="Retour "
@@ -43,7 +43,7 @@ const NavEachMuseumPageStyled = styled.nav`
     .icon-logo {
       font-size: 35px;
       color: #b659b6;
-      margin-top:10px;
+      margin-top: 10px;
       margin-left: 50px;
     }
     h1 {

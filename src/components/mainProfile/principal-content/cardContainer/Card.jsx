@@ -14,8 +14,7 @@ import { getMuseumsInFirestore } from "../../../../Firebase/firebaseUtilities";
 
 export default function Card({ data }) {
   const userEmail = localStorage.getItem("email");
-  const { identifiant_museofile, url_image, nom_officiel_du_musee, commune } =
-    data;
+  const { id, url_image, nom, commune } = data;
   const { isNavSwitchButtonActived, isDetailsPanelDisplayed } = useSelector(
     (state) => state.displaySettings
   );
@@ -33,11 +32,11 @@ export default function Card({ data }) {
 
   const handleClickToDeleteMuseum = async (e) => {
     e.stopPropagation();
-    dispatch(handleDeleteMuseum(identifiant_museofile));
+    dispatch(handleDeleteMuseum(id));
     const museumsList = await getMuseumsInFirestore(userEmail);
     dispatch(setMuseums(museumsList));
 
-    dispatch(deleteOneToBasket(identifiant_museofile));
+    dispatch(deleteOneToBasket(id));
   };
 
   const cardBackground = {
@@ -46,7 +45,7 @@ export default function Card({ data }) {
 
   return (
     <CardStyled
-      onClick={(e) => handleClickOnACardBody(e, identifiant_museofile)}
+      onClick={(e) => handleClickOnACardBody(e, id)}
       style={cardBackground}
     >
       {isNavSwitchButtonActived && (
@@ -55,11 +54,7 @@ export default function Card({ data }) {
           onClick={(e) => handleClickToDeleteMuseum(e)}
         />
       )}
-      <InfosCard
-        image={url_image}
-        name={nom_officiel_du_musee}
-        city={commune}
-      />
+      <InfosCard image={url_image} name={nom} city={commune} />
       <CardButtons data={data} />
     </CardStyled>
   );

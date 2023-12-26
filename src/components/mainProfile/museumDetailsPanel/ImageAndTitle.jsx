@@ -1,13 +1,16 @@
 import styled from "styled-components";
-import defaultImage from "../../../assets/images/default-image-museum.jpeg"
+import defaultImage from "../../../assets/images/default-image-museum.jpeg";
 
 export default function ImageAndTitle({ museumRecovered }) {
-  const { url_image, nom_officiel_du_musee } = museumRecovered;
+  const { url_image, nom } = museumRecovered;
 
   return (
     <ImageAndTitleStyled>
-      <img src={url_image? url_image : defaultImage} className="miniature-image" />
-      <p className="title">{nom_officiel_du_musee?.toUpperCase()}</p>
+      <img
+        src={url_image ? url_image : defaultImage}
+        className="miniature-image"
+      />
+      <p className="title">{nom?.toUpperCase()}</p>
     </ImageAndTitleStyled>
   );
 }

@@ -13,10 +13,7 @@ export default function Table() {
     dispatch(getMuseumsFromAPI());
   }, []);
 
-  const museumsFiltered = getMuseumsFiltered(
-    museumsFromAPI,
-    search
-  );
+  const museumsFiltered = getMuseumsFiltered(museumsFromAPI, search);
 
   return (
     <TableStyled>
@@ -28,7 +25,7 @@ export default function Table() {
           <th>Département</th>
         </tr>
         {museumsFiltered?.map((data) => (
-          <TableRow key={data.identifiant_museofile} data={data} />
+          <TableRow key={data.id} data={data} />
         ))}
       </tbody>
     </TableStyled>

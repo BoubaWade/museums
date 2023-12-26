@@ -15,7 +15,7 @@ import { getLocalStorage } from "../../../utils/utils";
 const NUMBER_OF_MILLISECOND_IN_ONE_MINUTE = 60000;
 
 export default function BasketItem({ data }) {
-  const { identifiant_museofile, nom_officiel_du_musee, commune } = data;
+  const { id, nom, commune } = data;
   // const datePicked = useSelector((state) => state.basket.datePicked);
   const { dataRecoveredWithDatePicked } = useSelector((state) => state.museums);
   const userEmail = localStorage.getItem("email");
@@ -31,10 +31,10 @@ export default function BasketItem({ data }) {
   }, []);
 
   const handleDeleteBasketItem = async () => {
-    dispatch(handleDeleteItemFromBasket(identifiant_museofile));
+    dispatch(handleDeleteItemFromBasket(id));
     const basketLocalStorage = getLocalStorage("Basket");
     if (basketLocalStorage) dispatch(setBasket(basketLocalStorage));
-    dispatch(updateAddedPropertyForMuseums(identifiant_museofile));
+    dispatch(updateAddedPropertyForMuseums(id));
 
     const museumsList = await getMuseumsInFirestore(userEmail);
     if (museumsList) {
@@ -45,7 +45,7 @@ export default function BasketItem({ data }) {
 
   return (
     <BasketItemStyled>
-      <h3>{nom_officiel_du_musee.toUpperCase()}</h3>
+      <h3>{nom.toUpperCase()}</h3>
       <p>{commune}</p>
       <MdDelete className="icon-delete" onClick={handleDeleteBasketItem} />
       <span className="minutes-elapsed">
@@ -53,8 +53,7 @@ export default function BasketItem({ data }) {
         {minutesElapsed === 1 ? " 1 minute" : ` ${minutesElapsed} minutes`}
       </span>
       <div>
-        {data.identifiant_museofile ===
-          dataRecoveredWithDatePicked.identifiant_museofile && (
+        {data.id === dataRecoveredWithDatePicked.id && (
           <span>{dataRecoveredWithDatePicked.datePicked}</span>
         )}
       </div>

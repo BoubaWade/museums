@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { handleAddItemToBasket } from "./basketSlice";
 import {
-  addPropertyToDataFetched,
   arrayUpdatedById,
   deepCopy,
   filterArrayById,
   findObjectInArray,
+  handleRenameKeysObjectOfArray,
   mapArrayForChangeAddedProperty,
 } from "../../utils/utils";
 import { syncBothMuseums } from "../../Firebase/firebaseUtilities";
@@ -18,8 +18,8 @@ export const getMuseumsFromAPI = createAsyncThunk(
     )
       .then((res) => res.json())
       .then((response) => {
-        const datas = addPropertyToDataFetched(response.results);
-        dispatch(setMuseumsFromAPI(datas));
+        const responseUpdated = handleRenameKeysObjectOfArray(response.results);
+        dispatch(setMuseumsFromAPI(responseUpdated));
       })
       .catch((error) => {
         console.log(error);
@@ -60,10 +60,7 @@ export const museumsSlice = createSlice({
     },
 
     handleAddMuseum: (state, { payload }) => {
-      const isPresentToMuseums = findObjectInArray(
-        state.museums,
-        payload.identifiant_museofile
-      );
+      const isPresentToMuseums = findObjectInArray(state.museums, payload.id);
       if (!isPresentToMuseums) {
         state.museums?.unshift(payload);
         syncBothMuseums(state.museums);
@@ -86,10 +83,7 @@ export const museumsSlice = createSlice({
       state.museumUpdated = payload;
     },
     handleRecoverDataAfterClick: (state, { payload }) => {
-      state.museumRecovered = findObjectInArray(
-        state.museums,
-        payload
-      );
+      state.museumRecovered = findObjectInArray(state.museums, payload);
     },
     handleRecoveredDataWithDatePicked: (state, { payload }) => {
       state.dataRecoveredWithDatePicked = payload;
@@ -118,7 +112,7 @@ export const museumsSlice = createSlice({
         const museumsCopy = deepCopy(state.museums);
         const museumsUpdated = mapArrayForChangeAddedProperty(
           museumsCopy,
-          payload.identifiant_museofile,
+          payload.id,
           true
         );
         syncBothMuseums(museumsUpdated);

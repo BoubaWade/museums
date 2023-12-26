@@ -25,7 +25,7 @@ export default function CalendarContainer() {
     datePicked: dateFormated,
   };
   const handleAddItemAndOpenBasket = async () => {
-    dispatch(addOneMuseumToBasket(datasWithDatePicked.identifiant_museofile));
+    dispatch(addOneMuseumToBasket(datasWithDatePicked.id));
     const museumsList = await getMuseumsInFirestore(userEmail);
     dispatch(setMuseums(museumsList));
     useModalCalendarValidation(dispatch);

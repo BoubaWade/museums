@@ -1,19 +1,46 @@
 export const normalizeString = (input) => {
-  const normalizedString = input
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/\s/g, "");
+  if (input) {
+    const normalizedString = input
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/\s/g, "");
 
-  return normalizedString.toLowerCase();
+    return normalizedString.toLowerCase();
+  }
 };
 
-export function addPropertyToDataFetched(datas) {
-  return datas?.map((data) => ({
+export function handleRenameKeysObject(originalObject) {
+  const renamedKeysObject = Object.keys(originalObject).reduce((acc, key) => {
+    switch (key) {
+      case "identifiant_museofile":
+        acc.id = originalObject[key];
+        break;
+      case "nom_officiel_du_musee":
+        acc.nom = originalObject[key];
+        break;
+      default:
+        acc[key] = originalObject[key];
+        break;
+    }
+    return acc;
+  }, {});
+
+  return renamedKeysObject;
+}
+export function handleAddPropertyToObjectOfArray(array) {
+  return array?.map((data) => ({
     ...data,
     url_image: "",
     isAdded: false,
     isClicked: false,
   }));
+}
+export function handleRenameKeysObjectOfArray(array) {
+  const renamedKeysObjectsOfArray = array?.map((data) =>
+    handleRenameKeysObject(data)
+  );
+  const newArray = handleAddPropertyToObjectOfArray(renamedKeysObjectsOfArray);
+  return newArray;
 }
 
 export function deepCopy(originalArray) {
@@ -23,22 +50,18 @@ export function deepCopy(originalArray) {
 
 export function findObjectInArray(array, objectId) {
   if (array) {
-    const objectFinded = array.find(
-      (data) => data.identifiant_museofile === objectId
-    );
+    const objectFinded = array.find((data) => data.id === objectId);
 
     return objectFinded;
   }
 }
 export function filterArrayById(array, objectId) {
-  const arrayFiltered = array.filter(
-    (data) => data.identifiant_museofile !== objectId
-  );
+  const arrayFiltered = array.filter((data) => data.id !== objectId);
   return arrayFiltered;
 }
 export function mapArrayForChangeAddedProperty(array, objectId, isAdded) {
   const arrayMapped = array.map((data) => {
-    if (data.identifiant_museofile === objectId) {
+    if (data.id === objectId) {
       return {
         ...data,
         isAdded: isAdded,
@@ -51,14 +74,13 @@ export function mapArrayForChangeAddedProperty(array, objectId, isAdded) {
 }
 
 export function arrayUpdatedById(array, payload) {
-  const { identifiant_museofile, url_image, nom_officiel_du_musee, commune } =
-    payload;
+  const { id, url_image, nom, commune } = payload;
   const arrayUpdated = array.map((data) => {
-    if (data.identifiant_museofile === identifiant_museofile) {
+    if (data.id === id) {
       return {
         ...data,
         url_image: url_image,
-        nom_officiel_du_musee: nom_officiel_du_musee,
+        nom: nom,
         commune: commune,
       };
     } else {
@@ -72,13 +94,13 @@ export function setLocalStorage(key, value) {
   localStorage.setItem(key, JSON.stringify(value));
 }
 
-export function getLocalStorage (key) {
+export function getLocalStorage(key) {
   return JSON.parse(localStorage.getItem(key));
 }
 
 export function getMuseumsFiltered(datas, search) {
   return datas?.filter((data) => {
-    const nameOfMuseum = normalizeString(data.nom_officiel_du_musee).includes(
+    const nameOfMuseum = normalizeString(data.nom)?.includes(
       normalizeString(search)
     );
     const cityOfMuseum = normalizeString(data.commune).includes(
@@ -121,7 +143,7 @@ export function getMuseumsFiltered(datas, search) {
 // }
 
 export function getAllMuseumsId(datas) {
-  return datas?.map((item) => item.identifiant_museofile);
+  return datas?.map((item) => item.id);
 }
 
 export function getFormatedDate(date) {

@@ -10,7 +10,7 @@ import { setIsDisplayUpdateCardModal } from "../../features/profile/displaySetti
 export default function UpdateCardModal() {
   const museumUpdated = useSelector((state) => state.museums.museumUpdated);
   const [cardDatas, setCardDatas] = useState(museumUpdated);
-  const { url_image, nom_officiel_du_musee, commune } = cardDatas;
+  const { url_image, nom, commune } = cardDatas;
   const dispatch = useDispatch();
 
   const handleDataChange = (newData) => {
@@ -33,7 +33,7 @@ export default function UpdateCardModal() {
         <InfosCard
           className="infos-card"
           image={url_image}
-          name={nom_officiel_du_musee}
+          name={nom}
           city={commune}
         />
         <FormUpdateCard cardDatas={cardDatas} onDataChange={handleDataChange} />

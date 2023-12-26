@@ -60,8 +60,8 @@ export function deleteOneToBasket(action) {
       const itemToDelete = findObjectInArray(basket, action);
 
       if (itemToDelete) {
-        const { identifiant_museofile } = itemToDelete;
-        dispatch(handleDeleteItemFromBasket(identifiant_museofile));
+        const { id } = itemToDelete;
+        dispatch(handleDeleteItemFromBasket(id));
       }
     }
   };

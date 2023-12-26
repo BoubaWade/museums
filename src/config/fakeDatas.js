@@ -2,9 +2,9 @@ const fakeDatas = [
   {
     region_administrative: "île-de-France",
     departement: "Essonne",
-    identifiant_museofile: "M0401",
+    id: "M0401",
     commune: "Bièvres",
-    nom_officiel_du_musee: "musée français de la photographie",
+    nom: "musée français de la photographie",
     adresse: "78, rue de Paris",
     lieu: null,
     code_postal: "91570",
@@ -21,9 +21,9 @@ const fakeDatas = [
   {
     region_administrative: "île-de-France",
     departement: "Essonne",
-    identifiant_museofile: "M0403",
+    id: "M0403",
     commune: "Brunoy",
-    nom_officiel_du_musee: "musée municipal Robert Dubois-Corneau",
+    nom: "musée municipal Robert Dubois-Corneau",
     adresse: "16, rue du Réveillon",
     lieu: null,
     code_postal: "91800",
@@ -39,9 +39,9 @@ const fakeDatas = [
   {
     region_administrative: "île-de-France",
     departement: "Hauts-de-Seine",
-    identifiant_museofile: "M0410",
+    id: "M0410",
     commune: "Courbevoie",
-    nom_officiel_du_musee: "musée Roybet-Fould",
+    nom: "musée Roybet-Fould",
     adresse: "Parc de Bécon, 178 Boulevard Saint Denis",
     lieu: null,
     code_postal: "92400",
@@ -58,9 +58,9 @@ const fakeDatas = [
   {
     region_administrative: "île-de-France",
     departement: "Hauts-de-Seine",
-    identifiant_museofile: "M0415",
+    id: "M0415",
     commune: "Rueil-Malmaison",
-    nom_officiel_du_musee: "musée d'histoire locale - mémoire de la ville",
+    nom: "musée d'histoire locale - mémoire de la ville",
     adresse: "Place du 11 novembre",
     lieu: null,
     code_postal: "92500",
@@ -77,9 +77,9 @@ const fakeDatas = [
   {
     region_administrative: "île-de-France",
     departement: "Hauts-de-Seine",
-    identifiant_museofile: "M0418",
+    id: "M0418",
     commune: "Suresnes",
-    nom_officiel_du_musee: "musée d'histoire urbaine et sociale de Suresnes",
+    nom: "musée d'histoire urbaine et sociale de Suresnes",
     adresse: "1 place de la gare de Suresnes-Longchamp",
     lieu: null,
     code_postal: "92150",
@@ -96,9 +96,9 @@ const fakeDatas = [
   {
     region_administrative: "île-de-France",
     departement: "Paris",
-    identifiant_museofile: "M1106",
+    id: "M1106",
     commune: "Paris",
-    nom_officiel_du_musee:
+    nom:
       "musée Cernuschi, musée des arts de l'Asie de la ville de Paris",
     adresse: "7 avenue Vélasquez",
     lieu: "Hôtel particulier",
@@ -116,9 +116,9 @@ const fakeDatas = [
   {
     region_administrative: "île-de-France",
     departement: "Paris",
-    identifiant_museofile: "M1107",
+    id: "M1107",
     commune: "Paris",
-    nom_officiel_du_musee:
+    nom:
       "musée Cognacq-Jay, musée du XVIIIe siècle de la ville de Paris",
     adresse: "8 rue Elzévir",
     lieu: null,
@@ -136,9 +136,9 @@ const fakeDatas = [
   {
     region_administrative: "île-de-France",
     departement: "Paris",
-    identifiant_museofile: "M5051",
+    id: "M5051",
     commune: "Paris",
-    nom_officiel_du_musee:
+    nom:
       "musée de l'Ecole nationale supérieure des beaux-arts",
     adresse: null,
     lieu: null,
@@ -156,9 +156,9 @@ const fakeDatas = [
   {
     region_administrative: "île-de-France",
     departement: "Paris",
-    identifiant_museofile: "M0365",
+    id: "M0365",
     commune: "Paris",
-    nom_officiel_du_musee: "musée de l'institut du monde arabe",
+    nom: "musée de l'institut du monde arabe",
     adresse: null,
     lieu: null,
     code_postal: "75005",
@@ -175,9 +175,9 @@ const fakeDatas = [
   {
     region_administrative: "île-de-France",
     departement: "Paris",
-    identifiant_museofile: "M9024",
+    id: "M9024",
     commune: "Paris",
-    nom_officiel_du_musee:
+    nom:
       "musée du service de santé des armées du Val-de-Grâce",
     adresse: "1, place Alphonse Laveran",
     lieu: null,
@@ -195,9 +195,9 @@ const fakeDatas = [
   {
     region_administrative: "île-de-France",
     departement: "Paris",
-    identifiant_museofile: "M5057",
+    id: "M5057",
     commune: "Paris (19ème)",
-    nom_officiel_du_musee: "musée de la musique",
+    nom: "musée de la musique",
     adresse: "221, avenue Jean-Jaurès",
     lieu: "Cité de La Musique",
     code_postal: "75019",
@@ -214,9 +214,9 @@ const fakeDatas = [
   {
     region_administrative: "île-de-France",
     departement: "Paris",
-    identifiant_museofile: "M0364",
+    id: "M0364",
     commune: "Paris (3ème)",
-    nom_officiel_du_musee: "musée d'art et d'histoire du judaïsme",
+    nom: "musée d'art et d'histoire du judaïsme",
     adresse: "71, rue du Temple",
     lieu: "Hôtel de Saint-Aignan",
     code_postal: "75003",

@@ -20,16 +20,13 @@ export default function AddCardSection() {
     (state) => state.museums
   );
   const [dataRecovered, setDataRecovered] = useState(museumRecoveredAfterClick);
-  const { identifiant_museofile, url_image, nom_officiel_du_musee, commune } =
-    dataRecovered;
+  const { id, url_image, nom, commune } = dataRecovered;
   const [isAddMuseumSuccessful, setIsAddMuseumSuccessful] = useState(false);
   const [isAddMuseumRejected, setIsAddMuseumRejected] = useState(false);
   const dispatch = useDispatch();
 
   const handleAddMuseumAndCloseSection = async () => {
-    const dataMuseumFinded = museums.find(
-      (data) => data.identifiant_museofile === identifiant_museofile
-    );
+    const dataMuseumFinded = museums.find((data) => data.id === id);
     if (!dataMuseumFinded) {
       dispatch(handleAddMuseum(dataRecovered));
       setIsAddMuseumSuccessful(true);
@@ -55,7 +52,7 @@ export default function AddCardSection() {
         <InfosCard
           className="infos-card"
           image={url_image ? url_image : ""}
-          name={nom_officiel_du_musee}
+          name={nom}
           city={commune}
         />
       ) : (

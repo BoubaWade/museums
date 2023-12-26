@@ -10,9 +10,9 @@ export default function BasketList() {
 
   return (
     <BasketListStyled>
-      {basket.map((data) => {
-        return <BasketItem key={data.identifiant_museofile} data={data} />;
-      })}
+      {basket.map((data) => (
+        <BasketItem key={data.id} data={data} />
+      ))}
     </BasketListStyled>
   );
 }

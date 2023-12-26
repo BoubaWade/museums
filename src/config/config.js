@@ -53,8 +53,8 @@ export const inputFieldsUpdateCard = (dataUpdated, handleChange) => {
     {
       type: "text",
       placeholder: "Entrer le nom du musée",
-      name: "nom_officiel_du_musee",
-      value: dataUpdated.nom_officiel_du_musee,
+      name: "nom",
+      value: dataUpdated.nom,
       onChange: handleChange,
     },
     {
@@ -78,8 +78,8 @@ export const inputFieldsCardSection = (data) => {
     {
       icon: data.MdOutlineMuseum,
       placeholder: "Entrer le nom du musée",
-      name: "nom_officiel_du_musee",
-      value: data.nom_officiel_du_musee,
+      name: "nom",
+      value: data.nom,
     },
     {
       icon: data.FaCity,
