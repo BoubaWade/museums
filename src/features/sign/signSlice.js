@@ -2,7 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 // import { onAuthStateChanged } from "firebase/auth";
 // import { auth } from "../../Firebase/firebase-config";
-import { signIn } from "../../Firebase/firebaseUtilities";
+import {
+  getMuseumsInFirestore,
+  initialiseMyListMuseumsInFirestore,
+  signIn,
+} from "../../Firebase/firebaseUtilities";
 
 // export const checkAuthState = createAsyncThunk(
 //   "checkAuth/checkAuthState",
@@ -32,8 +36,9 @@ export const getSignInWithEmailAndPassword = createAsyncThunk(
         credentials.password
       );
       dispatch(setCurrentUser(userCredential.user.providerData[0]));
-      // createMuseumsInFirestore(museumsFakeDatas);
       const { accessToken, email } = userCredential.user;
+      // createMuseumsInFirestore(museumsFakeDatas);
+      dispatch(setUserEmail(email));
       localStorage.setItem("token", accessToken);
       localStorage.setItem("email", email);
     } catch (error) {

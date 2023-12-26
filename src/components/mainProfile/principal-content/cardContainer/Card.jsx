@@ -13,6 +13,7 @@ import { setIsDetailsPanelDisplayed } from "../../../../features/profile/display
 import { getMuseumsInFirestore } from "../../../../Firebase/firebaseUtilities";
 
 export default function Card({ data }) {
+  const userEmail = localStorage.getItem("email");
   const { identifiant_museofile, url_image, nom_officiel_du_musee, commune } =
     data;
   const { isNavSwitchButtonActived, isDetailsPanelDisplayed } = useSelector(
@@ -33,7 +34,7 @@ export default function Card({ data }) {
   const handleClickToDeleteMuseum = async (e) => {
     e.stopPropagation();
     dispatch(handleDeleteMuseum(identifiant_museofile));
-    const museumsList = await getMuseumsInFirestore();
+    const museumsList = await getMuseumsInFirestore(userEmail);
     dispatch(setMuseums(museumsList));
 
     dispatch(deleteOneToBasket(identifiant_museofile));

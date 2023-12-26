@@ -10,18 +10,20 @@ import { setBasket } from "../../features/profile/basketSlice.js";
 import { getLocalStorage } from "../../utils/utils.js";
 
 export default function ProfileHome() {
+  const userEmail = localStorage.getItem("email");
   const { isDisplayUpdateCardModal } = useSelector(
     (state) => state.displaySettings
   );
   const dispatch = useDispatch();
 
   const initialiseMuseumsList = async () => {
-    const museumsList = await getMuseumsInFirestore();
+    const museumsList = await getMuseumsInFirestore(userEmail);
+
     if (museumsList) dispatch(setMuseums(museumsList));
   };
   const initialiseBasketList = async () => {
     const basketLocalStorage = getLocalStorage("Basket");
-    dispatch(setBasket(basketLocalStorage));
+    if (basketLocalStorage) dispatch(setBasket(basketLocalStorage));
   };
   const initialiseBasketAndMuseums = async () => {
     await initialiseMuseumsList();

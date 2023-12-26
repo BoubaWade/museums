@@ -5,7 +5,7 @@ import { TiDelete } from "react-icons/ti";
 import ControlledInput from "../../../reusable-ui/ControlledInput";
 import { RiLockPasswordFill } from "react-icons/ri";
 import PrimaryButton from "../../../reusable-ui/PrimaryButton";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   setIsFormAdminDisplayed,
   setIsNavSwitchButtonActived,

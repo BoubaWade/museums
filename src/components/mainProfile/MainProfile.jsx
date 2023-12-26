@@ -4,36 +4,11 @@ import { setIsPopUpDisplayed } from "../../features/profile/displaySettingsSlice
 import Basket from "./basket/Basket";
 import PrincipalContent from "./principal-content/PrincipalContent";
 import MuseumDetailsPanel from "./museumDetailsPanel/MuseumDetailsPanel";
-import { useEffect } from "react";
-import { getMuseumsInFirestore } from "../../Firebase/firebaseUtilities";
-import { setMuseums } from "../../features/profile/museumsSlice";
-import { getLocalStorage } from "../../utils/utils";
-import { setBasket } from "../../features/profile/basketSlice";
 
 export default function MainProfile() {
   // const { isMainProfileRended } = useSelector((state) => state.displaySettings);
   // if (!isMainProfileRended) return;
-
-  // const dispatch = useDispatch();
   const dispatch = useDispatch();
-
-  // const initialiseMuseumsList = async () => {
-  //   const museumsList = await getMuseumsInFirestore();
-  //   if (museumsList) dispatch(setMuseums(museumsList));
-  // };
-  // const initialiseBasketList = async () => {
-  //   const basketLocalStorage = getLocalStorage("Basket");
-  //   dispatch(setBasket(basketLocalStorage));
-  // };
-  // const initialiseBasketAndMuseums = async () => {
-  //   await initialiseMuseumsList();
-  //   initialiseBasketList();
-  // };
-
-  // useEffect(() => {
-  //   initialiseBasketAndMuseums();
-  // }, []);
-
 
   return (
     <MainProfileStyled onClick={() => dispatch(setIsPopUpDisplayed(false))}>

@@ -8,7 +8,7 @@ import {
   findObjectInArray,
   mapArrayForChangeAddedProperty,
 } from "../../utils/utils";
-import { syncBothListMuseums } from "../../Firebase/firebaseUtilities";
+import { syncBothMuseums } from "../../Firebase/firebaseUtilities";
 
 export const getMuseumsFromAPI = createAsyncThunk(
   "user/getMuseums",
@@ -66,20 +66,20 @@ export const museumsSlice = createSlice({
       );
       if (!isPresentToMuseums) {
         state.museums?.unshift(payload);
-        syncBothListMuseums(state.museums);
+        syncBothMuseums(state.museums);
       }
     },
 
     handleDeleteMuseum: (state, { payload }) => {
       const museumsCopy = deepCopy(state.museums);
       const museumsFiltered = filterArrayById(museumsCopy, payload);
-      syncBothListMuseums(museumsFiltered);
+      syncBothMuseums(museumsFiltered);
     },
 
     handleUpdateMuseum: (state, { payload }) => {
       const museumsCopy = deepCopy(state.museums);
       const museumsUpdated = arrayUpdatedById(museumsCopy, payload);
-      syncBothListMuseums(museumsUpdated);
+      syncBothMuseums(museumsUpdated);
     },
 
     handleAddDataToUpdatedCard: (state, { payload }) => {
@@ -121,7 +121,7 @@ export const museumsSlice = createSlice({
           payload.identifiant_museofile,
           true
         );
-        syncBothListMuseums(museumsUpdated);
+        syncBothMuseums(museumsUpdated);
       });
   },
 });
@@ -140,7 +140,7 @@ export function updateAddedPropertyForMuseums(objectId) {
         objectId,
         false
       );
-      syncBothListMuseums(museumsListUpdated);
+      syncBothMuseums(museumsListUpdated);
     }
   };
 }

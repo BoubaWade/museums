@@ -12,13 +12,13 @@ import {
   updateAddedPropertyForMuseums,
 } from "../../../features/profile/museumsSlice";
 import { getLocalStorage } from "../../../utils/utils";
-import { setIsMuseumsRendered } from "../../../features/profile/displaySettingsSlice";
 const NUMBER_OF_MILLISECOND_IN_ONE_MINUTE = 60000;
 
 export default function BasketItem({ data }) {
   const { identifiant_museofile, nom_officiel_du_musee, commune } = data;
   // const datePicked = useSelector((state) => state.basket.datePicked);
   const { dataRecoveredWithDatePicked } = useSelector((state) => state.museums);
+  const userEmail = localStorage.getItem("email");
   const [minutesElapsed, setMinutesElapsed] = useState(0);
   const dispatch = useDispatch();
 
@@ -32,15 +32,13 @@ export default function BasketItem({ data }) {
 
   const handleDeleteBasketItem = async () => {
     dispatch(handleDeleteItemFromBasket(identifiant_museofile));
-    // const basketLocalStorage = await JSON.parse(localStorage.getItem("Basket"));
     const basketLocalStorage = getLocalStorage("Basket");
     if (basketLocalStorage) dispatch(setBasket(basketLocalStorage));
     dispatch(updateAddedPropertyForMuseums(identifiant_museofile));
 
-    const museumsList = await getMuseumsInFirestore();
+    const museumsList = await getMuseumsInFirestore(userEmail);
     if (museumsList) {
       dispatch(setMuseums(museumsList));
-
     }
     // window.location.reload();
   };

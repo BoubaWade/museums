@@ -12,6 +12,7 @@ import InputsFormUpdateCard from "./InputsFormUpdateCard";
 import { getMuseumsInFirestore } from "../../Firebase/firebaseUtilities";
 
 export default function FormUpdateCard({ cardDatas, onDataChange }) {
+  const userEmail = localStorage.getItem("email");
   const [dataUpdated, setDataUpdated] = useState(cardDatas);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const dispatch = useDispatch();
@@ -31,7 +32,7 @@ export default function FormUpdateCard({ cardDatas, onDataChange }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch(handleUpdateMuseum(dataUpdated));
-    const museumsList = await getMuseumsInFirestore();
+    const museumsList = await getMuseumsInFirestore(userEmail);
     dispatch(setMuseums(museumsList));
 
     setIsSubmitted(true);

@@ -24,30 +24,55 @@ export const signIn = async (email, password) => {
   return userCredential;
 };
 
-export const createMuseumsInFirestore = (data) => {
-  const documentReference = doc(db, "ListMuseums", DOC_ID);
-  const newDocument = {
-    docId: DOC_ID,
-    datasMuseums: data,
-  };
-  setDoc(documentReference, newDocument);
-};
+// export const createMuseumsInFirestore = (data) => {
+//   const documentReference = doc(db, "ListMuseums", DOC_ID);
+//   const newDocument = {
+//     docId: DOC_ID,
+//     datasMuseums: data ,
+//   };
+//   setDoc(documentReference, newDocument);
+// };
 
-export const getMuseumsInFirestore = async () => {
-  const documentRef = doc(db, "ListMuseums", DOC_ID);
+export const getMuseumsInFirestore = async (path) => {
+  const documentRef = doc(db, "ListMuseums", path);
   const docSnapshot = await getDoc(documentRef);
+  const initialedocumentRef = doc(db, "ListMuseums", DOC_ID);
+  const initialedocSnapshot = await getDoc(initialedocumentRef);
 
   if (docSnapshot.exists()) {
     const { datasMuseums } = docSnapshot.data();
     return datasMuseums;
+  } else {
+    const { datasMuseums } = initialedocSnapshot.data();
+    return datasMuseums;
   }
 };
 
-export const syncBothListMuseums = (listMuseumsUpdated) => {
-  const documentReference = doc(db, "ListMuseums", DOC_ID);
+export const initialiseMyListMuseumsInFirestore = async (userEmail) => {
+  const userMuseums = await getMuseumsInFirestore(userEmail);
+
+  const documentReference = doc(db, "ListMuseums", userEmail);
   const newDocument = {
-    docId: DOC_ID,
-    datasMuseums: listMuseumsUpdated,
+    docId: userEmail,
+    datasMuseums: userMuseums,
+  };
+  setDoc(documentReference, newDocument);
+};
+
+// export const syncBothMuseums = (listMuseumsUpdated) => {
+//   const documentReference = doc(db, "ListMuseums", DOC_ID);
+//   const newDocument = {
+//     docId: DOC_ID,
+//     datasMuseums: listMuseumsUpdated,
+//   };
+//   setDoc(documentReference, newDocument);
+// };
+export const syncBothMuseums = (museumsUpdated) => {
+  const userEmail = localStorage.getItem ("email");
+  const documentReference = doc(db, "ListMuseums", userEmail);
+  const newDocument = {
+    docId: userEmail,
+    datasMuseums: museumsUpdated,
   };
   setDoc(documentReference, newDocument);
 };

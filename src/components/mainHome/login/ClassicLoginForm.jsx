@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { getSignInWithEmailAndPassword } from "../../../features/sign/signSlice";
 import { inputFieldsSignIn } from "../../../config/config.js";
 import InputLogIn from "./InputLogIn.jsx";
+import { initialiseMyListMuseumsInFirestore } from "../../../Firebase/firebaseUtilities.jsx";
 
 export default function ClassicLoginForm() {
   const { userEmail, errorLogin } = useSelector((state) => state.sign);
@@ -17,7 +18,7 @@ export default function ClassicLoginForm() {
   const passwordRef = useRef();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+
   const handleSignIn = async (e) => {
     e.preventDefault();
     const credentials = {
@@ -31,6 +32,8 @@ export default function ClassicLoginForm() {
 
     const signIn = await dispatch(getSignInWithEmailAndPassword(credentials));
     if (signIn) {
+      const email = localStorage.getItem("email");
+      await initialiseMyListMuseumsInFirestore(email);
       navigate("/profile/profile-home");
     }
   };

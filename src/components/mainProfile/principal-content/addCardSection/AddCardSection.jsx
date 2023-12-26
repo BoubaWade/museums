@@ -14,10 +14,11 @@ import InputsContainer from "./InputsContainer";
 import { getMuseumsInFirestore } from "../../../../Firebase/firebaseUtilities";
 
 export default function AddCardSection() {
+  const userEmail = localStorage.getItem("email");
+
   const { museums, museumRecoveredAfterClick } = useSelector(
     (state) => state.museums
   );
-
   const [dataRecovered, setDataRecovered] = useState(museumRecoveredAfterClick);
   const { identifiant_museofile, url_image, nom_officiel_du_musee, commune } =
     dataRecovered;
@@ -32,7 +33,7 @@ export default function AddCardSection() {
     if (!dataMuseumFinded) {
       dispatch(handleAddMuseum(dataRecovered));
       setIsAddMuseumSuccessful(true);
-      const museumsList = await getMuseumsInFirestore();
+      const museumsList = await getMuseumsInFirestore(userEmail);
       dispatch(setMuseums(museumsList));
     } else {
       setIsAddMuseumRejected(true);
