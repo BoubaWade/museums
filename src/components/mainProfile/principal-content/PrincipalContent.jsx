@@ -7,6 +7,8 @@ import CardContainer from "./cardContainer/CardContainer";
 import SearchSection from "./SearchSection";
 import ActiveAdminContainer from "./activeAdminSection/ActiveAdminContainer";
 import ModalCalendar from "./ModalCalendar/ModalCalendar";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
+import { modalAdminAnimation, modalCalendarAnimation } from "../../../animations/animations";
 
 export default function PrincipalContent() {
   const {
@@ -14,7 +16,6 @@ export default function PrincipalContent() {
     isNavSwitchButtonActived,
     isMainSwitchButtonActived,
     showModalCalendar,
-    isMuseumsRended,
   } = useSelector((state) => state.displaySettings);
   const dispatch = useDispatch();
 
@@ -22,22 +23,35 @@ export default function PrincipalContent() {
     width: isBasketDisplayed ? "75%" : "100%",
     transition: "width 0.3s ease",
   };
-  const arrowClassName = isNavSwitchButtonActived
+  const arrow = isNavSwitchButtonActived
     ? "opener-arrow-hidden"
     : "arrow-open-basket";
 
+  const openBasket = () => {
+    dispatch(setIsBasketDisplayed(true));
+  };
   return (
     <PrincipalContentStyled style={width}>
       <img src={bgImage} className="bg-image" />
-      {isNavSwitchButtonActived && <ActiveAdminContainer />}
-      {!isBasketDisplayed && (
-        <BsFillArrowRightSquareFill
-          className={arrowClassName}
-          onClick={() => dispatch(setIsBasketDisplayed(true))}
-        />
+      {isNavSwitchButtonActived && (
+        <TransitionGroup className="transition-group">
+          <CSSTransition appear classNames="modal-admin" timeout={500}>
+            <ActiveAdminContainer />
+          </CSSTransition>
+        </TransitionGroup>
       )}
-      {isMainSwitchButtonActived ? <SearchSection /> : isMuseumsRended&&<CardContainer />}
-      {showModalCalendar && <ModalCalendar />}
+      {!isBasketDisplayed && (
+        <BsFillArrowRightSquareFill className={arrow} onClick={openBasket} />
+      )}
+      {isMainSwitchButtonActived ? <SearchSection /> : <CardContainer />}
+
+      {showModalCalendar && (
+        <TransitionGroup className="transition-group">
+          <CSSTransition appear classNames="modal-calendar" timeout={500}>
+            <ModalCalendar />
+          </CSSTransition>
+        </TransitionGroup>
+      )}
     </PrincipalContentStyled>
   );
 }
@@ -66,4 +80,6 @@ const PrincipalContentStyled = styled.section`
   .opener-arrow-hidden {
     display: none;
   }
+  ${modalCalendarAnimation}
+  ${modalAdminAnimation}
 `;

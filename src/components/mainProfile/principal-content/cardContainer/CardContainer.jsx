@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { getMuseumsFiltered } from "../../../../utils/utils";
 
 export default function CardContainer() {
+  const { isMuseumsRended } = useSelector((state) => state.displaySettings);
   const { museums, search } = useSelector((state) => state.museums);
   const museumsFiltered = getMuseumsFiltered(museums, search);
 
@@ -17,11 +18,13 @@ export default function CardContainer() {
     );
   }
   return (
-    <CardContainerStyled>
-      {museumsFiltered.map((data) => (
-        <Card key={data.id} data={data} />
-      ))}
-    </CardContainerStyled>
+    isMuseumsRended && (
+      <CardContainerStyled>
+        {museumsFiltered.map((data) => (
+          <Card key={data.id} data={data} className={"card"} />
+        ))}
+      </CardContainerStyled>
+    )
   );
 }
 

@@ -18,16 +18,16 @@ export default function ActiveAdminContainer() {
         textActive="Activer mode recherche"
         textInactive="Désactiver mode rech..."
       />
-      {isFormAdminDisplayed && (
-        <FormActiveAdmin />
-      )}
+      {isFormAdminDisplayed && <FormActiveAdmin />}
     </ActiveAdminContainerStyled>
   );
 }
 
 const ActiveAdminContainerStyled = styled.div`
+position:absolute;
+z-index: 1;
   .switch-button {
     background-color: white;
-    margin: 20px auto 0;
+    margin: 20px auto 0 20px;
   }
 `;

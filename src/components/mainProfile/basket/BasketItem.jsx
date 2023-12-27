@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { MdDelete } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  deleteOneToBasket,
   handleDeleteItemFromBasket,
   setBasket,
 } from "../../../features/profile/basketSlice";
@@ -9,13 +10,13 @@ import { useEffect, useState } from "react";
 import { getMuseumsInFirestore } from "../../../Firebase/firebaseUtilities";
 import {
   setMuseums,
-  updateAddedPropertyForMuseums,
+  // updateAddedPropertyForMuseums,
 } from "../../../features/profile/museumsSlice";
 import { getLocalStorage } from "../../../utils/utils";
 const NUMBER_OF_MILLISECOND_IN_ONE_MINUTE = 60000;
 
-export default function BasketItem({ data }) {
-  const { id, nom, commune } = data;
+export default function BasketItem({ basketItem }) {
+  const { id, nom, commune } = basketItem;
   // const datePicked = useSelector((state) => state.basket.datePicked);
   const { dataRecoveredWithDatePicked } = useSelector((state) => state.museums);
   const userEmail = localStorage.getItem("email");
@@ -31,15 +32,18 @@ export default function BasketItem({ data }) {
   }, []);
 
   const handleDeleteBasketItem = async () => {
-    dispatch(handleDeleteItemFromBasket(id));
+    // dispatch(handleDeleteItemFromBasket(id));
+    dispatch(deleteOneToBasket(id));
     const basketLocalStorage = getLocalStorage("Basket");
     if (basketLocalStorage) dispatch(setBasket(basketLocalStorage));
-    dispatch(updateAddedPropertyForMuseums(id));
 
     const museumsList = await getMuseumsInFirestore(userEmail);
     if (museumsList) {
       dispatch(setMuseums(museumsList));
     }
+
+    // dispatch(updateAddedPropertyForMuseums(id));
+
     // window.location.reload();
   };
 
@@ -53,7 +57,7 @@ export default function BasketItem({ data }) {
         {minutesElapsed === 1 ? " 1 minute" : ` ${minutesElapsed} minutes`}
       </span>
       <div>
-        {data.id === dataRecoveredWithDatePicked.id && (
+        {basketItem.id === dataRecoveredWithDatePicked.id && (
           <span>{dataRecoveredWithDatePicked.datePicked}</span>
         )}
       </div>
@@ -65,7 +69,7 @@ const BasketItemStyled = styled.article`
   position: relative;
   background-color: #0080008a;
   width: 90%;
-  height: 80px;
+  height: 85px;
   display: flex;
   align-items: center;
   padding: 5px;

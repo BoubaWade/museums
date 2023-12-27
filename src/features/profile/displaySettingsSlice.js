@@ -5,15 +5,15 @@ const initialState = {
   isMainSwitchButtonActived: false,
   isPopUpDisplayed: false,
   isBasketDisplayed: false,
-  isMuseumsRended:true,
+  isMuseumsRended: true,
   isButtonAddDisplayed: true,
   isDisplayUpdateCardModal: false,
   isAddSectionDisplayed: false,
   isDetailsPanelDisplayed: false,
-  isFormAdminDisplayed:true,
+  isFormAdminDisplayed: true,
   showEditProfile: true,
   showSettingsProfile: false,
-  showModalCalendar:false,
+  showModalCalendar: false,
 };
 
 const displaySettingsSlice = createSlice({
@@ -75,7 +75,7 @@ export const {
   setIsFormAdminDisplayed,
   setShowEditProfile,
   setShowSettingsProfile,
-  setShowModalCalendar
+  setShowModalCalendar,
 } = displaySettingsSlice.actions;
 
 export default displaySettingsSlice.reducer;

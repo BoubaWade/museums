@@ -120,24 +120,24 @@ export const museumsSlice = createSlice({
   },
 });
 
-export function updateAddedPropertyForMuseums(objectId) {
-  return function (dispatch, getState) {
-    const storeState = getState();
-    const { basket } = storeState.basket;
-    const { museums } = storeState.museums;
+// export function updateAddedPropertyForMuseums(objectId) {
+//   return function (dispatch, getState) {
+//     const storeState = getState();
+//     const { basket } = storeState.basket;
 
-    const isPresentToBasket = findObjectInArray(basket, objectId);
+//     const isPresentToBasket = findObjectInArray(basket, objectId);
 
-    if (!isPresentToBasket) {
-      const museumsListUpdated = mapArrayForChangeAddedProperty(
-        museums,
-        objectId,
-        false
-      );
-      syncBothMuseums(museumsListUpdated);
-    }
-  };
-}
+//     if (!isPresentToBasket) {
+//       const { museums } = storeState.museums;
+//       const museumsListUpdated = mapArrayForChangeAddedProperty(
+//         museums,
+//         objectId,
+//         false
+//       );
+//       syncBothMuseums(museumsListUpdated);
+//     }
+//   };
+// }
 
 export const {
   setMuseums,

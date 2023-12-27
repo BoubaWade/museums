@@ -3,8 +3,10 @@ import {
   deepCopy,
   filterArrayById,
   findObjectInArray,
+  mapArrayForChangeAddedProperty,
   setLocalStorage,
 } from "../../utils/utils";
+import { syncBothMuseums } from "../../Firebase/firebaseUtilities";
 
 export const basketSlice = createSlice({
   name: "basket",
@@ -39,12 +41,20 @@ export function addOneMuseumToBasket(action) {
   return function (dispatch, getState) {
     const storeState = getState();
     const { basket } = storeState.basket;
+    const { museums } = storeState.museums;
+    const itemToAdd = findObjectInArray(museums, action);
     const isPresentToBasket = findObjectInArray(basket, action);
 
     if (!isPresentToBasket) {
-      const { museums } = storeState.museums;
-      const itemToAdd = findObjectInArray(museums, action);
-      dispatch(handleAddItemToBasket(itemToAdd));
+      if (itemToAdd) {
+        dispatch(handleAddItemToBasket(itemToAdd));
+      }
+      const museumsUpdated = mapArrayForChangeAddedProperty(
+        museums,
+        action,
+        true
+      );
+      syncBothMuseums(museumsUpdated);
     }
   };
 }
@@ -54,14 +64,22 @@ export function deleteOneToBasket(action) {
     const storeState = getState();
     const { museums } = storeState.museums;
     const isPresentToMuseums = findObjectInArray(museums, action);
+    const { basket } = storeState.basket;
+    const itemToDelete = findObjectInArray(basket, action);
 
     if (!isPresentToMuseums) {
-      const { basket } = storeState.basket;
-      const itemToDelete = findObjectInArray(basket, action);
-
       if (itemToDelete) {
-        const { id } = itemToDelete;
-        dispatch(handleDeleteItemFromBasket(id));
+        dispatch(handleDeleteItemFromBasket(itemToDelete.id));
+      }
+    } else {
+      const museumsUpdated = mapArrayForChangeAddedProperty(
+        museums,
+        action,
+        false
+      );
+      syncBothMuseums(museumsUpdated);
+      if (itemToDelete) {
+        dispatch(handleDeleteItemFromBasket(itemToDelete.id));
       }
     }
   };

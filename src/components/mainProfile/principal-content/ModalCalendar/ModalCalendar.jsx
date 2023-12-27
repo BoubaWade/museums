@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import Overlay from "../../../reusable-ui/Overlay.jsx";
 import { TiDelete } from "react-icons/ti";
 import {
@@ -24,8 +24,7 @@ export default function ModalCalendar() {
     </ModalCalendarStyled>
   );
 }
-const animationModalCalendar = keyframes`
-`;
+
 const ModalCalendarStyled = styled.div`
   display: flex;
   justify-content: center;
@@ -53,7 +52,7 @@ const ModalCalendarStyled = styled.div`
   }
   .overlay-calendar {
     height: calc(100vh - 70px);
-    opacity: 100%;
+    opacity: 95%;
     z-index: 1;
   }
 `;

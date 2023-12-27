@@ -10,8 +10,12 @@ export default function BasketList() {
 
   return (
     <BasketListStyled>
-      {basket.map((data) => (
-        <BasketItem key={data.id} data={data} />
+      {basket.map((basketItem) => (
+        <BasketItem
+          key={basketItem.id}
+          basketItem={basketItem}
+          className="item"
+        />
       ))}
     </BasketListStyled>
   );
