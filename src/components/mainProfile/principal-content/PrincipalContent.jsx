@@ -1,14 +1,14 @@
-import bgImage from "../../../assets/images/bgProfilPrincipalContain.png";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
+import { modalAdminAnimation, modalCalendarAnimation } from "../../../animations/animations";
 import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
 import { BsFillArrowRightSquareFill } from "react-icons/bs";
 import { setIsBasketDisplayed } from "../../../features/profile/displaySettingsSlice";
+import styled from "styled-components";
+import bgImage from "../../../assets/images/bgProfilPrincipalContain.png";
 import CardContainer from "./cardContainer/CardContainer";
 import SearchSection from "./SearchSection";
 import ActiveAdminContainer from "./activeAdminSection/ActiveAdminContainer";
 import ModalCalendar from "./ModalCalendar/ModalCalendar";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { modalAdminAnimation, modalCalendarAnimation } from "../../../animations/animations";
 
 export default function PrincipalContent() {
   const {

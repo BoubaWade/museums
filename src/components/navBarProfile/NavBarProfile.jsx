@@ -10,6 +10,7 @@ import { setSearch } from "../../features/profile/museumsSlice";
 import SearchForm from "../reusable-ui/SearchForm";
 import Logo from "../reusable-ui/Logo";
 import ImageOrUserIcon from "./ImageOrUserIcon";
+import { getEmailLocalStorage } from "../../utils/user";
 
 export default function NavBarProfile() {
   const {
@@ -18,7 +19,7 @@ export default function NavBarProfile() {
     isMainSwitchButtonActived,
   } = useSelector((state) => state.displaySettings);
   // const { dataSettings, selectedFile } = useSelector((state) => state.museums);
-  const email = localStorage.getItem("email");
+  const email = getEmailLocalStorage();
 
   const dispatch = useDispatch();
 

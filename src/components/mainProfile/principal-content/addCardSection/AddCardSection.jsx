@@ -12,9 +12,10 @@ import {
 import { setIsAddSectionDisplayed } from "../../../../features/profile/displaySettingsSlice";
 import InputsContainer from "./InputsContainer";
 import { getMuseumsInFirestore } from "../../../../Firebase/firebaseUtilities";
+import { getEmailLocalStorage } from "../../../../utils/user";
 
 export default function AddCardSection() {
-  const userEmail = localStorage.getItem("email");
+  const userEmail = getEmailLocalStorage();
 
   const { museums, museumRecoveredAfterClick } = useSelector(
     (state) => state.museums

@@ -27,6 +27,7 @@ export function handleRenameKeysObject(originalObject) {
 
   return renamedKeysObject;
 }
+
 export function handleAddPropertyToObjectOfArray(array) {
   return array?.map((data) => ({
     ...data,
@@ -35,6 +36,7 @@ export function handleAddPropertyToObjectOfArray(array) {
     isClicked: false,
   }));
 }
+
 export function handleRenameKeysObjectOfArray(array) {
   const renamedKeysObjectsOfArray = array?.map((data) =>
     handleRenameKeysObject(data)
@@ -55,10 +57,12 @@ export function findObjectInArray(array, objectId) {
     return objectFinded;
   }
 }
+
 export function filterArrayById(array, objectId) {
   const arrayFiltered = array.filter((data) => data.id !== objectId);
   return arrayFiltered;
 }
+
 export function mapArrayForChangeAddedProperty(array, objectId, isAdded) {
   const arrayMapped = array.map((data) => {
     if (data.id === objectId) {
@@ -88,14 +92,6 @@ export function arrayUpdatedById(array, payload) {
     }
   });
   return arrayUpdated;
-}
-
-export function setLocalStorage(key, value) {
-  localStorage.setItem(key, JSON.stringify(value));
-}
-
-export function getLocalStorage(key) {
-  return JSON.parse(localStorage.getItem(key));
 }
 
 export function getMuseumsFiltered(datas, search) {

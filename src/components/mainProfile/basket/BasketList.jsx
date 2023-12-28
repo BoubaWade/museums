@@ -1,12 +1,18 @@
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import BasketItem from "./BasketItem.jsx";
-import { useSelector } from "react-redux";
-
+const styleEmptyBasket = {
+  position: "absolute",
+  fontSize: "18px",
+  color: "red",
+  top: "10%",
+  marginLeft: "20%",
+};
 export default function BasketList() {
   const { basket } = useSelector((state) => state.basket);
 
   if (basket.length === 0)
-    return <div className="empty-cards">Pas de musées réservés</div>;
+    return <div style={styleEmptyBasket}>Pas de musées réservés</div>;
 
   return (
     <BasketListStyled>
@@ -26,8 +32,4 @@ const BasketListStyled = styled.ul`
   align-items: center;
   gap: 10px;
   margin: 60px 0 30px;
-  .empty-cards {
-    font-size: 17px;
-    color: #000000b5;
-  }
 `;

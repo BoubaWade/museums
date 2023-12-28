@@ -1,7 +1,7 @@
-import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
 import { BsFillArrowLeftSquareFill } from "react-icons/bs";
+import { useDispatch, useSelector } from "react-redux";
 import { setIsBasketDisplayed } from "../../../features/profile/displaySettingsSlice";
+import styled from "styled-components";
 import BasketList from "./BasketList";
 
 export default function Basket() {

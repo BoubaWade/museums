@@ -10,9 +10,10 @@ import {
 import PrimaryButton from "../reusable-ui/PrimaryButton";
 import InputsFormUpdateCard from "./InputsFormUpdateCard";
 import { getMuseumsInFirestore } from "../../Firebase/firebaseUtilities";
+import { getEmailLocalStorage } from "../../utils/user";
 
 export default function FormUpdateCard({ cardDatas, onDataChange }) {
-  const userEmail = localStorage.getItem("email");
+  const userEmail = getEmailLocalStorage();
   const [dataUpdated, setDataUpdated] = useState(cardDatas);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const dispatch = useDispatch();

@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import Overlay from "../../../reusable-ui/Overlay.jsx";
+import CalendarContainer from "./CalendarContainer.jsx";
 import { TiDelete } from "react-icons/ti";
+import { useDispatch } from "react-redux";
 import {
   setIsMuseumsRendered,
   setShowModalCalendar,
 } from "../../../../features/profile/displaySettingsSlice.js";
-import { useDispatch } from "react-redux";
-import CalendarContainer from "./CalendarContainer.jsx";
 
 export default function ModalCalendar() {
   const dispatch = useDispatch();
@@ -36,6 +36,7 @@ const ModalCalendarStyled = styled.div`
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 2;
   .close-modal {
     position: absolute;
     font-size: 55px;
@@ -52,7 +53,7 @@ const ModalCalendarStyled = styled.div`
   }
   .overlay-calendar {
     height: calc(100vh - 70px);
-    opacity: 95%;
+    opacity: 90%;
     z-index: 1;
   }
 `;

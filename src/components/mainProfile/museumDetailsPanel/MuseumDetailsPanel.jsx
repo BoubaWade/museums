@@ -1,17 +1,15 @@
-import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import backgroundImage from "../../../assets/images/backgroundImage.gif";
 import ListMuseumInfos from "../../reusable-ui/ListMuseumInfos";
 import ImageAndTitle from "./ImageAndTitle";
-import { useNavigate } from "react-router-dom";
+import PrimaryButton from "../../reusable-ui/PrimaryButton";
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate, useNavigate } from "react-router-dom";
 import { BsFillArrowRightSquareFill } from "react-icons/bs";
 import { setIsDetailsPanelDisplayed } from "../../../features/profile/displaySettingsSlice";
-import PrimaryButton from "../../reusable-ui/PrimaryButton";
 
 export default function MuseumDetailsPanel() {
-  const museumRecovered = useSelector(
-    (state) => state.museums.museumRecoveredAfterClickingOnACard
-  );
+  const { museumRecovered } = useSelector((state) => state.museums);
   const isDetailsPanelDisplayed = useSelector(
     (state) => state.displaySettings.isDetailsPanelDisplayed
   );
@@ -20,7 +18,6 @@ export default function MuseumDetailsPanel() {
   const panelDisplayStyle = {
     transform: isDetailsPanelDisplayed ? "translateX(-100%)" : "",
   };
-
   const handleClick = () => {
     navigate("/profile/museum-details");
   };

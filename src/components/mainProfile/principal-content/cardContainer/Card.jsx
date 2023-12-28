@@ -1,23 +1,26 @@
 import styled from "styled-components";
+import CardButtons from "./CardButtons";
+import InfosCard from "../../../reusable-ui/InfosCard";
 import { TiDelete } from "react-icons/ti";
 import { useDispatch, useSelector } from "react-redux";
-import InfosCard from "../../../reusable-ui/InfosCard";
-import CardButtons from "./CardButtons";
+import { deleteOneToBasket } from "../../../../features/profile/basketSlice";
+import { setIsDetailsPanelDisplayed } from "../../../../features/profile/displaySettingsSlice";
+import { getMuseumsInFirestore } from "../../../../Firebase/firebaseUtilities";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
+import { buttonDeleteMuseumAnimation } from "../../../../animations/animations";
 import {
   handleDeleteMuseum,
   handleRecoverDataAfterClick,
   setMuseums,
 } from "../../../../features/profile/museumsSlice";
-import { deleteOneToBasket } from "../../../../features/profile/basketSlice";
-import { setIsDetailsPanelDisplayed } from "../../../../features/profile/displaySettingsSlice";
-import { getMuseumsInFirestore } from "../../../../Firebase/firebaseUtilities";
+import { getEmailLocalStorage } from "../../../../utils/user";
 
 export default function Card({ data }) {
-  const userEmail = localStorage.getItem("email");
   const { id, url_image, nom, commune } = data;
   const { isNavSwitchButtonActived, isDetailsPanelDisplayed } = useSelector(
     (state) => state.displaySettings
   );
+  const userEmail = getEmailLocalStorage();
   const dispatch = useDispatch();
 
   const handleClickOnACardBody = (e, id) => {
@@ -49,10 +52,14 @@ export default function Card({ data }) {
       style={cardBackground}
     >
       {isNavSwitchButtonActived && (
-        <TiDelete
-          className="delete-card"
-          onClick={(e) => handleClickToDeleteMuseum(e)}
-        />
+        <TransitionGroup className="transition-group">
+          <CSSTransition appear classNames="delete-button" timeout={500}>
+            <TiDelete
+              className="delete-card"
+              onClick={(e) => handleClickToDeleteMuseum(e)}
+            />
+          </CSSTransition>
+        </TransitionGroup>
       )}
       <InfosCard image={url_image} name={nom} city={commune} />
       <CardButtons data={data} />
@@ -91,4 +98,5 @@ const CardStyled = styled.article`
       color: #b659b6;
     }
   }
+  ${buttonDeleteMuseumAnimation}
 `;

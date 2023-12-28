@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import SocialMediaForm from "./socialMedias/SocialMediaForm";
-import ClassicLoginForm from "./ClassicLoginForm";
+import ClassicLoginForm from "./classicLoginForm/ClassicLoginForm";
 import { useSelector } from "react-redux";
 
 export default function LoginForm() {

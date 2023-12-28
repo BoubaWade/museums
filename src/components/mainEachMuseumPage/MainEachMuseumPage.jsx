@@ -1,20 +1,18 @@
 import { useSelector } from "react-redux";
+// import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
 import PrincipalContent from "./principalContent/PrincipalContent";
 import InformationsContent from "./InformationsContent";
 import MappingContent from "./MappingContent";
 
 export default function MainEachMuseumPage() {
-  const museumRecovered = useSelector(
-    (state) => state.museums.museumRecoveredAfterClickingOnACard
-  );
-  const navigate = useNavigate();
+  const { museumRecovered } = useSelector((state) => state.museums);
+  // const navigate = useNavigate();
 
-  if (!museumRecovered) {
-    navigate("/profile/profile-home");
-    return;
-  }
+  // if (!museumRecovered) {
+  //   navigate("/profile/profile-home");
+  //   return;
+  // }
 
   return (
     <MainEachMuseumPageStyled>

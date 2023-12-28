@@ -6,9 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 export default function NavEachMuseumPage() {
-  const museumRecovered = useSelector(
-    (state) => state.museums.museumRecoveredAfterClickingOnACard
-  );
+  const { museumRecovered } = useSelector((state) => state.museums);
   const navigate = useNavigate();
 
   const handleClick = () => {

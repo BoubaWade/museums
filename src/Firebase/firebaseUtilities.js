@@ -5,6 +5,7 @@ import {
 } from "firebase/auth";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { auth, db, DOC_ID } from "./firebase-config";
+import { getEmailLocalStorage } from "../utils/user";
 
 export const signUp = async (email, password) => {
   const userCredential = await createUserWithEmailAndPassword(
@@ -68,7 +69,7 @@ export const initialiseMyListMuseumsInFirestore = async (userEmail) => {
 //   setDoc(documentReference, newDocument);
 // };
 export const syncBothMuseums = (museumsUpdated) => {
-  const userEmail = localStorage.getItem("email");
+  const userEmail = getEmailLocalStorage();
   const documentReference = doc(db, "ListMuseums", userEmail);
   const newDocument = {
     docId: userEmail,

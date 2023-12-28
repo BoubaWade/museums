@@ -1,22 +1,23 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+import { useState } from "react";
 import { GiElvenCastle } from "react-icons/gi";
-import { TiDelete } from "react-icons/ti";
-import ControlledInput from "../../../reusable-ui/ControlledInput";
 import { RiLockPasswordFill } from "react-icons/ri";
-import PrimaryButton from "../../../reusable-ui/PrimaryButton";
 import { useDispatch } from "react-redux";
+import { TiDelete } from "react-icons/ti";
+import { signIn } from "../../../../Firebase/firebaseUtilities";
 import {
   setIsFormAdminDisplayed,
   setIsNavSwitchButtonActived,
 } from "../../../../features/profile/displaySettingsSlice";
-import { signIn } from "../../../../Firebase/firebaseUtilities";
+import styled from "styled-components";
+import ControlledInput from "../../../reusable-ui/ControlledInput";
+import PrimaryButton from "../../../reusable-ui/PrimaryButton";
+import { getEmailLocalStorage } from "../../../../utils/user";
 
 export default function FormActiveAdmin() {
   const [passwordAdmin, setPasswordAdmin] = useState("");
   const [errorPasswordAdmin, setErrorPasswordAdmin] = useState(false);
   const dispatch = useDispatch();
-  const email = localStorage.getItem("email");
+  const email = getEmailLocalStorage();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -64,9 +65,9 @@ const FormActiveAdminStyled = styled.form`
   justify-content: center;
   align-items: center;
   width: 100vw;
-  height: calc(100vh - 70px);
+  height: calc(100vh - 110px);
   background-color: black;
-  opacity: 100%;
+  opacity: 95%;
   position: absolute;
   top: 0;
   left: 0;

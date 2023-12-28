@@ -56,7 +56,17 @@ export const modalAdminAnimation = css`
     transition: 500ms;
   } */
 `;
-
+export const buttonDeleteMuseumAnimation = css`
+  .delete-button-appear {
+    opacity: 0%;
+    transform: translateY(100%);
+  }
+  .delete-button-appear-active {
+    opacity: 100%;
+    transform: translateY(0px);
+    transition: 500ms;
+  }
+  `
 
  /* .animation-basket-appear {
     .item {

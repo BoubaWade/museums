@@ -19,6 +19,7 @@ export default function CardButtons({ data }) {
   const dispatch = useDispatch();
 
   const handleShowModalCalendarAndDispatchDataOfTheCard = (e) => {
+    e.stopPropagation();
     dispatch(setShowModalCalendar(true));
     dispatch(handleRecoverDataAfterClick(e.target.parentNode.id));
     dispatch(setIsMuseumsRendered(false));

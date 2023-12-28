@@ -3,23 +3,23 @@ import { MdDelete } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import {
   deleteOneToBasket,
-  handleDeleteItemFromBasket,
   setBasket,
 } from "../../../features/profile/basketSlice";
 import { useEffect, useState } from "react";
 import { getMuseumsInFirestore } from "../../../Firebase/firebaseUtilities";
+import { setMuseums } from "../../../features/profile/museumsSlice";
 import {
-  setMuseums,
-  // updateAddedPropertyForMuseums,
-} from "../../../features/profile/museumsSlice";
-import { getLocalStorage } from "../../../utils/utils";
+  getBasketLocalStorage,
+  getEmailLocalStorage,
+  getUserName,
+} from "../../../utils/user";
 const NUMBER_OF_MILLISECOND_IN_ONE_MINUTE = 60000;
 
 export default function BasketItem({ basketItem }) {
   const { id, nom, commune } = basketItem;
   // const datePicked = useSelector((state) => state.basket.datePicked);
   const { dataRecoveredWithDatePicked } = useSelector((state) => state.museums);
-  const userEmail = localStorage.getItem("email");
+  const userEmail = getEmailLocalStorage();
   const [minutesElapsed, setMinutesElapsed] = useState(0);
   const dispatch = useDispatch();
 
@@ -32,19 +32,15 @@ export default function BasketItem({ basketItem }) {
   }, []);
 
   const handleDeleteBasketItem = async () => {
-    // dispatch(handleDeleteItemFromBasket(id));
     dispatch(deleteOneToBasket(id));
-    const basketLocalStorage = getLocalStorage("Basket");
+    const userName = getUserName();
+    const basketLocalStorage = getBasketLocalStorage(userName);
     if (basketLocalStorage) dispatch(setBasket(basketLocalStorage));
 
     const museumsList = await getMuseumsInFirestore(userEmail);
     if (museumsList) {
       dispatch(setMuseums(museumsList));
     }
-
-    // dispatch(updateAddedPropertyForMuseums(id));
-
-    // window.location.reload();
   };
 
   return (

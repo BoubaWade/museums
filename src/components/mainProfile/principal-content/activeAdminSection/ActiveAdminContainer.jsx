@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import SwitchButton from "../../../reusable-ui/SwitchButton";
+import FormActiveAdmin from "./FormActiveAdmin";
 import { setIsMainSwitchButtonActived } from "../../../../features/profile/displaySettingsSlice";
 import { useSelector } from "react-redux";
-import FormActiveAdmin from "./FormActiveAdmin";
 
 export default function ActiveAdminContainer() {
   const { isFormAdminDisplayed, isMainSwitchButtonActived } = useSelector(

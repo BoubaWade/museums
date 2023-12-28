@@ -4,9 +4,14 @@ import {
   filterArrayById,
   findObjectInArray,
   mapArrayForChangeAddedProperty,
-  setLocalStorage,
 } from "../../utils/utils";
 import { syncBothMuseums } from "../../Firebase/firebaseUtilities";
+import {
+  getBasketLocalStorage,
+  getUserName,
+  setBasketLocalStorage,
+} from "../../utils/user";
+const userName = getUserName();
 
 export const basketSlice = createSlice({
   name: "basket",
@@ -21,12 +26,12 @@ export const basketSlice = createSlice({
     },
     handleAddItemToBasket: (state, { payload }) => {
       state.basket.push(payload);
-      setLocalStorage("Basket", state.basket);
+      setBasketLocalStorage(userName, state.basket);
     },
     handleDeleteItemFromBasket: (state, { payload }) => {
       const basketCopy = deepCopy(state.basket);
       const basketUpdated = filterArrayById(basketCopy, payload);
-      setLocalStorage("Basket", basketUpdated);
+      setBasketLocalStorage(userName, basketUpdated);
     },
     handleRecoverDatePicked: (state, { payload }) => {
       state.datePicked = payload;
@@ -63,13 +68,15 @@ export function deleteOneToBasket(action) {
   return function (dispatch, getState) {
     const storeState = getState();
     const { museums } = storeState.museums;
-    const isPresentToMuseums = findObjectInArray(museums, action);
     const { basket } = storeState.basket;
+    const isPresentToMuseums = findObjectInArray(museums, action);
     const itemToDelete = findObjectInArray(basket, action);
 
     if (!isPresentToMuseums) {
       if (itemToDelete) {
         dispatch(handleDeleteItemFromBasket(itemToDelete.id));
+        const basketStorage = getBasketLocalStorage(userName);
+        dispatch(setBasket(basketStorage));
       }
     } else {
       const museumsUpdated = mapArrayForChangeAddedProperty(

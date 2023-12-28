@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
-export default function RememberCheckbox({ checked, onChange }) {
+export default function RememberCheckbox({ isChecked, setIsChecked }) {
   return (
     <CheckboxStyled>
       <input
         type="checkbox"
         id="remember-me"
-        onChange={onChange}
-        checked={checked}
+        onChange={() => setIsChecked(!isChecked)}
+        checked={isChecked}
       />
       <label htmlFor="remember-me">Se souvenir de moi</label>
     </CheckboxStyled>

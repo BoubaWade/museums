@@ -18,13 +18,13 @@ export default function CardContainer() {
     );
   }
   return (
-    isMuseumsRended && (
+    // isMuseumsRended && (
       <CardContainerStyled>
         {museumsFiltered.map((data) => (
           <Card key={data.id} data={data} className={"card"} />
         ))}
       </CardContainerStyled>
-    )
+    // )
   );
 }
 

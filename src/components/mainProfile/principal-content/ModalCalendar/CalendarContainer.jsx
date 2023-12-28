@@ -3,19 +3,20 @@ import "react-date-picker/dist/DatePicker.css";
 import Calendar from "react-calendar";
 import DatePicker from "react-date-picker";
 import styled from "styled-components";
-import { useState } from "react";
 import CalendarValidationButton from "../../../reusable-ui/CalendarValidationButton.jsx";
+import useModalCalendarValidation from "../../../../hooks/useModalCalendarValidation";
+import { useState } from "react";
 import { getFormatedDate } from "../../../../utils/utils";
 import { useDispatch, useSelector } from "react-redux";
 import { addOneMuseumToBasket } from "../../../../features/profile/basketSlice";
 import { getMuseumsInFirestore } from "../../../../Firebase/firebaseUtilities";
 import { setMuseums } from "../../../../features/profile/museumsSlice";
-import useModalCalendarValidation from "../../../../hooks/useModalCalendarValidation";
+import { getEmailLocalStorage } from "../../../../utils/user.js";
 
 export default function CalendarContainer() {
   const { museumRecovered } = useSelector((state) => state.museums);
   const { isReserved } = useSelector((state) => state.basket);
-  const userEmail = localStorage.getItem("email");
+  const userEmail = getEmailLocalStorage();
   const [value, onChange] = useState(new Date());
   const dispatch = useDispatch();
 

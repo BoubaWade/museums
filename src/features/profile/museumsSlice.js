@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { handleAddItemToBasket } from "./basketSlice";
+import { syncBothMuseums } from "../../Firebase/firebaseUtilities";
 import {
   arrayUpdatedById,
   deepCopy,
@@ -8,7 +9,6 @@ import {
   handleRenameKeysObjectOfArray,
   mapArrayForChangeAddedProperty,
 } from "../../utils/utils";
-import { syncBothMuseums } from "../../Firebase/firebaseUtilities";
 
 export const getMuseumsFromAPI = createAsyncThunk(
   "user/getMuseums",
@@ -35,12 +35,12 @@ export const museumsSlice = createSlice({
     museumsFromAPI: [],
     loadingDataFromAPI: true,
     museumRecoveredAfterClick: {},
-    search: "",
     museumUpdated: {},
-    museumRecovered: null,
     dataSettings: {},
-    selectedFile: null,
     dataRecoveredWithDatePicked: {},
+    museumRecovered: null,
+    selectedFile: null,
+    search: "",
   },
   reducers: {
     setMuseums: (state, { payload }) => {
