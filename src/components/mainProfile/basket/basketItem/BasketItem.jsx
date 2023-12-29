@@ -1,35 +1,15 @@
 import styled from "styled-components";
 import { MdDelete } from "react-icons/md";
-import { useDispatch } from "react-redux";
-import {
-  deleteOneToBasket,
-  setBasket,
-} from "../../../../features/profile/basketSlice";
-import { getMuseumsInFirestore } from "../../../../Firebase/firebaseUtilities";
-import { setMuseums } from "../../../../features/profile/museumsSlice";
-import {
-  getBasketLocalStorage,
-  getEmailLocalStorage,
-  getUserName,
-} from "../../../../utils/user";
 import Timer from "./Timer";
 import BannerDatePicked from "./BannerDatePicked";
+import useBasket from "../../../../hooks/useBasket";
 
 export default function BasketItem({ basketItem }) {
   const { id, nom, commune } = basketItem;
-  const dispatch = useDispatch();
+  const { deleteBasketItem } = useBasket();
 
-  const handleDeleteBasketItem = async () => {
-    dispatch(deleteOneToBasket(id));
-    const userName = getUserName();
-    const basketLocalStorage = getBasketLocalStorage(userName);
-    if (basketLocalStorage) dispatch(setBasket(basketLocalStorage));
-
-    const userEmail = getEmailLocalStorage();
-    const museumsList = await getMuseumsInFirestore(userEmail);
-    if (museumsList) {
-      dispatch(setMuseums(museumsList));
-    }
+  const handleDeleteBasketItem = () => {
+    deleteBasketItem(id);
   };
 
   return (

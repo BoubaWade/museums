@@ -2,20 +2,24 @@ import NavBarProfile from "../../components/navBarProfile/NavBarProfile.jsx";
 import MainProfile from "../../components/mainProfile/MainProfile.jsx";
 import UpdateCardModal from "../../components/updateCardModal/UpdateCardModal.jsx";
 import styled from "styled-components";
-import useInitializeBasketAndMuseums from "../../hooks/useInitializeBasketAndMuseums.js";
+import useInitializeMuseums from "../../hooks/useInitializeMuseums.js";
 import { useSelector } from "react-redux";
 import { getEmailLocalStorage, getUserName } from "../../utils/user.js";
 import { modalUpdateCardAnimation } from "../../animations/animations.js";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
+import { useEffect } from "react";
 
 export default function ProfileHome() {
   const userEmail = getEmailLocalStorage();
   const userName = getUserName();
+  const { initializeMuseums } = useInitializeMuseums(userEmail, userName);
   const { isDisplayUpdateCardModal } = useSelector(
     (state) => state.displaySettings
   );
 
-  useInitializeBasketAndMuseums(userEmail, userName);
+  useEffect(() => {
+    initializeMuseums();
+  }, []);
 
   return (
     <ProfileHomeStyled>

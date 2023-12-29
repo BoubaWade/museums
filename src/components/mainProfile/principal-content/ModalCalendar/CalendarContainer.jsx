@@ -4,32 +4,20 @@ import Calendar from "react-calendar";
 import DatePicker from "react-date-picker";
 import styled from "styled-components";
 import CalendarValidationButton from "../../../reusable-ui/CalendarValidationButton.jsx";
-import useModalCalendarValidation from "../../../../hooks/useModalCalendarValidation";
 import { useState } from "react";
-import { getFormatedDate } from "../../../../utils/utils";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  addOneMuseumToBasket,
-  setDatePicked,
-} from "../../../../features/profile/basketSlice";
-import { getMuseumsInFirestore } from "../../../../Firebase/firebaseUtilities";
-import { setMuseums } from "../../../../features/profile/museumsSlice";
-import { getEmailLocalStorage } from "../../../../utils/user.js";
+import { useSelector } from "react-redux";
+import useBasket from "../../../../hooks/useBasket.js";
 
 export default function CalendarContainer() {
+  const { addBasketItem } = useBasket();
   const { museumRecovered } = useSelector((state) => state.museums);
   const { isReserved } = useSelector((state) => state.basket);
-  const userEmail = getEmailLocalStorage();
   const [value, onChange] = useState(new Date());
-  const dispatch = useDispatch();
 
-  const handleAddItemAndOpenBasket = async () => {
-    dispatch(setDatePicked(getFormatedDate(value)));
-    dispatch(addOneMuseumToBasket(museumRecovered.id));
-    useModalCalendarValidation(dispatch);
-    const museumsList = await getMuseumsInFirestore(userEmail);
-    dispatch(setMuseums(museumsList));
+  const handleAddBasketItem = async () => {
+    addBasketItem(museumRecovered.id, value);
   };
+
   return (
     <CalendarContainerStyled>
       <DatePicker
@@ -42,7 +30,7 @@ export default function CalendarContainer() {
       <CalendarValidationButton
         className="validation-button"
         isReserved={isReserved}
-        onClick={handleAddItemAndOpenBasket}
+        onClick={handleAddBasketItem}
       />
     </CalendarContainerStyled>
   );

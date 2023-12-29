@@ -3,29 +3,24 @@ import { useDispatch } from "react-redux";
 import { getMuseumsInFirestore } from "../Firebase/firebaseUtilities";
 import { setMuseums } from "../features/profile/museumsSlice";
 import { setBasket } from "../features/profile/basketSlice";
-import { useEffect } from "react";
 
-export default function useInitializeBasketAndMuseums(userEmail, userName) {
+export default function useInitializeMuseums(userEmail, userName) {
   const dispatch = useDispatch();
 
-  const initialiseMuseumsList = async () => {
+  const initializeMuseumsList = async () => {
     const museumsList = await getMuseumsInFirestore(userEmail);
     if (museumsList) dispatch(setMuseums(museumsList));
   };
 
-  const initialiseBasketList = async () => {
+  const initializeBasketList = async () => {
     const basketLocalStorage = getBasketLocalStorage(userName);
     if (basketLocalStorage) dispatch(setBasket(basketLocalStorage));
   };
 
-  const initialiseBasketAndMuseums = async () => {
-    await initialiseMuseumsList();
-    initialiseBasketList();
+  const initializeMuseums = async () => {
+    await initializeMuseumsList();
+    initializeBasketList();
   };
 
-  useEffect(() => {
-    initialiseBasketAndMuseums();
-  }, [userEmail, userName]);
-
-  // return { initialiseBasketAndMuseums };
+  return { initializeMuseums };
 }
