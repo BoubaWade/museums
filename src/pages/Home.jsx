@@ -4,6 +4,8 @@ import NavBar from "../components/navBarHome/NavBarHome";
 import MainHome from "../components/mainHome/MainHome";
 import SignUpModal from "../components/mainHome/signUp/SignUpModal.jsx";
 import { useSelector } from "react-redux";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
+import { modalSignUpAnimation } from "../animations/animations.js";
 
 export default function Home() {
   const { isToggleModal } = useSelector((state) => state.sign);
@@ -12,7 +14,15 @@ export default function Home() {
     <HomeSlyled>
       <BackgroundImage />
       <NavBar />
-      {isToggleModal ? <SignUpModal /> : <MainHome />}
+      {isToggleModal ? (
+        <TransitionGroup className="transition-group">
+          <CSSTransition appear classNames="modal-signUp" timeout={500}>
+            <SignUpModal />
+          </CSSTransition>
+        </TransitionGroup>
+      ) : (
+        <MainHome />
+      )}
     </HomeSlyled>
   );
 }
@@ -24,4 +34,5 @@ const HomeSlyled = styled.div`
   height: 100vh;
   overflow: hidden;
   margin: 0 auto;
+  ${modalSignUpAnimation}
 `;

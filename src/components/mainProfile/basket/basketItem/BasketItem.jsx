@@ -1,35 +1,23 @@
 import styled from "styled-components";
 import { MdDelete } from "react-icons/md";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   deleteOneToBasket,
   setBasket,
-} from "../../../features/profile/basketSlice";
-import { useEffect, useState } from "react";
-import { getMuseumsInFirestore } from "../../../Firebase/firebaseUtilities";
-import { setMuseums } from "../../../features/profile/museumsSlice";
+} from "../../../../features/profile/basketSlice";
+import { getMuseumsInFirestore } from "../../../../Firebase/firebaseUtilities";
+import { setMuseums } from "../../../../features/profile/museumsSlice";
 import {
   getBasketLocalStorage,
   getEmailLocalStorage,
   getUserName,
-} from "../../../utils/user";
-const NUMBER_OF_MILLISECOND_IN_ONE_MINUTE = 60000;
+} from "../../../../utils/user";
+import Timer from "./Timer";
+import BannerDatePicked from "./BannerDatePicked";
 
 export default function BasketItem({ basketItem }) {
   const { id, nom, commune } = basketItem;
-  // const datePicked = useSelector((state) => state.basket.datePicked);
-  const { dataRecoveredWithDatePicked } = useSelector((state) => state.museums);
-  const userEmail = getEmailLocalStorage();
-  const [minutesElapsed, setMinutesElapsed] = useState(0);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setMinutesElapsed((prevMinutes) => prevMinutes + 1);
-    }, NUMBER_OF_MILLISECOND_IN_ONE_MINUTE);
-
-    return () => clearInterval(interval);
-  }, []);
 
   const handleDeleteBasketItem = async () => {
     dispatch(deleteOneToBasket(id));
@@ -37,6 +25,7 @@ export default function BasketItem({ basketItem }) {
     const basketLocalStorage = getBasketLocalStorage(userName);
     if (basketLocalStorage) dispatch(setBasket(basketLocalStorage));
 
+    const userEmail = getEmailLocalStorage();
     const museumsList = await getMuseumsInFirestore(userEmail);
     if (museumsList) {
       dispatch(setMuseums(museumsList));
@@ -48,15 +37,8 @@ export default function BasketItem({ basketItem }) {
       <h3>{nom.toUpperCase()}</h3>
       <p>{commune}</p>
       <MdDelete className="icon-delete" onClick={handleDeleteBasketItem} />
-      <span className="minutes-elapsed">
-        Ajouté il y'a
-        {minutesElapsed === 1 ? " 1 minute" : ` ${minutesElapsed} minutes`}
-      </span>
-      <div>
-        {basketItem.id === dataRecoveredWithDatePicked.id && (
-          <span>{dataRecoveredWithDatePicked.datePicked}</span>
-        )}
-      </div>
+      <Timer />
+      <BannerDatePicked basketItem={basketItem} />
     </BasketItemStyled>
   );
 }
@@ -72,6 +54,8 @@ const BasketItemStyled = styled.article`
   border-radius: 5px;
   cursor: pointer;
   transition: 0.3s ease-in-out;
+  box-shadow: 2px 2px 10px 2px rgba(179, 179, 179, 0.75);
+  overflow: hidden;
   h3,
   p {
     height: 100%;
@@ -93,13 +77,6 @@ const BasketItemStyled = styled.article`
     width: 30px;
     font-size: 20px;
     cursor: pointer;
-  }
-  .minutes-elapsed {
-    color: #b659b6;
-    position: absolute;
-    right: 10px;
-    bottom: 2px;
-    font-size: 11px;
   }
   &:hover {
     .icon-delete {

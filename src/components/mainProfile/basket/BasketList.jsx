@@ -1,9 +1,9 @@
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import BasketItem from "./BasketItem.jsx";
+import BasketItem from "./basketItem/BasketItem";
 const styleEmptyBasket = {
   position: "absolute",
-  fontSize: "18px",
+  fontSize: "17px",
   color: "red",
   top: "10%",
   marginLeft: "20%",

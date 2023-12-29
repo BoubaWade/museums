@@ -66,9 +66,9 @@ export const buttonDeleteMuseumAnimation = css`
     transform: translateY(0px);
     transition: 500ms;
   }
-  `
+`;
 
- /* .animation-basket-appear {
+/* .animation-basket-appear {
     .item {
       transform: translateX(200px);
       opacity: 0;
@@ -107,3 +107,22 @@ export const buttonDeleteMuseumAnimation = css`
       opacity: 0;
     }
   } */
+
+export const modalUpdateCardAnimation = css`
+  .modal-update-card-appear {
+    transform: translateY(100vh);
+  }
+  .modal-update-card-appear-active {
+    transform: translateY(0);
+    transition: all 500ms;
+  }
+`;
+export const modalSignUpAnimation = css`
+  .modal-signUp-appear {
+    transform: translateY(100vh);
+  }
+  .modal-signUp-appear-active {
+    transform: translateY(0);
+    transition: all 500ms;
+  }
+`;

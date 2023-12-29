@@ -37,7 +37,6 @@ export const museumsSlice = createSlice({
     museumRecoveredAfterClick: {},
     museumUpdated: {},
     dataSettings: {},
-    dataRecoveredWithDatePicked: {},
     museumRecovered: null,
     selectedFile: null,
     search: "",
@@ -84,9 +83,6 @@ export const museumsSlice = createSlice({
     },
     handleRecoverDataAfterClick: (state, { payload }) => {
       state.museumRecovered = findObjectInArray(state.museums, payload);
-    },
-    handleRecoveredDataWithDatePicked: (state, { payload }) => {
-      state.dataRecoveredWithDatePicked = payload;
     },
     setDataSettings: (state, { payload }) => {
       state.dataSettings = payload;
@@ -149,7 +145,6 @@ export const {
   handleAddDataToUpdatedCard,
   handleUpdateMuseum,
   handleRecoverDataAfterClick,
-  handleRecoveredDataWithDatePicked,
   setDataSettings,
   setSelectedFile,
 } = museumsSlice.actions;

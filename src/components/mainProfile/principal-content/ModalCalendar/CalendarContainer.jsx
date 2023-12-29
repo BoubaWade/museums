@@ -8,7 +8,10 @@ import useModalCalendarValidation from "../../../../hooks/useModalCalendarValida
 import { useState } from "react";
 import { getFormatedDate } from "../../../../utils/utils";
 import { useDispatch, useSelector } from "react-redux";
-import { addOneMuseumToBasket } from "../../../../features/profile/basketSlice";
+import {
+  addOneMuseumToBasket,
+  setDatePicked,
+} from "../../../../features/profile/basketSlice";
 import { getMuseumsInFirestore } from "../../../../Firebase/firebaseUtilities";
 import { setMuseums } from "../../../../features/profile/museumsSlice";
 import { getEmailLocalStorage } from "../../../../utils/user.js";
@@ -20,13 +23,9 @@ export default function CalendarContainer() {
   const [value, onChange] = useState(new Date());
   const dispatch = useDispatch();
 
-  const dateFormated = getFormatedDate(value);
-  const datasWithDatePicked = {
-    ...museumRecovered,
-    datePicked: dateFormated,
-  };
   const handleAddItemAndOpenBasket = async () => {
-    dispatch(addOneMuseumToBasket(datasWithDatePicked.id));
+    dispatch(setDatePicked(getFormatedDate(value)));
+    dispatch(addOneMuseumToBasket(museumRecovered.id));
     useModalCalendarValidation(dispatch);
     const museumsList = await getMuseumsInFirestore(userEmail);
     dispatch(setMuseums(museumsList));

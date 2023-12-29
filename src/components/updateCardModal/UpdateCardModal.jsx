@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Overlay from "../reusable-ui/Overlay";
-import FormUpdateCard from "./FormUpdateCard";
+import UpdateCard from "./UpdateCard";
 import { TiDeleteOutline } from "react-icons/ti";
 import InfosCard from "../reusable-ui/InfosCard";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,7 +8,7 @@ import { useState } from "react";
 import { setIsDisplayUpdateCardModal } from "../../features/profile/displaySettingsSlice";
 
 export default function UpdateCardModal() {
-  const museumUpdated = useSelector((state) => state.museums.museumUpdated);
+  const {museumUpdated} = useSelector((state) => state.museums);
   const [cardDatas, setCardDatas] = useState(museumUpdated);
   const { url_image, nom, commune } = cardDatas;
   const dispatch = useDispatch();
@@ -16,27 +16,22 @@ export default function UpdateCardModal() {
   const handleDataChange = (newData) => {
     setCardDatas(newData);
   };
+  const handleCloseModal = () => {
+    dispatch(setIsDisplayUpdateCardModal(false));
+  };
 
   return (
     <UpdateCardModalStyled>
-      <Overlay
-        className="overlay-card-updated"
-        onClick={() => {
-          dispatch(setIsDisplayUpdateCardModal(false));
-        }}
-      />
+      <Overlay className="overlay-card-updated" onClick={handleCloseModal} />
       <div className="update-card-container">
-        <TiDeleteOutline
-          className="close-modal"
-          onClick={() => dispatch(setIsDisplayUpdateCardModal(false))}
-        />
+        <TiDeleteOutline className="close-modal" onClick={handleCloseModal} />
         <InfosCard
           className="infos-card"
           image={url_image}
           name={nom}
           city={commune}
         />
-        <FormUpdateCard cardDatas={cardDatas} onDataChange={handleDataChange} />
+        <UpdateCard cardDatas={cardDatas} onDataChange={handleDataChange} />
       </div>
     </UpdateCardModalStyled>
   );
@@ -45,6 +40,8 @@ export default function UpdateCardModal() {
 const UpdateCardModalStyled = styled.div`
   display: flex;
   justify-content: center;
+  position: relative;
+  z-index: 1;
   .update-card-container {
     position: absolute;
     max-width: 620px;
@@ -78,6 +75,6 @@ const UpdateCardModalStyled = styled.div`
     }
   }
   .overlay-card-updated {
-    opacity: 90%;
+    opacity: 95%;
   }
 `;

@@ -34,7 +34,7 @@ const CalendarValidationButtonStyled = styled.div`
     font-size: 16px;
   }
   .confirm-reservation {
-    font-size: 20px;;
+    font-size: 20px;
     text-align: center;
     color: #008000bc;
     font-weight: 400;

@@ -31,8 +31,8 @@ const SignUpModalStyled = styled.div`
   height: 100vh;
   position: absolute;
   top: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  /* left: 50%;
+  transform: translateX(-50%); */
   .form-container {
     width: 500px;
     height: 500px;

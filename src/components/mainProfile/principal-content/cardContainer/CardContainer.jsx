@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { getMuseumsFiltered } from "../../../../utils/utils";
 
 export default function CardContainer() {
-  const { isMuseumsRended } = useSelector((state) => state.displaySettings);
+  // const { isMuseumsRended } = useSelector((state) => state.displaySettings);
   const { museums, search } = useSelector((state) => state.museums);
   const museumsFiltered = getMuseumsFiltered(museums, search);
 

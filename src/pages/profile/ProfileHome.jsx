@@ -5,6 +5,8 @@ import styled from "styled-components";
 import useInitializeBasketAndMuseums from "../../hooks/useInitializeBasketAndMuseums.js";
 import { useSelector } from "react-redux";
 import { getEmailLocalStorage, getUserName } from "../../utils/user.js";
+import { modalUpdateCardAnimation } from "../../animations/animations.js";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 export default function ProfileHome() {
   const userEmail = getEmailLocalStorage();
@@ -19,7 +21,13 @@ export default function ProfileHome() {
     <ProfileHomeStyled>
       <NavBarProfile />
       <MainProfile />
-      {isDisplayUpdateCardModal && <UpdateCardModal />}
+      {isDisplayUpdateCardModal && (
+        <TransitionGroup className="transition-group">
+          <CSSTransition appear classNames="modal-update-card" timeout={500}>
+            <UpdateCardModal />
+          </CSSTransition>
+        </TransitionGroup>
+      )}
     </ProfileHomeStyled>
   );
 }
@@ -29,4 +37,5 @@ const ProfileHomeStyled = styled.div`
   width: 100vw;
   height: 100vh;
   margin: 0 auto;
+  ${modalUpdateCardAnimation}
 `;

@@ -1,5 +1,8 @@
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { modalAdminAnimation, modalCalendarAnimation } from "../../../animations/animations";
+import {
+  modalAdminAnimation,
+  modalCalendarAnimation,
+} from "../../../animations/animations";
 import { useDispatch, useSelector } from "react-redux";
 import { BsFillArrowRightSquareFill } from "react-icons/bs";
 import { setIsBasketDisplayed } from "../../../features/profile/displaySettingsSlice";
@@ -30,6 +33,7 @@ export default function PrincipalContent() {
   const openBasket = () => {
     dispatch(setIsBasketDisplayed(true));
   };
+  
   return (
     <PrincipalContentStyled style={width}>
       <img src={bgImage} className="bg-image" />
