@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  isToggleCarrousel: true,
   isNavSwitchButtonActived: false,
   isMainSwitchButtonActived: false,
   isPopUpDisplayed: false,
@@ -20,6 +21,9 @@ const displaySettingsSlice = createSlice({
   name: "displaySettings",
   initialState,
   reducers: {
+    setIsToggleCarrousel: (state, { payload }) => {
+      state.isToggleCarrousel = payload;
+    },
     setIsNavSwitchButtonActived: (state) => {
       state.isNavSwitchButtonActived = !state.isNavSwitchButtonActived;
     },
@@ -63,6 +67,7 @@ const displaySettingsSlice = createSlice({
 });
 
 export const {
+  setIsToggleCarrousel,
   setIsNavSwitchButtonActived,
   setIsMainSwitchButtonActived,
   setIsPopUpDisplayed,

@@ -1,45 +1,28 @@
 import styled from "styled-components";
 import LoginForm from "./login/LoginForm";
-import { useDispatch, useSelector } from "react-redux";
-import { toggleLoginForm } from "../../features/sign/signSlice";
-import ButtonDisplayForm from "../reusable-ui/ButtonDisplayForm.jsx";
+import ButtonsDisplayLoginForm from "./ButtonsDisplayLoginForm.jsx";
 
-export default function Main() {
-  const isToggleLoginForm = useSelector(
-    (state) => state.sign.isToggleLoginForm
-  );
-  const dispatch = useDispatch();
+export default function MainHome() {
   return (
-    <MainStyled>
-      <h1>Museums</h1>
+    <MainHomeStyled>
       <LoginForm />
-      {isToggleLoginForm ? (
-        <ButtonDisplayForm
-          label="Se connecter avec Facebook ou Google"
-          onClick={() => dispatch(toggleLoginForm())}
-        />
-      ) : (
-        <ButtonDisplayForm
-          label="Se connecter avec E-mail"
-          onClick={() => dispatch(toggleLoginForm())}
-        />
-      )}
-    </MainStyled>
+      <ButtonsDisplayLoginForm />
+    </MainHomeStyled>
   );
 }
-const MainStyled = styled.div`
+const MainHomeStyled = styled.div`
   /* height: calc(100vh - 70px); */
   display: flex;
   flex-direction: column;
   align-items: center;
   position: absolute;
-  top: 70px;
+  top: 30%;
   left: 50%;
   transform: translateX(-50%);
-  h1 {
+  h2 {
     width: 100%;
     font-family: "Berkshire Swash", cursive;
-    font-size: 6rem;
+    font-size: 5rem;
     text-align: center;
     background: linear-gradient(to right, pink, #b659b6);
     -webkit-background-clip: text;
