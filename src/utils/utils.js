@@ -9,6 +9,10 @@ export const normalizeString = (input) => {
   }
 };
 
+export function reloadPage() {
+  window.location.reload();
+}
+
 export function handleRenameKeysObject(originalObject) {
   const renamedKeysObject = Object.keys(originalObject).reduce((acc, key) => {
     switch (key) {
@@ -153,6 +157,17 @@ export function getFormatedDate(date) {
     return dateFormated;
   }
 }
+// export function getHour(date) {
+//   const options = {
+//     year: "numeric",
+//     month: "long",
+//     day: "numeric",
+//   };
+//   if (date) {
+//     const dateFormated = date.toLocaleDateString("fr-FR", options);
+//     return dateFormated;
+//   }
+// }
 
 // useEffect(() => {
 //   if (navigator.geolocation) {

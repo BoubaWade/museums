@@ -11,9 +11,9 @@ import { setCredentialsLocalStorage } from "../../../../utils/user.js";
 
 export default function ClassicLoginForm() {
   const { userEmail, errorLogin } = useSelector((state) => state.sign);
-  const formRef = useRef();
   const { emailRef, passwordRef, handleSignIn } = useSignIn();
   const { isChecked, setIsChecked } = useChecked(emailRef, passwordRef);
+  const formRef = useRef();
 
   const handleSubmit = async (e) => {
     e.preventDefault();

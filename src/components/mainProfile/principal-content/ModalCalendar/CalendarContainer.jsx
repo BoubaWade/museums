@@ -1,32 +1,51 @@
 import "react-calendar/dist/Calendar.css";
 import "react-date-picker/dist/DatePicker.css";
+import "react-clock/dist/Clock.css";
+import "react-time-picker/dist/TimePicker.css";
+import { useState } from "react";
+import {useSelector } from "react-redux";
 import Calendar from "react-calendar";
 import DatePicker from "react-date-picker";
 import styled from "styled-components";
 import CalendarValidationButton from "../../../reusable-ui/CalendarValidationButton.jsx";
-import { useState } from "react";
-import { useSelector } from "react-redux";
 import useBasket from "../../../../hooks/useBasket.js";
+import TimePicker from "react-time-picker";
 
 export default function CalendarContainer() {
   const { addBasketItem } = useBasket();
   const { museumRecovered } = useSelector((state) => state.museums);
   const { isReserved } = useSelector((state) => state.basket);
-  const [value, onChange] = useState(new Date());
+  const [dateValue, setDateValue] = useState(new Date());
+  const [hourValue, setHourValue] = useState("09:00");
+  const moment = { date: dateValue, hour: hourValue };
 
   const handleAddBasketItem = async () => {
-    addBasketItem(museumRecovered.id, value);
+    addBasketItem(museumRecovered.id, moment);
   };
 
   return (
     <CalendarContainerStyled>
       <DatePicker
-        onChange={onChange}
-        value={value}
+        value={dateValue}
+        onChange={setDateValue}
         className="calendar"
         calendarClassName="calendar-className"
+        minDate={new Date()}
+        disabled
       />
-      <Calendar onChange={onChange} value={value} className="calendar" />
+      <Calendar
+        value={dateValue}
+        onChange={setDateValue}
+        className="calendar"
+      />
+      <TimePicker
+        className="time"
+        clockClassName="clock-className"
+        value={hourValue}
+        onChange={setHourValue}
+        minTime="09:00:00"
+        maxTime="18:30:00"
+      />
       <CalendarValidationButton
         className="validation-button"
         isReserved={isReserved}
@@ -46,7 +65,8 @@ const CalendarContainerStyled = styled.div`
   height: 100%;
   border-radius: 10px;
   z-index: 1;
-  .calendar {
+  .calendar,
+  .time {
     color: #b659b6;
     background-color: white;
     max-width: 400px;
@@ -55,11 +75,13 @@ const CalendarContainerStyled = styled.div`
     border-radius: 5px;
     padding: 10px 15px;
     margin-bottom: 10px;
-    .react-date-picker__wrapper {
+    .react-date-picker__wrapper,
+    .react-time-picker__wrapper {
       border: none;
     }
   }
-  .calendar-className {
+  .calendar-className,
+  .react-time-picker__clock {
     display: none;
   }
   .validation-button {

@@ -4,6 +4,7 @@ import {
   deleteOneToBasket,
   setBasket,
   setDatePicked,
+  setHourPicked,
   setIsReserved,
 } from "../features/profile/basketSlice";
 import {
@@ -31,13 +32,12 @@ export default function useBasket() {
     if (basketLocalStorage) dispatch(setBasket(basketLocalStorage));
 
     const museumsList = await getMuseumsInFirestore(userEmail);
-    if (museumsList) {
-      dispatch(setMuseums(museumsList));
-    }
+    if (museumsList) dispatch(setMuseums(museumsList));
   };
 
   const addBasketItem = async (id, value) => {
-    dispatch(setDatePicked(getFormatedDate(value)));
+    dispatch(setDatePicked(getFormatedDate(value.date)));
+    dispatch(setHourPicked(value.hour));
     dispatch(addOneMuseumToBasket(id));
 
     dispatch(setIsBasketDisplayed(true));

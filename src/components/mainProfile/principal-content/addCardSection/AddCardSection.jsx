@@ -1,16 +1,16 @@
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
 import InfosCard from "../../../reusable-ui/InfosCard";
 import imageStop from "../../../../assets/images/imageStop.jpeg";
+import PrimaryButton from "../../../reusable-ui/PrimaryButton";
+import InputsContainer from "./InputsContainer";
 import { TiDeleteOutline } from "react-icons/ti";
 import { useState } from "react";
-import PrimaryButton from "../../../reusable-ui/PrimaryButton";
+import { useDispatch, useSelector } from "react-redux";
 import {
   handleAddMuseum,
   setMuseums,
 } from "../../../../features/profile/museumsSlice";
 import { setIsAddSectionDisplayed } from "../../../../features/profile/displaySettingsSlice";
-import InputsContainer from "./InputsContainer";
 import { getMuseumsInFirestore } from "../../../../Firebase/firebaseUtilities";
 import { getEmailLocalStorage } from "../../../../utils/user";
 

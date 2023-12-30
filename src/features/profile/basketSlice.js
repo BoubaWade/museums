@@ -18,6 +18,7 @@ export const basketSlice = createSlice({
   initialState: {
     basket: [],
     datePicked: "",
+    hourPicked: "",
     isReserved: false,
   },
   reducers: {
@@ -25,11 +26,12 @@ export const basketSlice = createSlice({
       state.basket = payload;
     },
     handleAddItemToBasket: (state, { payload }) => {
-      const payloadWithDatePicked = {
+      const payloadWithDateAndHourPicked = {
         ...payload,
         datePicked: state.datePicked,
+        hourPicked: state.hourPicked,
       };
-      state.basket.push(payloadWithDatePicked);
+      state.basket.push(payloadWithDateAndHourPicked);
       setBasketLocalStorage(userName, state.basket);
     },
     handleDeleteItemFromBasket: (state, { payload }) => {
@@ -39,6 +41,9 @@ export const basketSlice = createSlice({
     },
     setDatePicked: (state, { payload }) => {
       state.datePicked = payload;
+    },
+    setHourPicked: (state, { payload }) => {
+      state.hourPicked = payload;
     },
     setIsReserved: (state, { payload }) => {
       state.isReserved = payload;
@@ -101,6 +106,7 @@ export const {
   handleAddItemToBasket,
   handleDeleteItemFromBasket,
   setDatePicked,
+  setHourPicked,
   setIsReserved,
 } = basketSlice.actions;
 export default basketSlice.reducer;

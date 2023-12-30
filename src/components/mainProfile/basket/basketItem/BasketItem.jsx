@@ -27,7 +27,7 @@ const BasketItemStyled = styled.article`
   position: relative;
   background-color: #0080008a;
   width: 90%;
-  height: 85px;
+  height: 95px;
   display: flex;
   align-items: center;
   padding: 5px;
@@ -35,7 +35,6 @@ const BasketItemStyled = styled.article`
   cursor: pointer;
   transition: 0.3s ease-in-out;
   box-shadow: 2px 2px 10px 2px rgba(179, 179, 179, 0.75);
-  overflow: hidden;
   h3,
   p {
     height: 100%;
