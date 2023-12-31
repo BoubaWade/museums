@@ -52,7 +52,7 @@ export const signSlice = createSlice({
     currentUser: null,
     loading: true,
     errorLogin: "",
-    isToggleModal: false,
+    isToggleSignUpForm: false,
     isToggleLoginForm: true,
     isRegistered: false,
     rememberMe: false,
@@ -70,8 +70,8 @@ export const signSlice = createSlice({
     toggleLoginForm: (state) => {
       state.isToggleLoginForm = !state.isToggleLoginForm;
     },
-    toggleModal: (state) => {
-      state.isToggleModal = !state.isToggleModal;
+    toggleSignUpForm: (state) => {
+      state.isToggleSignUpForm = !state.isToggleSignUpForm;
     },
     setIsRegistered: (state, action) => {
       state.isRegistered = action.payload;
@@ -110,7 +110,7 @@ export const {
   setCurrentUser,
   setErrorLogIn,
   toggleLoginForm,
-  toggleModal,
+  toggleSignUpForm,
   setIsRegistered,
 } = signSlice.actions;
 

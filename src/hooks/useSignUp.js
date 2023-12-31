@@ -1,24 +1,17 @@
 import { useState } from "react";
-import PrimaryButton from "../../reusable-ui/PrimaryButton";
-import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import {
   setIsRegistered,
   setUserEmail,
-  toggleModal,
-} from "../../../features/sign/signSlice";
-import {
-  initialCredentials,
-  initialErrorField,
-  inputFieldsSignUp,
-} from "../../../config/config";
-import InputSignUp from "./InputSignUp";
-import { signUp } from "../../../Firebase/firebaseUtilities";
+  toggleSignUpForm,
+} from "../features/sign/signSlice";
+import { initialCredentials, initialErrorField } from "../config/config";
+import { signUp } from "../Firebase/firebaseUtilities";
 
-export default function SignUpForm() {
-  const dispatch = useDispatch();
+export default function useSignUp() {
   const [credentials, setCredentials] = useState(initialCredentials);
   const [errorField, setErrorField] = useState(initialErrorField);
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,18 +20,17 @@ export default function SignUpForm() {
       [name]: value,
     });
   };
+
   const resetForm = () => {
     setCredentials(initialCredentials);
     setErrorField(initialErrorField);
     dispatch(setIsRegistered(true));
     setTimeout(() => {
       dispatch(setIsRegistered(false));
-      dispatch(toggleModal());
+      dispatch(toggleSignUpForm());
     }, 2000);
   };
-
-  const handleSignUp = async (e) => {
-    e.preventDefault();
+  function handleSignUp() {
     const regexEmail = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
 
     if (!regexEmail.test(credentials.email)) {
@@ -67,32 +59,12 @@ export default function SignUpForm() {
           setErrorField({ ...errorField, errorEmail: "Email déja utilisé !" });
         }
       });
+  }
+
+  return {
+    credentials,
+    errorField,
+    handleChange,
+    handleSignUp,
   };
-
-  return (
-    <SignUpFormStyled onSubmit={(e) => handleSignUp(e)}>
-      <h2>CRÉER UN COMPTE</h2>
-      {inputFieldsSignUp(credentials, handleChange, errorField).map(
-        (field, index) => (
-          <InputSignUp key={index} field={field} />
-        )
-      )}
-      <PrimaryButton className="primary-button" label="VALIDER" />
-    </SignUpFormStyled>
-  );
 }
-
-const SignUpFormStyled = styled.form`
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  h2 {
-    color: white;
-    text-align: center;
-    margin: 10px 0 20px;
-  }
-  .primary-button {
-    font-size: 0.9rem;
-    padding: 15px 45px;
-  }
-`;

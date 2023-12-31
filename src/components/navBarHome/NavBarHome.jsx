@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import PrimaryButton from "../reusable-ui/PrimaryButton";
 import { useDispatch } from "react-redux";
-import { toggleModal } from "../../features/sign/signSlice";
+import { toggleSignUpForm } from "../../features/sign/signSlice";
 
 export default function NavBar() {
   const dispatch = useDispatch();
@@ -11,7 +11,7 @@ export default function NavBar() {
       <PrimaryButton
         label="S'inscrire"
         className="button-sign-up"
-        onClick={() => dispatch(toggleModal())}
+        onClick={() => dispatch(toggleSignUpForm())}
       />
     </NavBarHomeStyled>
   );

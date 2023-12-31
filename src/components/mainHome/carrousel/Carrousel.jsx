@@ -40,7 +40,7 @@ export default function Carrousel() {
         centeredSlides={true}
         modules={[Autoplay, Scrollbar, EffectCoverflow]}
         scrollbar={{ draggable: true }}
-        autoplay={{ delay: 700 }}
+        autoplay={{ delay: 500 }}
         effect={"coverflow"}
         grabCursor={true}
         loop={true}

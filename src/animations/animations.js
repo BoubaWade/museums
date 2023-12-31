@@ -1,4 +1,4 @@
-import { css } from "styled-components";
+import { css, keyframes } from "styled-components";
 
 export const modalCalendarAnimation = css`
   .modal-calendar-appear {
@@ -117,12 +117,14 @@ export const modalUpdateCardAnimation = css`
     transition: all 500ms;
   }
 `;
-export const modalSignUpAnimation = css`
-  .modal-signUp-appear {
+export const modalSignUpAnimation = keyframes`
+  0%{
     transform: translateY(100vh);
+    opacity: 0;
   }
-  .modal-signUp-appear-active {
+  100%{
     transform: translateY(0);
+    opacity: 100%;
     transition: all 500ms;
   }
 `;
