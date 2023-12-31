@@ -6,8 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteOneToBasket } from "../../../../features/profile/basketSlice";
 import { setIsDetailsPanelDisplayed } from "../../../../features/profile/displaySettingsSlice";
 import { getMuseumsInFirestore } from "../../../../Firebase/firebaseUtilities";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { buttonDeleteMuseumAnimation } from "../../../../animations/animations";
 import {
   handleDeleteMuseum,
   handleRecoverDataAfterClick,
@@ -52,14 +50,10 @@ export default function Card({ data }) {
       style={cardBackground}
     >
       {isNavSwitchButtonActived && (
-        <TransitionGroup className="transition-group">
-          <CSSTransition appear classNames="delete-button" timeout={500}>
-            <TiDelete
-              className="delete-card"
-              onClick={(e) => handleClickToDeleteMuseum(e)}
-            />
-          </CSSTransition>
-        </TransitionGroup>
+        <TiDelete
+          className="delete-card"
+          onClick={(e) => handleClickToDeleteMuseum(e)}
+        />
       )}
       <InfosCard image={url_image} name={nom} city={commune} />
       <CardButtons data={data} />
@@ -68,7 +62,6 @@ export default function Card({ data }) {
 }
 
 const CardStyled = styled.article`
-  /* background-color: white; */
   position: relative;
   width: 250px;
   height: 340px;
@@ -98,5 +91,4 @@ const CardStyled = styled.article`
       color: #b659b6;
     }
   }
-  ${buttonDeleteMuseumAnimation}
 `;

@@ -3,7 +3,6 @@ import ControlledInput from "../../../reusable-ui/ControlledInput";
 import { inputFieldsCardSection } from "../../../../config/config";
 
 export default function InputsContainer({ data, setData }) {
-  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData({

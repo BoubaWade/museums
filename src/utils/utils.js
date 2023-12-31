@@ -57,7 +57,6 @@ export function deepCopy(originalArray) {
 export function findObjectInArray(array, objectId) {
   if (array) {
     const objectFinded = array.find((data) => data.id === objectId);
-
     return objectFinded;
   }
 }
