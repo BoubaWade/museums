@@ -2,13 +2,14 @@ import styled from "styled-components";
 import Card from "./Card";
 import { useSelector } from "react-redux";
 import { getMuseumsFiltered } from "../../../../utils/utils";
+import Loader from "../../../reusable-ui/Loader";
 
 export default function CardContainer() {
   // const { isMuseumsRended } = useSelector((state) => state.displaySettings);
   const { museums, search } = useSelector((state) => state.museums);
   const museumsFiltered = getMuseumsFiltered(museums, search);
 
-  if (museumsFiltered === undefined) return <div>Chargement...</div>;
+  if (museumsFiltered === undefined) return <Loader />;
 
   if (museumsFiltered.length === 0) {
     return (
@@ -19,11 +20,11 @@ export default function CardContainer() {
   }
   return (
     // isMuseumsRended && (
-      <CardContainerStyled>
-        {museumsFiltered.map((data) => (
-          <Card key={data.id} data={data} className={"card"} />
-        ))}
-      </CardContainerStyled>
+    <CardContainerStyled>
+      {museumsFiltered.map((data) => (
+        <Card key={data.id} data={data} className={"card"} />
+      ))}
+    </CardContainerStyled>
     // )
   );
 }
