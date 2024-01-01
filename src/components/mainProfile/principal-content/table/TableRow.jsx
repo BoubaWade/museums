@@ -1,5 +1,5 @@
 import { setIsAddSectionDisplayed } from "../../../../features/profile/displaySettingsSlice";
-import { handleRecoverOneMuseumDataFromAPI } from "../../../../features/profile/museumsSlice";
+import { handleRecoverMuseumFromAPI } from "../../../../features/profile/museumsSlice";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
@@ -9,7 +9,7 @@ export default function TableRow({ data }) {
 
   const handleClick = (e) => {
     dispatch(setIsAddSectionDisplayed(true));
-    dispatch(handleRecoverOneMuseumDataFromAPI(e.target.id));
+    dispatch(handleRecoverMuseumFromAPI(e.target.id));
   };
 
   return (

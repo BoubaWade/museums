@@ -1,30 +1,31 @@
+import styled from "styled-components";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
 import { getMuseumsFromAPI } from "../../../../features/profile/museumsSlice";
 import { getMuseumsFiltered } from "../../../../utils/utils";
 import TableRow from "./TableRow";
+import Loader from "../../../reusable-ui/Loader";
+import TableHeader from "./TableHeader";
+import EmptyMuseums from "../../../reusable-ui/EmptyMuseums";
 
 export default function Table() {
   const { museumsFromAPI, search } = useSelector((state) => state.museums);
+  const museumsFiltered = getMuseumsFiltered(museumsFromAPI, search);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getMuseumsFromAPI());
   }, []);
 
-  const museumsFiltered = getMuseumsFiltered(museumsFromAPI, search);
+  if (!museumsFiltered) return <Loader />;
+
+  if (museumsFiltered.length === 0) return <EmptyMuseums word="trouvés" />;
 
   return (
     <TableStyled>
       <tbody>
-        <tr>
-          <th>Nom du musée</th>
-          <th>Code Postal</th>
-          <th>Commune</th>
-          <th>Département</th>
-        </tr>
-        {museumsFiltered?.map((data) => (
+        <TableHeader />
+        {museumsFiltered.map((data) => (
           <TableRow key={data.id} data={data} />
         ))}
       </tbody>
@@ -50,9 +51,5 @@ const TableStyled = styled.table`
       border: 2px solid #b669b6;
       padding: 5px 15px;
     }
-  }
-  .empty-cards {
-    font-size: 18px;
-    color: #000000b5;
   }
 `;

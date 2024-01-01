@@ -1,18 +1,12 @@
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import BasketItem from "./basketItem/BasketItem";
-const styleEmptyBasket = {
-  position: "absolute",
-  fontSize: "17px",
-  color: "red",
-  top: "10%",
-  marginLeft: "20%",
-};
+import EmptyMuseums from "../../reusable-ui/EmptyMuseums";
+
 export default function BasketList() {
   const { basket } = useSelector((state) => state.basket);
 
-  if (basket.length === 0)
-    return <div style={styleEmptyBasket}>Pas de musées réservés</div>;
+  if (basket.length === 0) return <EmptyMuseums word="réservés" />;
 
   return (
     <BasketListStyled>

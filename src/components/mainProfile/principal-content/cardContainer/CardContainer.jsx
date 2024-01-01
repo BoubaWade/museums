@@ -3,6 +3,7 @@ import Card from "./Card";
 import { useSelector } from "react-redux";
 import { getMuseumsFiltered } from "../../../../utils/utils";
 import Loader from "../../../reusable-ui/Loader";
+import EmptyMuseums from "../../../reusable-ui/EmptyMuseums";
 
 export default function CardContainer() {
   // const { isMuseumsRended } = useSelector((state) => state.displaySettings);
@@ -11,13 +12,7 @@ export default function CardContainer() {
 
   if (museumsFiltered === undefined) return <Loader />;
 
-  if (museumsFiltered.length === 0) {
-    return (
-      <CardContainerStyled>
-        <p className="empty-card">Pas de musées trouvés</p>
-      </CardContainerStyled>
-    );
-  }
+  if (museumsFiltered.length === 0) return <EmptyMuseums word="trouvés" />;
   return (
     // isMuseumsRended && (
     <CardContainerStyled>
