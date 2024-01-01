@@ -8,11 +8,12 @@ export default function PrincipalContent() {
   const { isToggleSignUpForm } = useSelector((state) => state.sign);
   const { isToggleCarrousel } = useSelector((state) => state.displaySettings);
 
-  const principal = isToggleCarrousel ? <Carrousel /> : <MainHome />;
+  const principalContent = isToggleCarrousel ? <Carrousel /> : <MainHome />;
+
   return (
     <PrincipalContentStyled>
       <h1>Museums</h1>
-      {isToggleSignUpForm ? <SignUpModal /> : principal}
+      {isToggleSignUpForm ? <SignUpModal /> : principalContent}
     </PrincipalContentStyled>
   );
 }

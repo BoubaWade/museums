@@ -3,22 +3,19 @@ import CardButtons from "./CardButtons";
 import InfosCard from "../../../reusable-ui/InfosCard";
 import { TiDelete } from "react-icons/ti";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteOneToBasket } from "../../../../features/profile/basketSlice";
 import { setIsDetailsPanelDisplayed } from "../../../../features/profile/displaySettingsSlice";
-import { getMuseumsInFirestore } from "../../../../Firebase/firebaseUtilities";
-import {
-  handleDeleteMuseum,
-  handleRecoverDataAfterClick,
-  setMuseums,
-} from "../../../../features/profile/museumsSlice";
-import { getEmailLocalStorage } from "../../../../utils/user";
+import { handleRecoverDataAfterClick } from "../../../../features/profile/museumsSlice";
+import useMuseums from "../../../../hooks/useMuseums";
 
 export default function Card({ data }) {
   const { id, url_image, nom, commune } = data;
   const { isNavSwitchButtonActived, isDetailsPanelDisplayed } = useSelector(
     (state) => state.displaySettings
   );
-  const userEmail = getEmailLocalStorage();
+  const cardBackground = {
+    backgroundColor: !isNavSwitchButtonActived && "#f3a3f333",
+  };
+  const { deleteOneToMuseums } = useMuseums();
   const dispatch = useDispatch();
 
   const handleClickOnACardBody = (e, id) => {
@@ -33,15 +30,7 @@ export default function Card({ data }) {
 
   const handleClickToDeleteMuseum = async (e) => {
     e.stopPropagation();
-    dispatch(handleDeleteMuseum(id));
-    const museumsList = await getMuseumsInFirestore(userEmail);
-    dispatch(setMuseums(museumsList));
-
-    dispatch(deleteOneToBasket(id));
-  };
-
-  const cardBackground = {
-    backgroundColor: !isNavSwitchButtonActived && "#f3a3f333",
+    deleteOneToMuseums(id);
   };
 
   return (

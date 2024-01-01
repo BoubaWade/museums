@@ -11,7 +11,7 @@ export default function SearchSection() {
   );
   const dispatch = useDispatch();
 
-  const handleSearchChange = (value) => {
+  const handleSearch = (value) => {
     dispatch(setSearch(value));
   };
 
@@ -20,7 +20,7 @@ export default function SearchSection() {
       <SearchForm
         className="search-form"
         placeholder="Rechercher puis ajouter un nouveau musée"
-        onSearch={handleSearchChange}
+        onSearch={handleSearch}
       />
       {isAddSectionDisplayed ? <AddCardSection /> : <Table />}
     </SearchSectionStyled>

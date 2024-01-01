@@ -37,13 +37,14 @@ export const signIn = async (email, password) => {
 export const getMuseumsInFirestore = async (path) => {
   const documentRef = doc(db, "ListMuseums", path);
   const docSnapshot = await getDoc(documentRef);
-  const initialedocumentRef = doc(db, "ListMuseums", DOC_ID);
-  const initialedocSnapshot = await getDoc(initialedocumentRef);
 
   if (docSnapshot.exists()) {
     const { datasMuseums } = docSnapshot.data();
     return datasMuseums;
   } else {
+    const initialedocumentRef = doc(db, "ListMuseums", DOC_ID);
+    const initialedocSnapshot = await getDoc(initialedocumentRef);
+    
     const { datasMuseums } = initialedocSnapshot.data();
     return datasMuseums;
   }

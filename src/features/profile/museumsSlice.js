@@ -13,14 +13,16 @@ import {
 export const getMuseumsFromAPI = createAsyncThunk(
   "user/getMuseums",
   async (_, { dispatch, getState }) => {
-    const {museums} = getState().museums;
+    const { museums } = getState().museums;
     fetch(
       "https://data.culture.gouv.fr/api/explore/v2.1/catalog/datasets/liste-et-localisation-des-musees-de-france/records?limit=100&refine=region_administrative%3A%22%C3%8Ele-de-France%22"
     )
       .then((res) => res.json())
       .then((response) => {
         const responseUpdated = handleRenameKeysObjectOfArray(response.results);
-        const filteredArray = responseUpdated.filter((item2) => !museums.find((item1) => item1.id === item2.id));
+        const filteredArray = responseUpdated.filter(
+          (item2) => !museums.find((item1) => item1.id === item2.id)
+        );
         dispatch(setMuseumsFromAPI(filteredArray));
       })
       .catch((error) => {
@@ -50,7 +52,7 @@ export const museumsSlice = createSlice({
     setMuseumsFromAPI: (state, { payload }) => {
       state.museumsFromAPI = payload;
     },
-    handleRecoverOneMuseumDataFromAPI: (state, { payload }) => {
+    handleRecoverMuseumFromAPI: (state, { payload }) => {
       state.museumRecoveredAfterClick = findObjectInArray(
         state.museumsFromAPI,
         payload
@@ -121,7 +123,7 @@ export const museumsSlice = createSlice({
 export const {
   setMuseums,
   setMuseumsFromAPI,
-  handleRecoverOneMuseumDataFromAPI,
+  handleRecoverMuseumFromAPI,
   setSearch,
   handleAddMuseum,
   handleDeleteMuseum,

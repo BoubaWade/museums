@@ -1,23 +1,24 @@
 import styled from "styled-components";
 import InputsContainer from "./InputsContainer";
 import PrimaryButton from "../../../reusable-ui/PrimaryButton";
-import useAddMuseum from "../../../../hooks/useAddMuseum";
+import useMuseums from "../../../../hooks/useMuseums";
+const success = { fontSize: "16px", color: "#008000e0", marginTop: "90px" };
 
 export default function FormAddCard({ dataRecovered, setDataRecovered }) {
-  const { isAddMuseumSuccessfull, addOneToMuseums } =
-    useAddMuseum(dataRecovered);
+  const { isAddMuseumSuccessfull, addOneToMuseums } = useMuseums();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    addOneToMuseums();
+    addOneToMuseums(dataRecovered);
   };
+
+  if (isAddMuseumSuccessfull)
+    return <span style={success}>Ajouté avec succés</span>;
 
   return (
     <FormAddCardStyled>
       <InputsContainer data={dataRecovered} setData={setDataRecovered} />
-      {isAddMuseumSuccessfull ? (
-        <span className="success-message">Ajouté avec succés</span>
-      ) : (
+      {!isAddMuseumSuccessfull && (
         <PrimaryButton
           className="add-button"
           label="Ajouter dans l'application"
@@ -39,10 +40,5 @@ const FormAddCardStyled = styled.form`
     color: #000000b5;
     font-weight: 500;
     padding: 0 15px;
-  }
-  .success-message {
-    font-size: 16px;
-    color: #008000e0;
-    margin-top: 20px;
   }
 `;
