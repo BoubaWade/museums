@@ -8,7 +8,10 @@ import { signOut } from "firebase/auth";
 import { auth } from "../../../Firebase/firebase-config";
 import { setCurrentUser } from "../../../features/sign/signSlice";
 import PopupItem from "./PopupItem";
-import { setIsToggleCarrousel } from "../../../features/profile/displaySettingsSlice";
+import {
+  setIsPopUpDisplayed,
+  setIsToggleCarrousel,
+} from "../../../features/profile/displaySettingsSlice";
 
 export default function PopupUserProfile() {
   const { isPopUpDisplayed } = useSelector((state) => state.displaySettings);
@@ -19,10 +22,10 @@ export default function PopupUserProfile() {
     navigate("/profile/settings");
   };
   const logOut = async () => {
-    await signOut(auth);
-    dispatch(setCurrentUser(null));
+    signOut(auth).then(() => dispatch(setCurrentUser(null)));
     localStorage.removeItem("token");
     dispatch(setIsToggleCarrousel(false));
+    dispatch(setIsPopUpDisplayed(false));
     navigate("/");
   };
 
@@ -61,6 +64,7 @@ const PopupUserProfileStyled = styled.div`
   font-size: 16px;
   top: 60px;
   left: 67%;
+  z-index: 3;
   .popup-items {
     position: relative;
     width: 145px;

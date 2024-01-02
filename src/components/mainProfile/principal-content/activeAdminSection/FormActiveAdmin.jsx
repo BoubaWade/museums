@@ -3,35 +3,20 @@ import { GiElvenCastle } from "react-icons/gi";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { useDispatch } from "react-redux";
 import { TiDelete } from "react-icons/ti";
-import { signIn } from "../../../../Firebase/firebaseUtilities";
-import {
-  setIsFormAdminDisplayed,
-  setIsNavSwitchButtonActived,
-} from "../../../../features/profile/displaySettingsSlice";
+import { setIsNavSwitchButtonActived } from "../../../../features/profile/displaySettingsSlice";
 import styled from "styled-components";
 import ControlledInput from "../../../reusable-ui/ControlledInput";
 import PrimaryButton from "../../../reusable-ui/PrimaryButton";
-import { getEmailLocalStorage } from "../../../../utils/user";
+import useAdminMode from "../../../../hooks/useAdminMode";
 
 export default function FormActiveAdmin() {
+  const { errorPasswordAdmin, handleSignInModeAdmin } = useAdminMode();
   const [passwordAdmin, setPasswordAdmin] = useState("");
-  const [errorPasswordAdmin, setErrorPasswordAdmin] = useState(false);
   const dispatch = useDispatch();
-  const email = getEmailLocalStorage();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    signIn(email, passwordAdmin)
-      .then((userCredential) => {
-        if (userCredential) {
-          dispatch(setIsFormAdminDisplayed(false));
-        }
-      })
-      .catch((error) => {
-        if (error.code === "auth/invalid-login-credentials") {
-          setErrorPasswordAdmin(true);
-        }
-      });
+    handleSignInModeAdmin(passwordAdmin);
   };
 
   return (

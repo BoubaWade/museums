@@ -4,30 +4,24 @@ import ListMuseumInfos from "../../reusable-ui/ListMuseumInfos";
 import ImageAndTitle from "./ImageAndTitle";
 import PrimaryButton from "../../reusable-ui/PrimaryButton";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { BsFillArrowRightSquareFill } from "react-icons/bs";
 import { setIsDetailsPanelDisplayed } from "../../../features/profile/displaySettingsSlice";
 
 export default function MuseumDetailsPanel() {
   const { museumRecovered } = useSelector((state) => state.museums);
-  const isDetailsPanelDisplayed = useSelector(
-    (state) => state.displaySettings.isDetailsPanelDisplayed
-  );
+  const { isDetailsPanelDisplayed } = useSelector((state) => state.displaySettings)
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const panelDisplayStyle = {
     transform: isDetailsPanelDisplayed ? "translateX(-100%)" : "",
   };
-  const handleClick = () => {
-    navigate("/profile/museum-details");
-  };
+
   const handleClosePanel = () => {
     dispatch(setIsDetailsPanelDisplayed());
   };
 
-  if (!museumRecovered) {
-    return;
-  }
+  if (!museumRecovered) return;
 
   return (
     <MuseumDetailsPanelStyled style={panelDisplayStyle}>
@@ -37,7 +31,7 @@ export default function MuseumDetailsPanel() {
       <PrimaryButton
         className="button-read-more"
         label="En savoir plus"
-        onClick={handleClick}
+        onClick={() => navigate("/profile/museum-details")}
       />
       <BsFillArrowRightSquareFill
         className="arrow-close-panel"
@@ -56,6 +50,7 @@ const MuseumDetailsPanelStyled = styled.div`
   box-shadow: -6px 0px 6px -2px rgba(179, 179, 179, 0.75);
   transition: all 500ms ease-in-out;
   overflow-y: auto;
+  z-index: 1;
   .bg-image {
     display: block;
     width: 100%;

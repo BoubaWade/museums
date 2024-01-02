@@ -1,9 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 // import { onAuthStateChanged } from "firebase/auth";
-// import { auth } from "../../Firebase/firebase-config";
 import { signIn } from "../../Firebase/firebaseUtilities";
-
 // export const checkAuthState = createAsyncThunk(
 //   "checkAuth/checkAuthState",
 //   async (_, { dispatch }) => {
@@ -25,7 +23,7 @@ import { signIn } from "../../Firebase/firebaseUtilities";
 
 export const getSignInWithEmailAndPassword = createAsyncThunk(
   "sign/getSignInWithEmailAndPassword",
-  async (credentials, { dispatch }) => {
+  async (credentials, { dispatch}) => {
     try {
       const userCredential = await signIn(
         credentials.email,
@@ -34,9 +32,10 @@ export const getSignInWithEmailAndPassword = createAsyncThunk(
       dispatch(setCurrentUser(userCredential.user.providerData[0]));
       const { accessToken, email } = userCredential.user;
       // createMuseumsInFirestore(museumsFakeDatas);
-      dispatch(setUserEmail(email));
       localStorage.setItem("token", accessToken);
       localStorage.setItem("email", email);
+      dispatch(setUserEmail(email));
+
     } catch (error) {
       if (error.code === "auth/invalid-login-credentials") {
         dispatch(setErrorLogIn("Email ou Mot de passe invalide"));

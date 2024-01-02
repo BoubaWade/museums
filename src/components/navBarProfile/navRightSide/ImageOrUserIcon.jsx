@@ -1,5 +1,5 @@
 import { FaUserCircle } from "react-icons/fa";
-import { setIsPopUpDisplayed } from "../../features/profile/displaySettingsSlice";
+import { setIsPopUpDisplayed } from "../../../features/profile/displaySettingsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 

@@ -8,6 +8,7 @@ import { getEmailLocalStorage, getUserName } from "../../utils/user.js";
 import { modalUpdateCardAnimation } from "../../animations/animations.js";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function ProfileHome() {
   const userEmail = getEmailLocalStorage();
@@ -16,9 +17,14 @@ export default function ProfileHome() {
   const { isDisplayUpdateCardModal } = useSelector(
     (state) => state.displaySettings
   );
+  const navigate = useNavigate();
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     initializeMuseums();
+    if (token) {
+      navigate("/profile/profile-home");
+    }
   }, []);
 
   return (

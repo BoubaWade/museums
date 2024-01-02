@@ -8,7 +8,7 @@ import { useState } from "react";
 import { setIsDisplayUpdateCardModal } from "../../features/profile/displaySettingsSlice";
 
 export default function UpdateCardModal() {
-  const {museumUpdated} = useSelector((state) => state.museums);
+  const { museumUpdated } = useSelector((state) => state.museums);
   const [cardDatas, setCardDatas] = useState(museumUpdated);
   const { url_image, nom, commune } = cardDatas;
   const dispatch = useDispatch();
@@ -41,7 +41,7 @@ const UpdateCardModalStyled = styled.div`
   display: flex;
   justify-content: center;
   position: relative;
-  z-index: 1;
+  z-index: 2;
   .update-card-container {
     position: absolute;
     max-width: 620px;

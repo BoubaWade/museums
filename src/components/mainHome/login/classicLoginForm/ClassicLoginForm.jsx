@@ -11,7 +11,7 @@ import { setCredentialsLocalStorage } from "../../../../utils/user.js";
 
 export default function ClassicLoginForm() {
   const { userEmail, errorLogin } = useSelector((state) => state.sign);
-  const { emailRef, passwordRef, handleSignIn } = useSignIn();
+  const { credentials, emailRef, passwordRef, handleSignIn } = useSignIn();
   const { isChecked, setIsChecked } = useChecked(emailRef, passwordRef);
   const formRef = useRef();
 
@@ -24,7 +24,7 @@ export default function ClassicLoginForm() {
     } else {
       localStorage.removeItem("password");
     }
-    handleSignIn();
+    handleSignIn(credentials);
   };
 
   return (
