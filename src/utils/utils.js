@@ -1,14 +1,3 @@
-export const normalizeString = (input) => {
-  if (input) {
-    const normalizedString = input
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(/\s/g, "");
-
-    return normalizedString.toLowerCase();
-  }
-};
-
 export function reloadPage() {
   window.location.reload();
 }
@@ -47,11 +36,6 @@ export function handleRenameKeysObjectOfArray(array) {
   );
   const newArray = handleAddPropertyToObjectOfArray(renamedKeysObjectsOfArray);
   return newArray;
-}
-
-export function deepCopy(originalArray) {
-  const copyArray = JSON.parse(JSON.stringify(originalArray));
-  return copyArray;
 }
 
 export function findObjectInArray(array, objectId) {
@@ -95,30 +79,6 @@ export function arrayUpdatedById(array, payload) {
     }
   });
   return arrayUpdated;
-}
-
-export function getMuseumsFiltered(datas, search) {
-  return datas?.filter((data) => {
-    const nameOfMuseum = normalizeString(data.nom)?.includes(
-      normalizeString(search)
-    );
-    const cityOfMuseum = normalizeString(data.commune).includes(
-      normalizeString(search)
-    );
-    const departementOfMuseum = normalizeString(data.departement).includes(
-      normalizeString(search)
-    );
-
-    const codePostal = normalizeString(data.code_postal).includes(
-      normalizeString(search)
-    );
-
-    if (search.length > 2) {
-      return nameOfMuseum || cityOfMuseum || departementOfMuseum || codePostal;
-    } else {
-      return datas;
-    }
-  });
 }
 
 // export function calculateDistance(lat1, lon1, lat2, lon2) {

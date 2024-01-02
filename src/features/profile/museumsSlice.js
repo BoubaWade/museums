@@ -3,7 +3,6 @@ import { handleAddItemToBasket } from "./basketSlice";
 import { syncBothMuseums } from "../../Firebase/firebaseUtilities";
 import {
   arrayUpdatedById,
-  deepCopy,
   filterArrayById,
   findObjectInArray,
   handleRenameKeysObjectOfArray,
@@ -44,6 +43,7 @@ export const museumsSlice = createSlice({
     museumRecovered: null,
     selectedFile: null,
     search: "",
+    isAscending: false,
   },
   reducers: {
     setMuseums: (state, { payload }) => {
@@ -61,6 +61,9 @@ export const museumsSlice = createSlice({
     setSearch: (state, { payload }) => {
       state.search = payload;
     },
+    setIsAscending: (state) => {
+      state.isAscending = !state.isAscending;
+    },
 
     handleAddMuseum: (state, { payload }) => {
       const isPresentToMuseums = findObjectInArray(state.museums, payload.id);
@@ -71,14 +74,12 @@ export const museumsSlice = createSlice({
     },
 
     handleDeleteMuseum: (state, { payload }) => {
-      const museumsCopy = deepCopy(state.museums);
-      const museumsFiltered = filterArrayById(museumsCopy, payload);
+      const museumsFiltered = filterArrayById(state.museums, payload);
       syncBothMuseums(museumsFiltered);
     },
 
     handleUpdateMuseum: (state, { payload }) => {
-      const museumsCopy = deepCopy(state.museums);
-      const museumsUpdated = arrayUpdatedById(museumsCopy, payload);
+      const museumsUpdated = arrayUpdatedById(state.museums, payload);
       syncBothMuseums(museumsUpdated);
     },
 
@@ -109,9 +110,8 @@ export const museumsSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(handleAddItemToBasket, (state, { payload }) => {
-        const museumsCopy = deepCopy(state.museums);
         const museumsUpdated = mapArrayForChangeAddedProperty(
-          museumsCopy,
+          state.museums,
           payload.id,
           true
         );
@@ -125,6 +125,7 @@ export const {
   setMuseumsFromAPI,
   handleRecoverMuseumFromAPI,
   setSearch,
+  setIsAscending,
   handleAddMuseum,
   handleDeleteMuseum,
   handleAddDataToUpdatedCard,

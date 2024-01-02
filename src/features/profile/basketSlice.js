@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
-  deepCopy,
   filterArrayById,
   findObjectInArray,
   mapArrayForChangeAddedProperty,
@@ -35,8 +34,7 @@ export const basketSlice = createSlice({
       setBasketLocalStorage(userName, state.basket);
     },
     handleDeleteItemFromBasket: (state, { payload }) => {
-      const basketCopy = deepCopy(state.basket);
-      const basketUpdated = filterArrayById(basketCopy, payload);
+      const basketUpdated = filterArrayById(state.basket, payload);
       setBasketLocalStorage(userName, basketUpdated);
     },
     setDatePicked: (state, { payload }) => {
@@ -54,8 +52,8 @@ export const basketSlice = createSlice({
 export function addOneMuseumToBasket(action) {
   return function (dispatch, getState) {
     const storeState = getState();
-    const { basket } = storeState.basket;
     const { museums } = storeState.museums;
+    const { basket } = storeState.basket;
     const itemToAdd = findObjectInArray(museums, action);
     const isPresentToBasket = findObjectInArray(basket, action);
 

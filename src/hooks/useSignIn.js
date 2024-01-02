@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { getSignInWithEmailAndPassword } from "../features/sign/signSlice";
 import { getEmailLocalStorage } from "../utils/user";
 import { initialiseMyListMuseumsInFirestore } from "../Firebase/firebaseUtilities";
-import { reloadPage } from "../utils/utils";
+// import { reloadPage } from "../utils/utils";
 
 export default function useSignIn() {
   const emailRef = useRef();
@@ -22,7 +22,7 @@ export default function useSignIn() {
       const email = getEmailLocalStorage();
       await initialiseMyListMuseumsInFirestore(email);
       navigate("/profile/profile-home");
-      reloadPage();
+      // reloadPage();
     }
   };
   return { emailRef, passwordRef, handleSignIn };
