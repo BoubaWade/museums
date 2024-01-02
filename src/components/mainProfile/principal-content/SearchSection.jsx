@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import SearchForm from "../../reusable-ui/SearchForm";
 import Table from "./table/Table.jsx";
+import AddCardSection from "./addCardSection/AddCardSection.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearch } from "../../../features/profile/museumsSlice";
-import AddCardSection from "./addCardSection/AddCardSection.jsx";
 
 export default function SearchSection() {
   const { isAddSectionDisplayed } = useSelector(
@@ -17,12 +17,18 @@ export default function SearchSection() {
 
   return (
     <SearchSectionStyled>
-      <SearchForm
-        className="search-form"
-        placeholder="Rechercher puis ajouter un nouveau musée"
-        onSearch={handleSearch}
-      />
-      {isAddSectionDisplayed ? <AddCardSection /> : <Table />}
+      {isAddSectionDisplayed ? (
+        <AddCardSection />
+      ) : (
+        <>
+          <SearchForm
+            className="search-form"
+            placeholder="Rechercher puis ajouter un nouveau musée"
+            onSearch={handleSearch}
+          />
+          <Table />
+        </>
+      )}
     </SearchSectionStyled>
   );
 }

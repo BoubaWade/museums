@@ -25,7 +25,7 @@ export default function ActiveAdminContainer() {
 
 const ActiveAdminContainerStyled = styled.div`
 position:absolute;
-z-index: 1;
+z-index: 2;
   .switch-button {
     background-color: white;
     margin: 20px auto 0 20px;

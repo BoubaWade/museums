@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getMuseumsFromAPI } from "../../../../features/profile/museumsSlice";
-import { getMuseumsFiltered } from "../../../../utils/utils";
+import { getMuseumsFiltered } from "../../../../utils/museums";
 import TableRow from "./TableRow";
 import Loader from "../../../reusable-ui/Loader";
 import TableHeader from "./TableHeader";

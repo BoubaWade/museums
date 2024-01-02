@@ -71,7 +71,6 @@ const FormActiveAdminStyled = styled.form`
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 1;
   .close-modal {
     position: absolute;
     font-size: 55px;

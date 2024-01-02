@@ -34,7 +34,10 @@ export default function AddCardSection() {
 
 const AddCardSectionStyled = styled.section`
   background-color: white;
-  position: relative;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
   align-items: center;
