@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { GiElvenCastle } from "react-icons/gi";
 import { useNavigate } from "react-router-dom";

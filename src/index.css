@@ -8,22 +8,7 @@
   padding: 0;
   box-sizing: border-box;
   max-width: 1500px;
-  /* max-height: 900px; */
   list-style-type: none;
   margin: 0 auto;
-  /* overflow-y: scroll; */
 }
-/* body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-} */
-/* .home-body{
-  background: url("./assets/images/backgroundHomeImage.jpeg") center/cover;
-   filter: brightness(40%);
-  -webkit-filter: brightness(40%);
-  -moz-filter: brightness(40%);
-} */
 
