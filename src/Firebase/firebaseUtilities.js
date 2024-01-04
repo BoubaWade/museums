@@ -3,7 +3,7 @@ import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
 } from "firebase/auth";
-import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { auth, db, DOC_ID } from "./firebase-config";
 import { getEmailLocalStorage } from "../utils/user";
 
@@ -44,7 +44,7 @@ export const getMuseumsInFirestore = async (path) => {
   } else {
     const initialedocumentRef = doc(db, "ListMuseums", DOC_ID);
     const initialedocSnapshot = await getDoc(initialedocumentRef);
-    
+
     const { datasMuseums } = initialedocSnapshot.data();
     return datasMuseums;
   }

@@ -4,19 +4,49 @@ import RememberCheckbox from "./RememberCheckbox.jsx";
 import useSignIn from "../../../../hooks/useSignIn.js";
 import PrimaryButton from "../../../reusable-ui/PrimaryButton.jsx";
 import InputLogIn from "./InputLogIn.jsx";
-import { useRef } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { inputFieldsSignIn } from "../../../../config/config.js";
-import { setCredentialsLocalStorage } from "../../../../utils/user.js";
+import {
+  getEmailLocalStorage,
+  getPasswordLocalStorage,
+  setCredentialsLocalStorage,
+} from "../../../../utils/user.js";
+import { useNavigate } from "react-router-dom";
+import { getSignInWithEmailAndPassword } from "../../../../features/sign/signSlice.js";
+import { initialiseMyListMuseumsInFirestore } from "../../../../Firebase/firebaseUtilities.js";
 
 export default function ClassicLoginForm() {
+  const emailRef = useRef();
+  const passwordRef = useRef();
   const { userEmail, errorLogin } = useSelector((state) => state.sign);
-  const { credentials, emailRef, passwordRef, handleSignIn } = useSignIn();
-  const { isChecked, setIsChecked } = useChecked(emailRef, passwordRef);
+  // const { isChecked, setIsChecked } = useChecked(emailRef, passwordRef);
+  const [isChecked, setIsChecked] = useState(false);
+
   const formRef = useRef();
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  // const { handleSignIn } = useSignIn(emailRef, passwordRef);
+  useEffect(() => {
+    emailRef.current.focus();
+    const emailStorage = getEmailLocalStorage();
+    const passwordStorage = getPasswordLocalStorage();
+
+    if (emailStorage && passwordStorage) {
+      emailRef.current.value = emailStorage;
+      passwordRef.current.value = passwordStorage;
+      setIsChecked(true);
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const credentials = {
+      email: emailRef.current.value,
+      password: passwordRef.current.value,
+    };
+
     if (isChecked) {
       const email = emailRef.current.value;
       const password = passwordRef.current.value;
@@ -24,7 +54,11 @@ export default function ClassicLoginForm() {
     } else {
       localStorage.removeItem("password");
     }
-    handleSignIn(credentials);
+    dispatch(getSignInWithEmailAndPassword(credentials))
+    .then(() => {
+      // initialiseMyListMuseumsInFirestore(userEmail);
+      navigate("/profile/profile-home");
+    });
   };
 
   return (

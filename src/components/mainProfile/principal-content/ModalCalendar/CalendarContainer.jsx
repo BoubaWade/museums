@@ -3,7 +3,7 @@ import "react-date-picker/dist/DatePicker.css";
 import "react-clock/dist/Clock.css";
 import "react-time-picker/dist/TimePicker.css";
 import { useState } from "react";
-import {useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Calendar from "react-calendar";
 import DatePicker from "react-date-picker";
 import styled from "styled-components";

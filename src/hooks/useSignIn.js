@@ -3,11 +3,12 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getSignInWithEmailAndPassword } from "../features/sign/signSlice";
 import { initialiseMyListMuseumsInFirestore } from "../Firebase/firebaseUtilities";
+import { getEmailLocalStorage } from "../utils/user";
 // import { reloadPage } from "../utils/utils";
 
-export default function useSignIn() {
-  const emailRef = useRef();
-  const passwordRef = useRef();
+export default function useSignIn(emailRef, passwordRef) {
+  // const emailRef = useRef();
+  // const passwordRef = useRef();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const credentials = {
@@ -15,12 +16,13 @@ export default function useSignIn() {
     password: passwordRef.current?.value,
   };
 
-  const handleSignIn = async (credentials) => {
+  const handleSignIn = async () => {
+    const email = getEmailLocalStorage();
     dispatch(getSignInWithEmailAndPassword(credentials)).then(() => {
       initialiseMyListMuseumsInFirestore(credentials.email);
       navigate("/profile/profile-home");
       // reloadPage();
     });
   };
-  return { credentials, emailRef, passwordRef, handleSignIn };
+  return { handleSignIn };
 }
