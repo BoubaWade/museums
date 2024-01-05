@@ -24,7 +24,7 @@ export default function PopupUserProfile() {
   const logOut = async () => {
     signOut(auth).then(() => dispatch(setCurrentUser(null)));
     localStorage.removeItem("token");
-    localStorage.removeItem("email");
+    localStorage.removeItem("Basket");
 
     dispatch(setIsToggleCarrousel(false));
     dispatch(setIsPopUpDisplayed(false));

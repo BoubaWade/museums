@@ -12,8 +12,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function ProfileHome() {
   const userEmail = getEmailLocalStorage();
-  const userName = getUserName();
-  const { initializeMuseums } = useInitializeMuseums(userEmail, userName);
+  const { initializeMuseumsAndBasket } = useInitializeMuseums(userEmail);
   const { isDisplayUpdateCardModal } = useSelector(
     (state) => state.displaySettings
   );
@@ -21,7 +20,7 @@ export default function ProfileHome() {
   const token = localStorage.getItem("token");
 
   useEffect(() => {
-    initializeMuseums();
+    initializeMuseumsAndBasket();
     if (token) {
       navigate("/profile/profile-home");
     }

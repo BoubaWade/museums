@@ -35,8 +35,8 @@ export default function CardContainer() {
         <Card key={data.id} data={data} className={"card"} />
       ))}
     </CardContainerStyled>
-    // )
   );
+  // );
 }
 
 const CardContainerStyled = styled.ul`

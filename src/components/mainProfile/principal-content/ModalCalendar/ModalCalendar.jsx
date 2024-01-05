@@ -4,7 +4,7 @@ import CalendarContainer from "./CalendarContainer.jsx";
 import { TiDelete } from "react-icons/ti";
 import { useDispatch } from "react-redux";
 import {
-  setIsMuseumsRendered,
+  // setIsMuseumsRendered,
   setShowModalCalendar,
 } from "../../../../features/profile/displaySettingsSlice.js";
 
@@ -12,7 +12,7 @@ export default function ModalCalendar() {
   const dispatch = useDispatch();
 
   const handleCloseModalCalendar = () => {
-    dispatch(setIsMuseumsRendered(true));
+    // dispatch(setIsMuseumsRendered(true));
     dispatch(setShowModalCalendar(false));
   };
 

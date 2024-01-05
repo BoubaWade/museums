@@ -3,14 +3,10 @@ import {
   filterArrayById,
   findObjectInArray,
   mapArrayForChangeAddedProperty,
+  mapArrayToAddDatePicked,
 } from "../../utils/utils";
 import { syncBothMuseums } from "../../Firebase/firebaseUtilities";
-import {
-  getBasketLocalStorage,
-  getUserName,
-  setBasketLocalStorage,
-} from "../../utils/user";
-const userName = getUserName();
+import { getBasketLocalStorage, setBasketLocalStorage } from "../../utils/user";
 
 export const basketSlice = createSlice({
   name: "basket",
@@ -31,11 +27,11 @@ export const basketSlice = createSlice({
         hourPicked: state.hourPicked,
       };
       state.basket.push(payloadWithDateAndHourPicked);
-      setBasketLocalStorage(userName, state.basket);
+      setBasketLocalStorage(state.basket);
     },
     handleDeleteItemFromBasket: (state, { payload }) => {
       const basketUpdated = filterArrayById(state.basket, payload);
-      setBasketLocalStorage(userName, basketUpdated);
+      setBasketLocalStorage(basketUpdated);
     },
     setDatePicked: (state, { payload }) => {
       state.datePicked = payload;
@@ -53,7 +49,7 @@ export function addOneMuseumToBasket(action) {
   return function (dispatch, getState) {
     const storeState = getState();
     const { museums } = storeState.museums;
-    const { basket } = storeState.basket;
+    const { basket, datePicked, hourPicked } = storeState.basket;
     const itemToAdd = findObjectInArray(museums, action);
     const isPresentToBasket = findObjectInArray(basket, action);
 
@@ -61,12 +57,18 @@ export function addOneMuseumToBasket(action) {
       if (itemToAdd) {
         dispatch(handleAddItemToBasket(itemToAdd));
       }
-      const museumsUpdated = mapArrayForChangeAddedProperty(
+      const museumsWithAddedProperty = mapArrayForChangeAddedProperty(
         museums,
         action,
         true
       );
-      syncBothMuseums(museumsUpdated);
+      const museumsWithDatePicked = mapArrayToAddDatePicked(
+        museumsWithAddedProperty,
+        datePicked,
+        hourPicked,
+        action
+      );
+      syncBothMuseums(museumsWithDatePicked);
     }
   };
 }
@@ -82,7 +84,7 @@ export function deleteOneToBasket(action) {
     if (!isPresentToMuseums) {
       if (itemToDelete) {
         dispatch(handleDeleteItemFromBasket(itemToDelete.id));
-        const basketStorage = getBasketLocalStorage(userName);
+        const basketStorage = getBasketLocalStorage();
         dispatch(setBasket(basketStorage));
       }
     } else {

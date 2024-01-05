@@ -26,6 +26,8 @@ export function handleAddPropertyToObjectOfArray(array) {
     ...data,
     url_image: "",
     isAdded: false,
+    datePicked: "",
+    hourPicked: "",
     isClicked: false,
   }));
 }
@@ -56,6 +58,20 @@ export function mapArrayForChangeAddedProperty(array, objectId, isAdded) {
       return {
         ...data,
         isAdded: isAdded,
+      };
+    } else {
+      return data;
+    }
+  });
+  return arrayMapped;
+}
+export function mapArrayToAddDatePicked(array, date, hour, objectId) {
+  const arrayMapped = array.map((data) => {
+    if (data.id === objectId) {
+      return {
+        ...data,
+        datePicked: date,
+        hourPicked: hour,
       };
     } else {
       return data;

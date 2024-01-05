@@ -70,9 +70,10 @@ export default function Carrousel() {
 }
 
 const CarrouselStyled = styled.div`
-  height: 350px;
+  height: 400px;
   margin-top: 200px;
   margin-bottom: 60px;
+  transform: translateX(200px);
   .swiper {
     height: 100%;
     border-radius: 15px;
@@ -97,7 +98,7 @@ const CarrouselStyled = styled.div`
     width: 300px;
     height: 45px;
     position: absolute;
-    left: 50%;
+    left: calc(50% - 200px);
     transform: translateX(-50%);
     font-size: 16px;
     margin-top: 50px;

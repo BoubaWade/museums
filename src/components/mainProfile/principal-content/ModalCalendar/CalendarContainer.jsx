@@ -17,7 +17,7 @@ export default function CalendarContainer() {
   const { isReserved } = useSelector((state) => state.basket);
   const [dateValue, setDateValue] = useState(new Date());
   const [hourValue, setHourValue] = useState("09:00");
-  const moment = { date: dateValue, hour: hourValue };
+  const moment = { datePicked: dateValue, hourPicked: hourValue };
 
   const handleAddBasketItem = async () => {
     addBasketItem(museumRecovered.id, moment);
