@@ -1,7 +1,7 @@
 import styled, { keyframes } from "styled-components";
 
-export default function Loader({ className }) {
-  return <LoaderStyled className={className}></LoaderStyled>;
+export default function Loader({ className, style }) {
+  return <LoaderStyled className={className} style={style}></LoaderStyled>;
 }
 
 const animLoader = keyframes`
