@@ -1,9 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 
-export default function PrimaryButton({ id, label, onClick, className }) {
+export default function PrimaryButton({
+  id,
+  label,
+  onClick,
+  className,
+  dataTestId,
+}) {
   return (
-    <PrimaryButtonStyled id={id}>
+    <PrimaryButtonStyled id={id} data-testid={dataTestId}>
       <button className={className} onClick={onClick}>
         {label}
       </button>

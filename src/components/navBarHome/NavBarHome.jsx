@@ -3,12 +3,13 @@ import PrimaryButton from "../reusable-ui/PrimaryButton";
 import { useDispatch } from "react-redux";
 import { toggleSignUpForm } from "../../features/sign/signSlice";
 
-export default function NavBar() {
+export default function NavBarHome() {
   const dispatch = useDispatch();
 
   return (
     <NavBarHomeStyled>
       <PrimaryButton
+        dataTestId="button-sign-up"
         label="S'inscrire"
         className="button-sign-up"
         onClick={() => dispatch(toggleSignUpForm())}

@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-export default function Overlay({ className, onClick }) {
+export default function Overlay({dataTestid, className, onClick }) {
   return (
-    <OverlayStyled className={className} onClick={onClick}></OverlayStyled>
+    <OverlayStyled data-testid={dataTestid} className={className} onClick={onClick}></OverlayStyled>
   );
 }
 const OverlayStyled = styled.div`

@@ -19,7 +19,11 @@ export default function SignUpForm() {
         errorField={errorField}
         handleChange={handleChange}
       />
-      <PrimaryButton className="primary-button" label="VALIDER" />
+      <PrimaryButton
+        className="submit-signUp-form-button"
+        label="VALIDER"
+        dataTestId="submit-signUp-form-button"
+      />
     </SignUpFormStyled>
   );
 }
@@ -33,7 +37,7 @@ const SignUpFormStyled = styled.form`
     text-align: center;
     margin: 10px 0 20px;
   }
-  .primary-button {
+  .submit-signUp-form-button {
     font-size: 0.9rem;
     padding: 15px 45px;
   }

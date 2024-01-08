@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home.jsx";
+import Home from "./pages/home/Home.jsx";
 import ProfileHome from "./pages/profile/ProfileHome.jsx";
 import EachMuseumPage from "./pages/profile/EachMuseumPage.jsx";
 import Error from "./pages/Error.jsx";
