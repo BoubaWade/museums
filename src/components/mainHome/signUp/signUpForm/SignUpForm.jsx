@@ -2,9 +2,21 @@ import PrimaryButton from "../../../reusable-ui/PrimaryButton";
 import styled from "styled-components";
 import useSignUp from "../../../../hooks/useSignUp";
 import InputsList from "./InputsList";
+import {
+  validateConfirmPassword,
+  validateEmail,
+  validatePasswordLength,
+} from "../../../../utils/user";
 
 export default function SignUpForm() {
   const { credentials, errorField, handleChange, handleSignUp } = useSignUp();
+  const { email, password, confirmPassword } = credentials;
+  const isValidEmail = validateEmail(email);
+  const isValidPasswordLength = validatePasswordLength(password);
+  const isValidConfirmPassword = validateConfirmPassword(
+    password,
+    confirmPassword
+  );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,9 +32,12 @@ export default function SignUpForm() {
         handleChange={handleChange}
       />
       <PrimaryButton
+        dataTestId="submit-button"
         className="submit-signUp-form-button"
         label="VALIDER"
-        dataTestId="submit-signUp-form-button"
+        disabled={
+          !isValidEmail || !isValidPasswordLength || !isValidConfirmPassword
+        }
       />
     </SignUpFormStyled>
   );

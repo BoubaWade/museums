@@ -7,6 +7,11 @@ import {
 } from "../features/sign/signSlice";
 import { initialCredentials, initialErrorField } from "../config/config";
 import { signUp } from "../Firebase/firebaseUtilities";
+import {
+  validateConfirmPassword,
+  validateEmail,
+  validatePasswordLength,
+} from "../utils/user";
 
 export default function useSignUp() {
   const [credentials, setCredentials] = useState(initialCredentials);
@@ -31,23 +36,47 @@ export default function useSignUp() {
     }, 2000);
   };
   function handleSignUp() {
-    const regexEmail = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+    const { email, password, confirmPassword } = credentials;
+    // const regexEmail = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
 
-    if (!regexEmail.test(credentials.email)) {
+    // if (!regexEmail.test(credentials.email)) {
+    //   setErrorField({ ...errorField, errorEmail: "Email non valide !" });
+    //   return;
+    // }
+    const isValidEmail = validateEmail(email);
+    if (!isValidEmail) {
       setErrorField({ ...errorField, errorEmail: "Email non valide !" });
       return;
     }
-    if (credentials.password.length < 6) {
+
+    const isValidPasswordLength = validatePasswordLength(password);
+    if (!isValidPasswordLength) {
       setErrorField({ ...errorField, errorPassword: "6 caractères minimum !" });
       return;
     }
-    if (credentials.confirmPassword !== credentials.password) {
+
+    // if (credentials.password.length < 6) {
+    //   setErrorField({ ...errorField, errorPassword: "6 caractères minimum !" });
+    //   return;
+    // }
+    const isValidConfirmPassword = validateConfirmPassword(
+      password,
+      confirmPassword
+    );
+    if (!isValidConfirmPassword) {
       setErrorField({
         ...errorField,
         errorConfirmPassword: "Mots de passe non identiques",
       });
       return;
     }
+    // if (credentials.confirmPassword !== credentials.password) {
+    //   setErrorField({
+    //     ...errorField,
+    //     errorConfirmPassword: "Mots de passe non identiques",
+    //   });
+    //   return;
+    // }
 
     signUp(credentials.email, credentials.password)
       .then((response) => {
