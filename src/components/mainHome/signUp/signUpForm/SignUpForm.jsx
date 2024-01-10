@@ -24,7 +24,10 @@ export default function SignUpForm() {
   };
 
   return (
-    <SignUpFormStyled onSubmit={(e) => handleSubmit(e)}>
+    <SignUpFormStyled
+      data-testid="sign-up-form"
+      onSubmit={(e) => handleSubmit(e)}
+    >
       <h2>CRÉER UN COMPTE</h2>
       <InputsList
         credentials={credentials}

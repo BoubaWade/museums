@@ -4,7 +4,6 @@ import Overlay from "../../reusable-ui/Overlay.jsx";
 import { TiDeleteOutline } from "react-icons/ti";
 import { toggleSignUpForm } from "../../../features/sign/signSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { modalSignUpAnimation } from "../../../animations/animations.js";
 
 export default function SignUpModal() {
   const dispatch = useDispatch();
@@ -22,7 +21,11 @@ export default function SignUpModal() {
           onClick={() => dispatch(toggleSignUpForm())}
           tabIndex={0}
         />
-        {isRegistered ? <p> INSCRIPTION VALIDÉ !</p> : <SignUpForm />}
+        {isRegistered ? (
+          <p data-testid="success"> INSCRIPTION VALIDÉ !</p>
+        ) : (
+          <SignUpForm />
+        )}
       </div>
     </SignUpModalStyled>
   );

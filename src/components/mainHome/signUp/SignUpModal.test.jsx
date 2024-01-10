@@ -1,86 +1,206 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, beforeEach, expect, it, describe, vi } from "vitest";
-import { Provider } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 import { createStore } from "../../../app/store";
-// import mocksToggleSignUpForm from "../../../../tests/mocks";
 import * as mocksSignReducers from "../../../features/sign/signSlice";
 import SignUpModal from "./SignUpModal";
-import Overlay from "../../reusable-ui/Overlay";
 import SignUpForm from "./signUpForm/SignUpForm";
-import PrimaryButton from "../../reusable-ui/PrimaryButton";
+import InputSignUp from "./signUpForm/InputSignUp";
+import userEvent from "@testing-library/user-event";
+
+vi.mock("react-redux", async (importOriginal) => {
+  const mod = await importOriginal();
+  return {
+    ...mod,
+    useSelector: vi.fn(),
+  };
+});
 
 describe("SignUpmodal", () => {
-    // beforeEach(() => {
-    //     render(
-    //       <Provider store={createStore()}>
-    //         <SignUpModal >
-    //             <SignUpForm>
-    //                 <PrimaryButton/>
-    //             </SignUpForm>
-    //         </SignUpModal >
-    //       </Provider>
-    //     );
-    //   });
-  afterEach(() => {
-    vi.restoreAllMocks();
+  it("should render SignUpmodal", () => {
+    const { getByText } = render(
+      <Provider store={createStore()}>
+        <SignUpForm />
+      </Provider>
+    );
+    const titleElement = getByText("CRÉER UN COMPTE");
+    const buttonLabel = getByText("VALIDER");
+
+    expect(titleElement).toBeInTheDocument();
+    expect(buttonLabel).toBeInTheDocument();
   });
 
-  it("should render the SignUpmodal", () => {
-    let isToggleSignUpForm;
-    const toggleSignUpFormSpy = vi
-      .spyOn(mocksSignReducers, "toggleSignUpForm")
-      .mockImplementation(() => isToggleSignUpForm);
+  it("should render Overlay  ", () => {
+    const mockState = { isToggleSignUpForm: false };
+    vi.mocked(useSelector).mockReturnValue(mockState);
 
-    isToggleSignUpForm = true;
     render(
       <Provider store={createStore()}>
         <SignUpModal />
       </Provider>
     );
 
-    expect(mocksSignReducers.toggleSignUpForm()).toBe(true);
-    expect(toggleSignUpFormSpy).toHaveBeenCalled();
+    const divElement = screen.getByTestId("overlay-signUp_modal");
+    expect(divElement).toBeInTheDocument();
   });
 
-  it("should call toggleSignUpForm() if isToggleSignUpForm change ", () => {
-    // const handleCloseModal = vi.fn().mockImplementation(isToggleSignUpForm => !isToggleSignUpForm);
-    const toggleSignUpFormSpy = vi.spyOn(mocksSignReducers, "toggleSignUpForm");
+  it("should render sumbit success message", async () => {
+    const mockState = { isRegistered: true };
+    vi.mocked(useSelector).mockReturnValue(mockState);
     render(
       <Provider store={createStore()}>
-        <SignUpModal/>
+        <SignUpModal />
       </Provider>
     );
-    const divElement = screen.getByTestId("overlay-signUp_modal");
 
-    expect(toggleSignUpFormSpy).not.toHaveBeenCalled();
+    const messageSuccess = screen.getByTestId("success");
+    expect(messageSuccess).toBeInTheDocument();
+  });
+  it("should render SignUpForm  ", () => {
+    const mockState = { isRegistered: false };
+    vi.mocked(useSelector).mockReturnValue(mockState);
 
-    mocksSignReducers.toggleSignUpForm();
+    render(
+      <Provider store={createStore()}>
+        <SignUpModal />
+      </Provider>
+    );
 
+    const divElement = screen.getByTestId("sign-up-form");
     expect(divElement).toBeInTheDocument();
-    expect(toggleSignUpFormSpy).toHaveBeenCalled();
   });
 
-  it("should render the SignUpmodal", async () => {
-    // render(
-    //   <Provider store={createStore()}>
-    //     <SignUpModal >
-    //         <SignUpForm/>
-    //     </SignUpModal >
-    //   </Provider>
-    // );
-    let isRegistered = false;
-    const toggleSignUpFormSpy = vi
-      .spyOn(mocksSignReducers, "setIsRegistered")
-      .mockImplementation(() => true);
+  describe("InputSignUp", () => {
+    it("displays email input and verify the type of", () => {
+      const field = {
+        type: "email",
+        name: "email",
+        placeholder: "Enter your email",
+        value: "",
+        onChange: vi.fn(),
+        error: "",
+        autoFocus: false,
+      };
+      render(
+        <Provider store={createStore()}>
+          <InputSignUp field={field} />
+        </Provider>
+      );
+      const email = screen.getByPlaceholderText("Enter your email");
+      expect(email).toBeInTheDocument();
+      expect(email).toHaveAttribute("type", "email");
+      userEvent.type(email, "dada");
+      expect(email.value).not.toMatch("test@tester.fr");
+    });
 
-    // expect(mocksSignReducers.setIsRegistered()).not.toBe(true);
+    it("updates email value on change", async () => {
+      const onChangeMock = vi.fn();
+      const field = {
+        type: "email",
+        name: "email",
+        placeholder: "Enter your email",
+        value: "",
+        onChange: onChangeMock,
+        error: "",
+        autoFocus: false,
+      };
+      render(
+        <Provider store={createStore()}>
+          <InputSignUp field={field} />
+        </Provider>
+      );
+      const email = screen.getByPlaceholderText("Enter your email");
+      fireEvent.change(email, { target: { value: "test@tester.fr" } });
+      await waitFor(() => {
+        expect(onChangeMock).toHaveBeenCalled();
 
-    // isRegistered = true;
-    expect(mocksSignReducers.setIsRegistered()).toBe(true);
-    
-    expect(toggleSignUpFormSpy).toHaveBeenCalled();
-    // const button = screen.getByTestId("submit-signUp-form-button");
-    // fireEvent.click(button);
-    // expect(await screen.findByText("INSCRIPTION VALIDÉ !")).toBeInTheDocument();
+        //   expect(inputElement.value).toBe("test@tester.fr");
+      });
+    });
+
+    it("displays error message", () => {
+      const field = {
+        type: "email",
+        name: "email",
+        placeholder: "Enter your email",
+        value: "",
+        onChange: vi.fn(),
+        error: "email is required",
+        autoFocus: false,
+      };
+
+      render(
+        <Provider store={createStore()}>
+          <InputSignUp field={field} />
+        </Provider>
+      );
+      const errorMessage = screen.getByText("email is required");
+      expect(errorMessage).toBeInTheDocument();
+    });
+
+    it("displays password input and verify the type of", () => {
+      const field = {
+        type: "password",
+        name: "password",
+        placeholder: "Enter your password",
+        value: "",
+        onChange: vi.fn(),
+        error: "password is required",
+        autoFocus: false,
+      };
+
+      render(
+        <Provider store={createStore()}>
+          <InputSignUp field={field} />
+        </Provider>
+      );
+      const password = screen.getByPlaceholderText("Enter your password");
+      expect(password).toBeInTheDocument();
+      expect(password).toHaveAttribute("type", "password");
+    });
+
+    it("updates password value on change", async () => {
+      const onChangeMock = vi.fn();
+      const field = {
+        type: "password",
+        name: "password",
+        placeholder: "Enter your password",
+        value: "",
+        onChange: onChangeMock,
+        error: "",
+        autoFocus: false,
+      };
+      render(
+        <Provider store={createStore()}>
+          <InputSignUp field={field} />
+        </Provider>
+      );
+      const password = screen.getByPlaceholderText("Enter your password");
+      fireEvent.change(password, { target: { value: "password-value" } });
+      await waitFor(() => {
+        expect(onChangeMock).toHaveBeenCalled();
+
+        //   expect(password.value).toBe("password-value");
+      });
+    });
+    it("displays error message", () => {
+      const field = {
+        type: "password",
+        name: "password",
+        placeholder: "Enter your password",
+        value: "",
+        onChange: vi.fn(),
+        error: "password is required",
+        autoFocus: false,
+      };
+
+      render(
+        <Provider store={createStore()}>
+          <InputSignUp field={field} />
+        </Provider>
+      );
+      const errorMessage = screen.getByText("password is required");
+      expect(errorMessage).toBeInTheDocument();
+    });
   });
 });

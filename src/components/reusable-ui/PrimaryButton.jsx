@@ -7,10 +7,11 @@ export default function PrimaryButton({
   onClick,
   className,
   dataTestId,
+  disabled,
 }) {
   return (
     <PrimaryButtonStyled id={id} data-testid={dataTestId}>
-      <button className={className} onClick={onClick}>
+      <button className={className} onClick={onClick} disabled={disabled}>
         {label}
       </button>
     </PrimaryButtonStyled>

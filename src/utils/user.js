@@ -38,13 +38,6 @@ export function validateConfirmPassword(password, confirmPassword) {
   }
 }
 
-// export function setBasketLocalStorage(userName, value) {
-//   localStorage.setItem(`Basket_${userName}`, JSON.stringify(value));
-// }
-// export function getBasketLocalStorage(userName) {
-//   return JSON.parse(localStorage.getItem(`Basket_${userName}`));
-// }
-
 export function setBasketLocalStorage(value) {
   localStorage.setItem("Basket", JSON.stringify(value));
 }
