@@ -117,9 +117,9 @@ export function arrayUpdatedById(array, payload) {
 //   return distanceRounded;
 // }
 
-export function getAllMuseumsId(datas) {
-  return datas?.map((item) => item.id);
-}
+// export function getAllMuseumsId(datas) {
+//   return datas?.map((item) => item.id);
+// }
 
 export function getFormatedDate(date) {
   const options = {

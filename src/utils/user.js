@@ -1,6 +1,9 @@
 export function setEmailLocalStorage(value) {
   localStorage.setItem("email", value);
 }
+export function setTokenlLocalStorage(value) {
+  localStorage.setItem("token", value);
+}
 export function getEmailLocalStorage() {
   return localStorage.getItem("email");
 }
