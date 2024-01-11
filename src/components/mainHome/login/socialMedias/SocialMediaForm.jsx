@@ -4,7 +4,7 @@ import WithFacebook from "./WithFacebook";
 
 export default function SocialMediaForm() {
   return (
-    <SocialMediaFormStyled>
+    <SocialMediaFormStyled data-testid="social-media-form">
       <WithFacebook />
       <WithGoogle />
     </SocialMediaFormStyled>

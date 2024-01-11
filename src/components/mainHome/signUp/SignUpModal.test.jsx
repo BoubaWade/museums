@@ -99,7 +99,7 @@ describe("SignUpmodal", () => {
         type: "email",
         name: "email",
         placeholder: "Enter your email",
-        value: "",
+        value: null,
         onChange: onChangeMock,
         error: "",
         autoFocus: false,
@@ -113,12 +113,11 @@ describe("SignUpmodal", () => {
       fireEvent.change(email, { target: { value: "test@tester.fr" } });
       await waitFor(() => {
         expect(onChangeMock).toHaveBeenCalled();
-
-        //   expect(inputElement.value).toBe("test@tester.fr");
+        expect(email.value).toBe("test@tester.fr");
       });
     });
 
-    it("displays error message", () => {
+    it("should display error message", () => {
       const field = {
         type: "email",
         name: "email",
@@ -165,7 +164,7 @@ describe("SignUpmodal", () => {
         type: "password",
         name: "password",
         placeholder: "Enter your password",
-        value: "",
+        value: null,
         onChange: onChangeMock,
         error: "",
         autoFocus: false,
@@ -179,8 +178,7 @@ describe("SignUpmodal", () => {
       fireEvent.change(password, { target: { value: "password-value" } });
       await waitFor(() => {
         expect(onChangeMock).toHaveBeenCalled();
-
-        //   expect(password.value).toBe("password-value");
+        expect(password.value).toBe("password-value");
       });
     });
     it("displays error message", () => {

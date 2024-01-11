@@ -33,7 +33,11 @@ export default function ClassicLoginForm() {
   };
 
   return (
-    <ClassicLoginFormStyled onSubmit={(e) => handleSubmit(e)} ref={formRef}>
+    <ClassicLoginFormStyled
+      onSubmit={(e) => handleSubmit(e)}
+      ref={formRef}
+      data-testid="classic-form"
+    >
       {inputFieldsSignIn(emailRef, passwordRef, userEmail).map(
         (field, index) => (
           <InputLogIn key={index} field={field} />

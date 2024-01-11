@@ -9,7 +9,7 @@ export default function LoginForm() {
   );
 
   return (
-    <LoginFormStyled>
+    <LoginFormStyled data-testid="login-form">
       {isToggleLoginForm ? <ClassicLoginForm /> : <SocialMediaForm />}
     </LoginFormStyled>
   );
