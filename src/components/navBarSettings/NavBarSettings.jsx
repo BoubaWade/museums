@@ -16,7 +16,7 @@ export default function NavBarSettings() {
   const handleClick = () => {
     navigate("/profile/profile-home");
     if (isNavSwitchButtonActived) {
-      dispatch(setIsFormAdminDisplayed(false));
+      dispatch(setIsFormAdminDisplayed(true));
     }
   };
 

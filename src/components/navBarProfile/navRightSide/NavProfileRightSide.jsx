@@ -9,19 +9,20 @@ import ImageOrUserIcon from "./ImageOrUserIcon";
 import PopupUserProfile from "../popupUserProfil/PopupUserProfile";
 
 export default function NavProfileRightSide() {
-    const {
-        isPopUpDisplayed,
-        isNavSwitchButtonActived,
-        isMainSwitchButtonActived,
-      } = useSelector((state) => state.displaySettings);
-      const email = getEmailLocalStorage();
-      const dispatch = useDispatch();
-    
-      const handleSearchChange = (value) => {
-        dispatch(setSearch(value));
-      };
+  const {
+    isPopUpDisplayed,
+    isNavSwitchButtonActived,
+    isMainSwitchButtonActived,
+  } = useSelector((state) => state.displaySettings);
+  const email = getEmailLocalStorage();
+  const dispatch = useDispatch();
+
+  const handleSearchChange = (value) => {
+    dispatch(setSearch(value));
+  };
+
   return (
-    <NavProfileRightSideStyled >
+    <NavProfileRightSideStyled>
       <p className="pseudo">Bienvenue : {email?.split("@")[0]}</p>
       {!isMainSwitchButtonActived && (
         <SearchForm

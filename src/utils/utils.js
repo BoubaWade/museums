@@ -48,12 +48,14 @@ export function findObjectInArray(array, objectId) {
 }
 
 export function filterArrayById(array, objectId) {
-  const arrayFiltered = array.filter((data) => data.id !== objectId);
-  return arrayFiltered;
+  if (array) {
+    const arrayFiltered = array.filter((data) => data.id !== objectId);
+    return arrayFiltered;
+  }
 }
 
 export function mapArrayForChangeAddedProperty(array, objectId, isAdded) {
-  const arrayMapped = array.map((data) => {
+  const arrayMapped = array?.map((data) => {
     if (data.id === objectId) {
       return {
         ...data,
@@ -66,7 +68,7 @@ export function mapArrayForChangeAddedProperty(array, objectId, isAdded) {
   return arrayMapped;
 }
 export function mapArrayToAddDatePicked(array, date, hour, objectId) {
-  const arrayMapped = array.map((data) => {
+  const arrayMapped = array?.map((data) => {
     if (data.id === objectId) {
       return {
         ...data,
@@ -97,30 +99,6 @@ export function arrayUpdatedById(array, payload) {
   return arrayUpdated;
 }
 
-// export function calculateDistance(lat1, lon1, lat2, lon2) {
-//   const earthRadius = 6371;
-//   const toRadians = (degrees) => (degrees * Math.PI) / 180;
-
-//   const dLat = toRadians(lat2 - lat1);
-//   const dLon = toRadians(lon2 - lon1);
-
-//   const a =
-//     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-//     Math.cos(toRadians(lat1)) *
-//       Math.cos(toRadians(lat2)) *
-//       Math.sin(dLon / 2) *
-//       Math.sin(dLon / 2);
-//   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-//   const distance = earthRadius * c;
-//   const distanceRounded = Math.round(distance * 100) / 100;
-
-//   return distanceRounded;
-// }
-
-// export function getAllMuseumsId(datas) {
-//   return datas?.map((item) => item.id);
-// }
-
 export function getFormatedDate(date) {
   const options = {
     year: "numeric",
@@ -132,17 +110,6 @@ export function getFormatedDate(date) {
     return dateFormated;
   }
 }
-// export function getHour(date) {
-//   const options = {
-//     year: "numeric",
-//     month: "long",
-//     day: "numeric",
-//   };
-//   if (date) {
-//     const dateFormated = date.toLocaleDateString("fr-FR", options);
-//     return dateFormated;
-//   }
-// }
 
 // useEffect(() => {
 //   if (navigator.geolocation) {

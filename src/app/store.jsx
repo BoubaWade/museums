@@ -1,16 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
-import signSlice from "../features/sign/signSlice";
-import museumsSlice from "../features/profile/museumsSlice";
-import displaySettingsSlice from "../features/profile/displaySettingsSlice";
-import basketSlice from "../features/profile/basketSlice";
+import signReducer from "../features/sign/signSlice";
+import museumsReducer from "../features/profile/museumsSlice";
+import displaySettingsReducer from "../features/profile/displaySettingsSlice";
+import basketReducer from "../features/profile/basketSlice";
 
 export const createStore = () =>
   configureStore({
     reducer: {
-      sign: signSlice,
-      displaySettings: displaySettingsSlice,
-      museums: museumsSlice,
-      basket: basketSlice,
+      sign: signReducer,
+      displaySettings: displaySettingsReducer,
+      museums: museumsReducer,
+      basket: basketReducer,
     },
   });
 export const store = createStore();
