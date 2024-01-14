@@ -12,7 +12,7 @@ export default function SignUpModal() {
   return (
     <SignUpModalStyled>
       <Overlay
-        dataTestid="overlay-signUp_modal"
+        dataTestid="overlay-signUp-modal"
         onClick={() => dispatch(toggleSignUpForm())}
       />
       <div className="form-container">

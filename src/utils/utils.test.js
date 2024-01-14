@@ -176,18 +176,18 @@ describe("mapArrayToAddDatePicked", () => {
     ]);
   });
 
-  //   it("should return arrayUpdated if id is not found in an object", () => {
-  //     const array = [
-  //       { id: "SD23nv", name: "nathan", isAdded: false },
-  //       { id: "abC3de", name: "karim", isAdded: true },
-  //       { id: "aED19n", name: "mike", isAdded: false },
-  //     ];
-  //     const objectId = "Q75HV";
-  //     const isAdded = true;
-  //     expect(mapArrayToAddDatePicked(array, objectId, isAdded)).toEqual([
-  //       { id: "SD23nv", name: "nathan", isAdded: false },
-  //       { id: "abC3de", name: "karim", isAdded: true },
-  //       { id: "aED19n", name: "mike", isAdded: false },
-  //     ]);
-  //   });
+  it("should return same array if id is not found in an object", () => {
+    const array = [
+      { id: "SD23nv", datePicked: "01/01/2023", hourPicked: "15:30" },
+      { id: "abC3de", datePicked: "", hourPicked: "" },
+      { id: "aED19n", datePicked: "05/07/2024", hourPicked: "11:45" },
+    ];
+    const objectId = "Q75HV";
+    const isAdded = true;
+    expect(mapArrayToAddDatePicked(array, objectId, isAdded)).toEqual([
+      { id: "SD23nv", datePicked: "01/01/2023", hourPicked: "15:30" },
+      { id: "abC3de", datePicked: "", hourPicked: "" },
+      { id: "aED19n", datePicked: "05/07/2024", hourPicked: "11:45" },
+    ]);
+  });
 });

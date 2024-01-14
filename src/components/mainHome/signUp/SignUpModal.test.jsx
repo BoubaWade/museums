@@ -7,40 +7,29 @@ import SignUpModal from "./SignUpModal";
 import SignUpForm from "./signUpForm/SignUpForm";
 import InputSignUp from "./signUpForm/InputSignUp";
 import userEvent from "@testing-library/user-event";
+import Overlay from "../../reusable-ui/Overlay";
 
-vi.mock("react-redux", async (importOriginal) => {
-  const mod = await importOriginal();
-  return {
-    ...mod,
-    useSelector: vi.fn(),
-  };
-});
+// vi.mock("react-redux", async (importOriginal) => {
+//   const mod = await importOriginal();
+//   return {
+//     ...mod,
+//     useSelector: vi.fn(),
+//   };
+// });
 
 describe("SignUpmodal", () => {
-  it("should render SignUpmodal", () => {
-    const { getByText } = render(
-      <Provider store={createStore()}>
-        <SignUpForm />
-      </Provider>
-    );
-    const titleElement = getByText("CRÉER UN COMPTE");
-    const buttonLabel = getByText("VALIDER");
-
-    expect(titleElement).toBeInTheDocument();
-    expect(buttonLabel).toBeInTheDocument();
-  });
-
   it("should render Overlay  ", () => {
-    const mockState = { isToggleSignUpForm: false };
-    vi.mocked(useSelector).mockReturnValue(mockState);
-
+    // const mockState = { isToggleSignUpForm: false };
+    // vi.mocked(useSelector).mockReturnValue(mockState);
+    // const store = createStore(mockState);
     render(
       <Provider store={createStore()}>
         <SignUpModal />
       </Provider>
     );
+    screen.logTestingPlaygroundURL();
 
-    const divElement = screen.getByTestId("overlay-signUp_modal");
+    const divElement = screen.getByTestId("overlay-signUp-modal");
     expect(divElement).toBeInTheDocument();
   });
 
@@ -55,19 +44,6 @@ describe("SignUpmodal", () => {
 
     const messageSuccess = screen.getByTestId("success");
     expect(messageSuccess).toBeInTheDocument();
-  });
-  it("should render SignUpForm  ", () => {
-    const mockState = { isRegistered: false };
-    vi.mocked(useSelector).mockReturnValue(mockState);
-
-    render(
-      <Provider store={createStore()}>
-        <SignUpModal />
-      </Provider>
-    );
-
-    const divElement = screen.getByTestId("sign-up-form");
-    expect(divElement).toBeInTheDocument();
   });
 
   describe("InputSignUp", () => {

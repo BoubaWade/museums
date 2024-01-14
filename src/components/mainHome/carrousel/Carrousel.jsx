@@ -34,7 +34,7 @@ const arrayImagesSources = [
 export default function Carrousel() {
   const dispatch = useDispatch();
   return (
-    <CarrouselStyled>
+    <CarrouselStyled data-testid="carrousel">
       <Swiper
         spaceBetween={50}
         centeredSlides={true}

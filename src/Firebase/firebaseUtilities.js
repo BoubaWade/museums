@@ -1,7 +1,6 @@
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
-  onAuthStateChanged,
 } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { auth, db, DOC_ID } from "./firebase-config";
@@ -24,15 +23,6 @@ export const signIn = async (email, password) => {
   );
   return userCredential;
 };
-
-// export const createMuseumsInFirestore = (data) => {
-//   const documentReference = doc(db, "ListMuseums", DOC_ID);
-//   const newDocument = {
-//     docId: DOC_ID,
-//     datasMuseums: data ,
-//   };
-//   setDoc(documentReference, newDocument);
-// };
 
 export const getMuseumsInFirestore = async (path) => {
   const documentRef = doc(db, "ListMuseums", path);
@@ -61,14 +51,6 @@ export const initialiseMyListMuseumsInFirestore = async (userEmail) => {
   setDoc(documentReference, newDocument);
 };
 
-// export const syncBothMuseums = (listMuseumsUpdated) => {
-//   const documentReference = doc(db, "ListMuseums", DOC_ID);
-//   const newDocument = {
-//     docId: DOC_ID,
-//     datasMuseums: listMuseumsUpdated,
-//   };
-//   setDoc(documentReference, newDocument);
-// };
 export const syncBothMuseums = (museumsUpdated) => {
   const userEmail = getEmailLocalStorage();
   const documentReference = doc(db, "ListMuseums", userEmail);
