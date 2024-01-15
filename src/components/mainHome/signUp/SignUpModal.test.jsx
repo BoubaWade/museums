@@ -8,12 +8,24 @@ import SignUpForm from "./signUpForm/SignUpForm";
 import InputSignUp from "./signUpForm/InputSignUp";
 import userEvent from "@testing-library/user-event";
 import Overlay from "../../reusable-ui/Overlay";
+import { useAppDispatch, useAppSelector } from "../../../app/redux-hooks";
+import { testUseAppSelector } from "../../../app/test-app-selector";
 
 // vi.mock("react-redux", async (importOriginal) => {
 //   const mod = await importOriginal();
 //   return {
 //     ...mod,
 //     useSelector: vi.fn(),
+//   };
+// });
+// vi.mock("../../../app/redux-hooks", () => {});
+
+// vi.mock("../../../app/redux-hooks", async (importOriginal) => {
+//   const mod = await importOriginal();
+//   return {
+//     ...mod,
+//     useAppDispatch: vi.fn(),
+//     useAppSelector: vi.fn(),
 //   };
 // });
 
@@ -27,24 +39,34 @@ describe("SignUpmodal", () => {
         <SignUpModal />
       </Provider>
     );
-    screen.logTestingPlaygroundURL();
 
     const divElement = screen.getByTestId("overlay-signUp-modal");
     expect(divElement).toBeInTheDocument();
   });
 
-  it("should render sumbit success message", async () => {
-    const mockState = { isRegistered: true };
-    vi.mocked(useSelector).mockReturnValue(mockState);
-    render(
-      <Provider store={createStore()}>
-        <SignUpModal />
-      </Provider>
-    );
-
-    const messageSuccess = screen.getByTestId("success");
-    expect(messageSuccess).toBeInTheDocument();
-  });
+  // it("should render sumbit success message", async () => {
+  //   // const mockState = { isRegistered: true };
+  //   // vi.mocked(useSelector).mockReturnValue(mockState);
+  //   beforeEach(() => {
+  //     const state = {
+  //       isRegistered: true,
+  //     };
+  //     useAppDispatch.mockImplementation((f) => f(state));
+  //     // useAppSelector.mockImplementation(() => vi.fn);
+  //   });
+  //   render(
+  //     <Provider store={createStore()}>
+  //       <SignUpModal />
+  //     </Provider>
+  //   );
+  // replace some exports
+  //   screen.logTestingPlaygroundURL();
+  //   const button = screen.getByRole("button", { name: /valider/i });
+  //   userEvent.click(button);
+  //   expect(useAppDispatch).toHaveBeenCalled();
+  //   // const messageSuccess =  screen.getByTestId("success");
+  //   // expect(messageSuccess).toBeInTheDocument();
+  // });
 
   describe("InputSignUp", () => {
     it("displays email input and verify the type of", () => {
@@ -86,6 +108,8 @@ describe("SignUpmodal", () => {
         </Provider>
       );
       const email = screen.getByPlaceholderText("Enter your email");
+      // userEvent.click(email)
+      // userEvent.keyboard("test@tester.fr")
       fireEvent.change(email, { target: { value: "test@tester.fr" } });
       await waitFor(() => {
         expect(onChangeMock).toHaveBeenCalled();

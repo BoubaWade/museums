@@ -1,6 +1,5 @@
 import { render, screen } from "@testing-library/react";
 import { expect, describe, it } from "vitest";
-import Home from "./Home";
 import { Provider } from "react-redux";
 import { createStore } from "../../app/store";
 import Carrousel from "../../components/mainHome/carrousel/Carrousel";
@@ -9,7 +8,6 @@ import { MemoryRouter } from "react-router-dom";
 import NavBarHome from "../../components/navBarHome/NavBarHome";
 import SignUpForm from "../../components/mainHome/signUp/signUpForm/SignUpForm";
 import SignUpModal from "../../components/mainHome/signUp/SignUpModal";
-import Overlay from "../../components/reusable-ui/Overlay";
 
 describe("Home", () => {
   it("should display NavBarHome", () => {

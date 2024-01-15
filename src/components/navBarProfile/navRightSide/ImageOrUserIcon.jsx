@@ -8,7 +8,7 @@ export default function ImageOrUserIcon({ isPopUpDisplayed }) {
   const dispatch = useDispatch();
 
   return (
-    <ImageOrUserIconStyled>
+    <ImageOrUserIconStyled data-testid="image-or-icon">
       {!currentUser?.photoURL ? (
         <FaUserCircle
           className="user-icon"

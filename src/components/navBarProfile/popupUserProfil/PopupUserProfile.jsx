@@ -32,7 +32,7 @@ export default function PopupUserProfile() {
   };
 
   return (
-    <PopupUserProfileStyled>
+    <PopupUserProfileStyled data-testid="pop-up">
       {isPopUpDisplayed && (
         <ul className={isPopUpDisplayed ? "popup-items show" : "popup-items "}>
           <div className="triangle"></div>
