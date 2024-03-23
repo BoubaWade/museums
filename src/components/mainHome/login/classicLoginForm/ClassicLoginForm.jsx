@@ -27,7 +27,6 @@ export default function ClassicLoginForm() {
     };
 
     dispatch(getSignInWithEmailAndPassword(credentials)).then(() => {
-      // initialiseMyListMuseumsInFirestore(userEmail);
       navigate("/profile/profile-home");
     });
   };

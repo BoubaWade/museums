@@ -73,4 +73,23 @@ const SignUpModalStyled = styled.div`
       }
     }
   }
+  @media screen and (max-width: 768px) {
+    .form-container {
+      width: 450px;
+      height: 450px;
+      top: 30%;
+    }
+  }
+  @media screen and (max-width: 600px) {
+    .form-container {
+      width: 350px;
+      height: 375px;
+    }
+  }
+  @media screen and (max-width: 425px) {
+    .form-container {
+      width: 300px;
+      height: 370px;
+    }
+  }
 `;

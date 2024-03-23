@@ -1,7 +1,5 @@
 import styled from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
-// import "swiper/css";
-// import "swiper/css/effect-coverflow";
 import { Autoplay, Scrollbar, EffectCoverflow } from "swiper/modules";
 
 import imageSource1 from "../../../assets/images/slider-images/image1.jpeg";
@@ -95,12 +93,34 @@ const CarrouselStyled = styled.div`
     border-radius: 20px;
   }
   .login-button {
-    width: 300px;
+    width: 250px;
     height: 45px;
     position: absolute;
     left: calc(50% - 200px);
     transform: translateX(-50%);
     font-size: 16px;
     margin-top: 50px;
+  }
+  @media screen and (max-width: 768px) {
+    height: 350px;
+    margin-top: 250px;
+    .swiper-slide {
+      width: 250px;
+    }
+    .login-button {
+      width: 200px;
+    }
+  }
+  @media screen and (max-width: 425px) {
+    height: 300px;
+    .swiper-slide {
+      width: 200px;
+    }
+    .login-button {
+      width: 150px;
+      height: 40px;
+      font-size: 14px;
+      border-width: 1.5px;
+    }
   }
 `;

@@ -47,4 +47,15 @@ const PrincipalContentStyled = styled.div`
     background-clip: text;
     color: transparent;
   }
+  @media screen and (max-width: 768px) {
+    h1 {
+      font-size: 4.5rem;
+      margin-top: 50px;
+    }
+  }
+  @media screen and (max-width: 425px) {
+    h1 {
+      font-size: 3.8rem;
+    }
+  }
 `;

@@ -30,4 +30,13 @@ const NavBarHomeStyled = styled.nav`
     top: 20px;
     right: 20px;
   }
+  @media screen and (max-width: 425px) {
+    .button-sign-up {
+      width: 80px;
+      height: 30px;
+      border-width: 1px;
+      top: 15px;
+      right: 15px;
+    }
+  }
 `;

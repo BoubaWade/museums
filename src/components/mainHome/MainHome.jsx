@@ -11,7 +11,6 @@ export default function MainHome() {
   );
 }
 const MainHomeStyled = styled.div`
-  /* height: calc(100vh - 70px); */
   display: flex;
   flex-direction: column;
   align-items: center;

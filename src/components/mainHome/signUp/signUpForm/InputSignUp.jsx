@@ -46,4 +46,25 @@ const InputSignUpStyled = styled.div`
     text-align: center;
     margin-top: 5px;
   }
+  @media screen and (max-width: 768px) {
+    input {
+      width: 250px;
+      height: 47px;
+    }
+  }
+  @media screen and (max-width: 600px) {
+    input {
+      width: 230px;
+      height: 43px;
+    }
+  }
+  @media screen and (max-width: 425px) {
+    input {
+      width: 210px;
+      height: 43px;
+      &::placeholder {
+        font-size: 0.9rem;
+      }
+    }
+  }
 `;
