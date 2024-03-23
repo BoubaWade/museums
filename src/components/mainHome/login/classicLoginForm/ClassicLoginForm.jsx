@@ -64,4 +64,16 @@ const ClassicLoginFormStyled = styled.form`
     font-size: 0.9rem;
     padding: 15px 45px;
   }
+  @media screen and (max-width: 600px) {
+    .primary-button {
+      font-size: 0.9rem;
+      padding: 10px 30px;
+    }
+  }
+  @media screen and (max-width: 425px) {
+    .primary-button {
+      font-size: 0.8rem;
+      padding: 10px 25px;
+    }
+  }
 `;

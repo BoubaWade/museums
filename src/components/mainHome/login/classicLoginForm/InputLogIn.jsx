@@ -37,4 +37,16 @@ const InputLogInStyled = styled.div`
       box-shadow: 2px 2px 2px 2px #b659b6;
     }
   }
+  @media screen and (max-width: 600px) {
+    .input {
+      width: 220px;
+      height: 45px;
+      font-size: 1rem;
+    }
+  }
+  @media screen and (max-width: 425px) {
+    .input {
+      width: 200px;
+    }
+  }
 `;

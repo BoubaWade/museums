@@ -15,7 +15,7 @@ const MainHomeStyled = styled.div`
   flex-direction: column;
   align-items: center;
   position: absolute;
-  top: 30%;
+  top: 250px;
   left: 50%;
   transform: translateX(-50%);
   h2 {

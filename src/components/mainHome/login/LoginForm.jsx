@@ -25,4 +25,18 @@ const LoginFormStyled = styled.div`
   border: 2px solid #b659b6;
   border-radius: 10px;
   margin-bottom: 30px;
+  @media screen and (max-width: 768px) {
+    width: 400px;
+    height: 350px;
+    margin-top: 40px;
+  }
+  @media screen and (max-width: 600px) {
+    width: 360px;
+    margin-top: 30px;
+  }
+  @media screen and (max-width: 425px) {
+    width: 300px;
+    height: 300px;
+    margin-top: 10px;
+  }
 `;

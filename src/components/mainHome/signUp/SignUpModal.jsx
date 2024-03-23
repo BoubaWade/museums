@@ -84,6 +84,9 @@ const SignUpModalStyled = styled.div`
     .form-container {
       width: 350px;
       height: 375px;
+      p {
+        font-size: 1.7rem;
+      }
     }
   }
   @media screen and (max-width: 425px) {

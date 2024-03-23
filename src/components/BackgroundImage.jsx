@@ -24,4 +24,9 @@ const BackgroundImageStyled = styled.div`
     -webkit-filter: brightness(30%);
     -moz-filter: brightness(30%);
   }
+  @media screen and (max-width: 768px) {
+    img {
+      object-fit: cover;
+    }
+  }
 `;
