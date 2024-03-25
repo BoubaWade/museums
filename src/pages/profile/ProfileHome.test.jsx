@@ -88,16 +88,3 @@ describe("NavBarProfile", () => {
     expect(popUp).toBeInTheDocument();
   });
 });
-
-// describe("MainProfile", () => {
-//   it("should display Basket", () => {
-//     render(
-//       <Provider store={createStore()}>
-//         <MemoryRouter>
-//           <Basket />
-//         </MemoryRouter>
-//       </Provider>
-//     );
-//     screen.logTestingPlaygroundURL();
-//   });
-// });

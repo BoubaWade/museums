@@ -1,13 +1,11 @@
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setIsPopUpDisplayed } from "../../features/profile/displaySettingsSlice";
 import Basket from "./basket/Basket";
 import PrincipalContent from "./principal-content/PrincipalContent";
 import MuseumDetailsPanel from "./museumDetailsPanel/MuseumDetailsPanel";
 
 export default function MainProfile() {
-  // const { isMainProfileRended } = useSelector((state) => state.displaySettings);
-  // if (!isMainProfileRended) return;
   const dispatch = useDispatch();
 
   return (
@@ -26,4 +24,8 @@ const MainProfileStyled = styled.main`
   display: flex;
   padding: 40px 0;
   overflow-x: hidden;
+  @media screen and (max-width: 768px) {
+    height: calc(100vh - 130px);
+    top: 130px;
+  }
 `;

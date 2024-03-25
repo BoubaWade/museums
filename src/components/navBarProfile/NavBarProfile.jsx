@@ -23,4 +23,9 @@ const NavBarProfileStyled = styled.nav`
   align-items: center;
   position: absolute;
   top: 0;
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    height: 130px;
+    justify-content: space-evenly;
+  }
 `;

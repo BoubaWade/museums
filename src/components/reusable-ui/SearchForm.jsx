@@ -63,4 +63,17 @@ const SearchFormStyled = styled.form`
     border: none;
     cursor: pointer;
   }
+  @media screen and (max-width: 1024px) {
+    .input-search {
+      width: 200px;
+    }
+    .submit-button {
+      display: none;
+    }
+  }
+  @media screen and (max-width: 650px) {
+    .input-search {
+      display: none;
+    }
+  }
 `;

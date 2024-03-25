@@ -46,5 +46,6 @@ const ProfileHomeStyled = styled.div`
   width: 100vw;
   height: 100vh;
   margin: 0 auto;
+  overflow: hidden;
   ${modalUpdateCardAnimation}
 `;

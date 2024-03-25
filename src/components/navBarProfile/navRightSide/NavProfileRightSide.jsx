@@ -36,7 +36,7 @@ export default function NavProfileRightSide() {
           actived={isNavSwitchButtonActived}
           setActived={setIsNavSwitchButtonActived}
           textActive="Activer mode ADMIN"
-          textInactive="Désactiver mode ADMIN"
+          textInactive="Désactiver"
         />
         <ImageOrUserIcon isPopUpDisplayed={isPopUpDisplayed} />
         <PopupUserProfile />
@@ -75,5 +75,21 @@ const NavProfileRightSideStyled = styled.div`
   .button-sign-out {
     width: 100px;
     height: 30px;
+  }
+  @media screen and (max-width: 850px) {
+    width: 65%;
+  }
+  @media screen and (max-width: 768px) {
+    justify-content: space-between;
+    width: 100%;
+    margin: 0;
+    .pseudo {
+      top: 135px;
+    }
+  }
+  @media screen and (max-width: 650px) {
+    .switch-and-user-icon {
+      width: 100%;
+    }
   }
 `;

@@ -72,6 +72,12 @@ const SwitchButtonStyled = styled.div`
   }
   .text.inactive {
     color: #000000b1;
-    margin-left: 37px;
+    margin-left: 50px;
+  }
+  @media screen and (max-width: 1024px) {
+    width: 190px;
+    .slide-button.actived {
+      transform: translateX(-149px);
+    }
   }
 `;

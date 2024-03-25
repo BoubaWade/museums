@@ -39,4 +39,12 @@ const ImageOrUserIconStyled = styled.div`
     border-radius: 50%;
     cursor: pointer;
   }
+  @media screen and (max-width: 650px) {
+    .user-icon {
+      margin-right: 30px;
+    }
+    .user-picture {
+      margin-right: 30px;
+    }
+  }
 `;

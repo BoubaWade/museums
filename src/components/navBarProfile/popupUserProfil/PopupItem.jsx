@@ -30,4 +30,12 @@ const PopupItemStyled = styled.li`
     margin: 0;
     cursor: pointer;
   }
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    height: 50px;
+    font-size: 13px;
+    .icon-item {
+      display: none;
+    }
+  }
 `;

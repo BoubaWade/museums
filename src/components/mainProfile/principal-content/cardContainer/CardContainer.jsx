@@ -11,7 +11,6 @@ import SwitchButton from "../../../reusable-ui/SwitchButton";
 import { setIsAscending } from "../../../../features/profile/museumsSlice";
 
 export default function CardContainer() {
-  // const { isMuseumsRended } = useSelector((state) => state.displaySettings);
   const { museums, search, isAscending } = useSelector(
     (state) => state.museums
   );
@@ -22,7 +21,6 @@ export default function CardContainer() {
   if (museumsSorted.length === 0) return <EmptyMuseums word="trouvés" />;
 
   return (
-    // isMuseumsRended && (
     <CardContainerStyled>
       <SwitchButton
         className="sort-button"
@@ -36,7 +34,6 @@ export default function CardContainer() {
       ))}
     </CardContainerStyled>
   );
-  // );
 }
 
 const CardContainerStyled = styled.ul`
@@ -55,12 +52,16 @@ const CardContainerStyled = styled.ul`
   .sort-button {
     background-color: white;
     position: fixed;
-    top: 130px;
-    right: -5px;
+    top: 70px;
     z-index: 1;
     width: 160px;
     .slide-button.actived {
       transform: translateX(-119px);
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .sort-button {
+      top: 200px;
     }
   }
 `;

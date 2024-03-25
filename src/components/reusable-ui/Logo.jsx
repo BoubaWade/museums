@@ -33,4 +33,19 @@ const LogoStyled = styled.div`
     display: flex;
     align-items: flex-end;
   }
+  @media screen and (max-width: 1024px) {
+    width: 160px;
+    .icon-logo {
+      margin-left: 0;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    justify-content: baseline;
+
+    .icon-logo {
+      font-size: 38px;
+      margin-bottom: 10px;
+      margin-right: 10px;
+    }
+  }
 `;

@@ -98,4 +98,25 @@ const PopupUserProfileStyled = styled.div`
       transform: translateY(0);
     }
   }
+  @media screen and (max-width: 1024px) {
+    left: 64%;
+  }
+  @media screen and (max-width: 768px) {
+    left: 68%;
+    .popup-items {
+      width: 120px;
+    }
+  }
+  @media screen and (max-width: 650px) {
+    left: 65%;
+    .popup-items {
+      width: 110px;
+    }
+  }
+  @media screen and (max-width: 500px) {
+    left: 65.5%;
+    .popup-items {
+      width: 100px;
+    }
+  }
 `;
