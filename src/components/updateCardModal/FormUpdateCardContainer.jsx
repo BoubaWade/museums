@@ -39,4 +39,11 @@ const FormUpdateCardContainerStyled = styled.div`
     font-size: 14px;
     padding: 0 15px;
   }
+  @media screen and (max-width: 768px) {
+    .submit-button {
+      height: 40px;
+      font-size: 13px;
+      padding: 0 10px;
+    }
+  }
 `;

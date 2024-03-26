@@ -33,7 +33,7 @@ export default function PrincipalContent() {
   const openBasket = () => {
     dispatch(setIsBasketDisplayed(true));
   };
-  
+
   return (
     <PrincipalContentStyled style={width}>
       <img src={bgImage} className="bg-image" />

@@ -45,4 +45,14 @@ const UpdateCardStyled = styled.form`
       font-size: 25px;
     }
   }
+  @media screen and (max-width: 768px) {
+    .submitted {
+      .submitted-message {
+        font-size: 22px;
+      }
+      .submitted-icon {
+        font-size: 23px;
+      }
+    }
+  }
 `;

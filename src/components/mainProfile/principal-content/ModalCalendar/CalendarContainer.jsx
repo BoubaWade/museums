@@ -70,7 +70,7 @@ const CalendarContainerStyled = styled.div`
     color: #b659b6;
     background-color: white;
     max-width: 400px;
-    min-width: 350px;
+    min-width: 300px;
     width: 35%;
     border-radius: 5px;
     padding: 10px 15px;
@@ -86,7 +86,7 @@ const CalendarContainerStyled = styled.div`
   }
   .validation-button {
     max-width: 400px;
-    min-width: 350px;
+    min-width: 300px;
     width: 35%;
     height: 48px;
     font-size: 16px;

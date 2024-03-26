@@ -32,4 +32,10 @@ const InputsFormUpdateCardStyled = styled.div`
     border-radius: 3px;
     outline: none;
   }
+  @media screen and (max-width: 768px) {
+    input {
+      height: 40px;
+      font-size: 14px;
+    }
+  }
 `;

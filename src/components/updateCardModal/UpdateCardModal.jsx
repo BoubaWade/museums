@@ -77,4 +77,26 @@ const UpdateCardModalStyled = styled.div`
   .overlay-card-updated {
     opacity: 95%;
   }
+  @media screen and (max-width: 1024px) {
+    .update-card-container {
+      width: 70%;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .update-card-container {
+      width: 90%;
+      .close-modal {
+        font-size: 30px;
+      }
+    }
+  }
+  @media screen and (max-width: 425px) {
+    .update-card-container {
+      width: 95%;
+      border: none;
+      .close-modal {
+        top: -5px;
+      }
+    }
+  }
 `;

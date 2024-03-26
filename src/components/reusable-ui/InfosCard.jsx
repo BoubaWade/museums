@@ -45,4 +45,15 @@ const InfosCardStyled = styled.div`
     color: #b659b6;
     font-weight: 500;
   }
+  @media screen and (max-width: 768px) {
+    .icon {
+      font-size: 25px;
+    }
+    .picture {
+      width: 175px;
+    }
+    .name {
+      font-size: 12px;
+    }
+  }
 `;

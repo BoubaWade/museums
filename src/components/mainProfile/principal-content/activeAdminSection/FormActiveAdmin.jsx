@@ -76,7 +76,7 @@ const FormActiveAdminStyled = styled.form`
   }
   .input-container {
     max-width: 440px;
-    min-width: 290px;
+    min-width: 280px;
     width: 30%;
     height: 50px;
     display: flex;
@@ -108,5 +108,23 @@ const FormActiveAdminStyled = styled.form`
     width: 100px;
     height: 40px;
     font-size: 16px;
+  }
+  @media screen and (max-width: 425px) {
+    .close-modal {
+      font-size: 40px;
+    }
+    .icon-logo {
+      font-size: 40px;
+    }
+  }
+  .input-container {
+    .input::placeholder {
+      margin-left: -20px;
+    }
+  }
+  .submit-button {
+    width: 90px;
+    height: 35px;
+    font-size: 15px;
   }
 `;
