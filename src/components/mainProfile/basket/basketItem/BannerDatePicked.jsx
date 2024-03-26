@@ -5,7 +5,7 @@ export default function BannerDatePicked({ basketItem }) {
   return (
     <BannerDatePickedStyled>
       <span>
-        À visiter le : {datePicked} à {hourPicked}
+        {datePicked} à {hourPicked}
       </span>
     </BannerDatePickedStyled>
   );
@@ -26,5 +26,21 @@ const BannerDatePickedStyled = styled.div`
   span {
     font-size: 12px;
     font-weight: 500;
+  }
+  @media screen and (max-width: 900px) {
+    span {
+      font-size: 10px;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    text-align: center;
+    display: block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    span {
+      margin: 3px;
+    }
   }
 `;

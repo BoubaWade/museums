@@ -86,4 +86,14 @@ const PrincipalContentStyled = styled.section`
   }
   ${modalCalendarAnimation}
   ${modalAdminAnimation}
+  @media screen and (max-width: 768px) {
+    .arrow-open-basket {
+      font-size: 35px;
+    }
+  }
+  @media screen and (max-width: 500px) {
+    .arrow-open-basket {
+      font-size: 30px;
+    }
+  }
 `;

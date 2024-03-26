@@ -26,4 +26,15 @@ const TimerStyled = styled.span`
   right: 10px;
   bottom: 2px;
   font-size: 11px;
+  @media screen and (max-width: 900px) {
+    text-align: center;
+    width: 90%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    margin-left: 15px;
+  }
+  @media screen and (max-width: 500px) {
+    display: none;
+  }
 `;

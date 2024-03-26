@@ -14,8 +14,10 @@ export default function BasketItem({ basketItem }) {
 
   return (
     <BasketItemStyled>
-      <h3>{nom.toUpperCase()}</h3>
-      <p>{commune}</p>
+      <div className="museum-infos">
+        <h3>{nom.toUpperCase()}</h3>
+        <p>{commune}</p>
+      </div>
       <MdDelete className="icon-delete" onClick={handleDeleteBasketItem} />
       <Timer />
       <BannerDatePicked basketItem={basketItem} />
@@ -35,20 +37,27 @@ const BasketItemStyled = styled.article`
   cursor: pointer;
   transition: 0.3s ease-in-out;
   box-shadow: 2px 2px 10px 2px rgba(179, 179, 179, 0.75);
-  h3,
-  p {
-    height: 100%;
+  .museum-infos {
     display: flex;
     justify-content: center;
     align-items: center;
-    text-align: center;
-    font-size: 11px;
-  }
-  h3 {
-    width: 65%;
-  }
-  p {
-    width: 25%;
+    width: 90%;
+    margin: 0;
+    h3,
+    p {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      font-size: 11px;
+    }
+    h3 {
+      width: 65%;
+    }
+    p {
+      width: 25%;
+    }
   }
   .icon-delete {
     display: none;
@@ -60,6 +69,45 @@ const BasketItemStyled = styled.article`
   &:hover {
     .icon-delete {
       display: block;
+    }
+  }
+  @media screen and (max-width: 900px) {
+    height: 140px;
+    .museum-infos {
+      flex-direction: column;
+      h3 {
+        font-size: 10px;
+        width: 90%;
+      }
+    }
+    .icon-delete {
+      font-size: 18px;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    height: 170px;
+  }
+  @media screen and (max-width: 600px) {
+    height: 200px;
+    justify-content: space-around;
+  }
+  @media screen and (max-width: 500px) {
+    height: 230px;
+    .museum-infos {
+      h3 {
+        font-size: 9px;
+        margin-bottom: 10px;
+        display: block;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+      p {
+        font-size: 10px;
+      }
+    }
+    .icon-delete {
+      position: absolute;
+      bottom: 5px;
     }
   }
 `;
