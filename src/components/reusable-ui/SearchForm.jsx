@@ -66,6 +66,11 @@ const SearchFormStyled = styled.form`
   @media screen and (max-width: 1024px) {
     .input-search {
       width: 200px;
+      height: 35px;
+      border-width: 2.5px;
+      &::placeholder {
+        font-size: 13px;
+      }
     }
     .submit-button {
       display: none;

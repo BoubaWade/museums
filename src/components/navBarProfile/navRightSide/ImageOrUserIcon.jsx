@@ -39,6 +39,15 @@ const ImageOrUserIconStyled = styled.div`
     border-radius: 50%;
     cursor: pointer;
   }
+  @media screen and (max-width: 1024px) {
+    .user-icon {
+      font-size: 35px;
+    }
+    .user-picture {
+      width: 35px;
+      height: 35px;
+    }
+  }
   @media screen and (max-width: 650px) {
     .user-icon {
       margin-right: 30px;
