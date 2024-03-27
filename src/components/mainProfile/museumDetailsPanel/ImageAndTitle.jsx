@@ -32,4 +32,13 @@ const ImageAndTitleStyled = styled.div`
     font-weight: 600;
     padding: 0 10px;
   }
+  @media screen and (max-width: 500px) {
+    .miniature-image {
+      width: 140px;
+      margin-left: 10px;
+    }
+    .title {
+      font-size: 11px;
+    }
+  }
 `;

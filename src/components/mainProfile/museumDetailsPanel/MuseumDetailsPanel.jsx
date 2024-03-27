@@ -10,7 +10,9 @@ import { setIsDetailsPanelDisplayed } from "../../../features/profile/displaySet
 
 export default function MuseumDetailsPanel() {
   const { museumRecovered } = useSelector((state) => state.museums);
-  const { isDetailsPanelDisplayed } = useSelector((state) => state.displaySettings)
+  const { isDetailsPanelDisplayed } = useSelector(
+    (state) => state.displaySettings
+  );
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const panelDisplayStyle = {
@@ -72,5 +74,16 @@ const MuseumDetailsPanelStyled = styled.div`
     border-radius: 0 30px 30px 0;
     left: -4px;
     cursor: pointer;
+  }
+  @media screen and (max-width: 500px) {
+    width: 100%;
+    .button-read-more {
+      font-size: 12px;
+      padding: 8px;
+      border: 1.5px solid #b659b6;
+    }
+    .arrow-close-panel {
+      font-size: 35px;
+    }
   }
 `;

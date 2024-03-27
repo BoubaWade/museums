@@ -22,6 +22,7 @@ export default function ListMuseumInfos({ museumRecovered }) {
 }
 
 const ListMuseumInfosStyled = styled.ul`
+  margin-top: 30px;
   padding: 0 10px;
   li {
     background-color: #f6e9f6;
@@ -36,6 +37,11 @@ const ListMuseumInfosStyled = styled.ul`
     text-overflow: ellipsis;
     span {
       font-weight: 600;
+    }
+  }
+  @media screen and (max-width: 500px) {
+    li {
+      font-size: 12px;
     }
   }
 `;
