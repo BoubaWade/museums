@@ -35,7 +35,7 @@ export default function Table() {
 
 const TableStyled = styled.table`
   background-color: white;
-  width: 90%;
+  width: 95%;
   margin: 0 auto 40px;
   border-collapse: collapse;
   tr {
@@ -50,6 +50,60 @@ const TableStyled = styled.table`
       text-align: center;
       border: 2px solid #b669b6;
       padding: 5px 15px;
+    }
+  }
+  @media screen and (max-width: 900px) {
+    tr {
+      td {
+        font-size: 12px;
+        padding: 2px 10px;
+      }
+      th {
+        font-size: 12px;
+        padding: 2px 10px;
+      }
+    }
+  }
+  @media screen and (max-width: 650px) {
+    tr {
+      td {
+        &:nth-child(4) {
+          display: none;
+        }
+      }
+      th {
+        &:nth-child(4) {
+          display: none;
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 500px) {
+    tr {
+      td {
+        &:nth-child(2) {
+          display: none;
+        }
+      }
+      th {
+        &:nth-child(2) {
+          display: none;
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 425px) {
+    tr {
+      td {
+        &:nth-child(3) {
+          display: none;
+        }
+      }
+      th {
+        &:nth-child(3) {
+          display: none;
+        }
+      }
     }
   }
 `;

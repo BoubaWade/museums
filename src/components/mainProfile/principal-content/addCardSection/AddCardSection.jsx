@@ -43,6 +43,7 @@ const AddCardSectionStyled = styled.section`
   align-items: center;
   width: 50%;
   max-width: 500px;
+  min-width: 310px;
   height: 570px;
   margin: 40px auto;
   border-radius: 10px;
@@ -63,5 +64,11 @@ const AddCardSectionStyled = styled.section`
     right: 5px;
     top: 5px;
     cursor: pointer;
+  }
+  @media screen and (max-width: 768px) {
+    margin-top: 90px;
+    .close-section {
+      right: 0;
+    }
   }
 `;

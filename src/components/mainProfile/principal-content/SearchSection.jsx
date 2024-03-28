@@ -34,8 +34,33 @@ export default function SearchSection() {
 }
 const SearchSectionStyled = styled.div`
   .search-form {
-    width: 50%;
+    width: 70%;
     max-width: 600px;
-    margin: 50px auto;
+    margin: 80px auto 50px;
+    input {
+      width: 80%;
+    }
+    .submit-button {
+      display: none;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .search-form {
+      input {
+        width: 100%;
+      }
+    }
+  }
+  @media screen and (max-width: 650px) {
+    .search-form {
+      input {
+        display: block;
+      }
+    }
+  }
+  @media screen and (max-width: 425px) {
+    .search-form {
+      width: 90%;
+    }
   }
 `;

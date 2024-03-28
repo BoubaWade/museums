@@ -16,7 +16,7 @@ export default function ActiveAdminContainer() {
         actived={isMainSwitchButtonActived}
         setActived={setIsMainSwitchButtonActived}
         textActive="Activer mode recherche"
-        textInactive="Désactiver mode rech..."
+        textInactive="Désactiver rech..."
       />
       {isFormAdminDisplayed && <FormActiveAdmin />}
     </ActiveAdminContainerStyled>
@@ -24,8 +24,8 @@ export default function ActiveAdminContainer() {
 }
 
 const ActiveAdminContainerStyled = styled.div`
-position:absolute;
-z-index: 2;
+  position: absolute;
+  z-index: 2;
   .switch-button {
     background-color: white;
     margin: 20px auto 0 20px;

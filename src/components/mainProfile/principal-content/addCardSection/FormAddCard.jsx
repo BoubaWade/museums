@@ -41,4 +41,11 @@ const FormAddCardStyled = styled.form`
     font-weight: 500;
     padding: 0 15px;
   }
+  @media screen and (max-width: 768px) {
+    .add-button {
+      height: 35px;
+      font-size: 13px;
+      padding: 0 10px;
+    }
+  }
 `;

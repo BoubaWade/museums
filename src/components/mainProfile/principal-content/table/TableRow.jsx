@@ -46,4 +46,11 @@ const TableRowStyled = styled.tr`
       color: whitesmoke;
     }
   }
+  @media screen and (max-width: 650px) {
+    .visualization {
+      width: 60px;
+      height: 22px;
+      font-size: 10px;
+    }
+  }
 `;
