@@ -46,4 +46,8 @@ const NavBarSettingsStyled = styled.div`
     margin-right: 10px;
     border-radius: 5px;
   }
+  @media screen and (max-width: 650px) {
+    flex-direction: column;
+    height: 250px;
+  }
 `;

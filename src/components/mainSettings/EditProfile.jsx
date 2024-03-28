@@ -89,4 +89,47 @@ const EditProfileStyled = styled.div`
       right: 0;
     }
   }
+  @media screen and (max-width: 1024px) {
+    width: 60%;
+  }
+  @media screen and (max-width: 768px) {
+    width: 70%;
+  }
+  @media screen and (max-width: 650px) {
+    width: 80%;
+    h2 {
+      font-size: 20px;
+    }
+    form {
+      .input-container {
+        .input {
+          font-size: 18px;
+          padding: 12px 20px;
+        }
+      }
+      .submit-button {
+        width: 100px;
+        height: 35px;
+        font-size: 14px;
+      }
+    }
+  }
+  @media screen and (max-width: 425px) {
+    width: 100%;
+    h2 {
+      font-size: 18px;
+    }
+    form {
+      .input-container {
+        .input {
+          font-size: 16px;
+          padding: 10px 18px;
+        }
+      }
+      .submit-button {
+        width: 90px;
+        height: 30px;
+      }
+    }
+  }
 `;

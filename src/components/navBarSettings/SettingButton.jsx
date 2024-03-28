@@ -30,4 +30,11 @@ const SettingButtonStyled = styled.button`
   }
   .actived {
     background-color: white;
+    @media screen and (max-width: 1024px) {
+    width: 80px;
+    height: 70px;
+    .icon {
+      font-size: 25px;
+    }
+  }
 `;

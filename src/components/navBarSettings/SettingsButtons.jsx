@@ -44,4 +44,7 @@ const SettingsButtonsStyled = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  @media screen and (max-width: 650px) {
+    margin: 30px 0 20px;
+  }
 `;
