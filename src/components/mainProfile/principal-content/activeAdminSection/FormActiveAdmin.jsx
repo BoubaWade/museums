@@ -118,7 +118,16 @@ const FormActiveAdminStyled = styled.form`
     }
   }
   .input-container {
+    height: 40px;
+    border-width: 1.5px;
+    .icon {
+      font-size: 23px;
+    }
+    .input {
+      font-size: 13px;
+    }
     .input::placeholder {
+      font-size: 13px;
       margin-left: -20px;
     }
   }

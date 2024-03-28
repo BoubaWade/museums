@@ -39,8 +39,9 @@ const BannerDatePickedStyled = styled.div`
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+    border-radius: 0;
     span {
-      margin: 3px;
+      margin-bottom: 15px;
     }
   }
 `;

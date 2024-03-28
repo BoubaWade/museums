@@ -11,6 +11,9 @@ import SwitchButton from "../../../reusable-ui/SwitchButton";
 import { setIsAscending } from "../../../../features/profile/museumsSlice";
 
 export default function CardContainer() {
+  const { isNavSwitchButtonActived } = useSelector(
+    (state) => state.displaySettings
+  );
   const { museums, search, isAscending } = useSelector(
     (state) => state.museums
   );
@@ -22,13 +25,15 @@ export default function CardContainer() {
 
   return (
     <CardContainerStyled>
-      <SwitchButton
-        className="sort-button"
-        textActive="Trier par Ville"
-        textInactive="Trier par Ville"
-        actived={isAscending}
-        setActived={setIsAscending}
-      />
+      {!isNavSwitchButtonActived && (
+        <SwitchButton
+          className="sort-button"
+          textActive="Trier par Ville"
+          textInactive="Trier par Ville"
+          actived={isAscending}
+          setActived={setIsAscending}
+        />
+      )}
       {museumsSorted.map((data) => (
         <Card key={data.id} data={data} className={"card"} />
       ))}
@@ -51,17 +56,25 @@ const CardContainerStyled = styled.ul`
   box-shadow: 0px 1px 6px 3px rgba(179, 179, 179, 0.75);
   .sort-button {
     background-color: white;
-    position: fixed;
-    top: 70px;
+    position: absolute;
+    top: -20px;
+    right: -40px;
     z-index: 1;
     width: 160px;
     .slide-button.actived {
       transform: translateX(-119px);
     }
   }
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 1024px) {
     .sort-button {
-      top: 200px;
+      .slide-button.actived {
+        transform: translateX(-124px);
+      }
+    }
+  }
+  @media screen and (max-width: 500px) {
+    .sort-button {
+      right: -30px;
     }
   }
 `;
