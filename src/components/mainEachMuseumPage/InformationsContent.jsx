@@ -6,15 +6,8 @@ export default function InformationsContent({ museumRecovered }) {
   return (
     <InformationsContentStyled>
       <h3>Informations</h3>
-      <div>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis
-          autem officia consequuntur placeat quia optio facilis aliquam
-          dignissimos tenetur, consectetur ipsam maxime rerum rem ipsa?
-        </p>
-        <ListMuseumInfos museumRecovered={museumRecovered} />
-        <CalendarContent museumRecovered={museumRecovered} />
-      </div>
+      <ListMuseumInfos museumRecovered={museumRecovered} />
+      <CalendarContent museumRecovered={museumRecovered} />
     </InformationsContentStyled>
   );
 }
@@ -28,7 +21,9 @@ const InformationsContentStyled = styled.div`
     background-color: #f6e9f6;
     padding: 10px;
   }
-  p {
-    padding: 10px;
+  @media screen and (max-width: 860px) {
+    h3 {
+      font-size: 18px;
+    }
   }
 `;

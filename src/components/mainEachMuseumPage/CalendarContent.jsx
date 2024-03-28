@@ -80,4 +80,12 @@ const CalendarContentStyled = styled.div`
   .calendar-className {
     display: none;
   }
+  @media screen and (max-width: 860px) {
+    p {
+      font-size: 14px;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `;

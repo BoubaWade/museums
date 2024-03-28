@@ -22,7 +22,7 @@ export default function ListMuseumInfos({ museumRecovered }) {
 }
 
 const ListMuseumInfosStyled = styled.ul`
-  margin-top: 30px;
+  margin-top: 20px;
   padding: 0 10px;
   li {
     background-color: #f6e9f6;

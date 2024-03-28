@@ -62,4 +62,30 @@ const PrincipalContentStyled = styled.div`
       }
     }
   }
+  @media screen and (max-width: 1024px) {
+    .bg-image {
+      object-fit: contain;
+      height: 350px;
+      margin-bottom: 0;
+    }
+  }
+  @media screen and (max-width: 860px) {
+    .header {
+      .title-buttons {
+        h2 {
+          font-size: 16px;
+        }
+        .website-button {
+          width: 180px;
+          height: 40px;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 500px) {
+    .bg-image {
+      height: 300px;
+    }
+  }
 `;

@@ -49,4 +49,16 @@ const CounterStyled = styled.div`
       color: red;
     }
   }
+  @media screen and (max-width: 860px) {
+    .likes,
+    .visits {
+      font-size: 14px;
+      .icon-like {
+        font-size: 18px;
+      }
+      .icon-dislike {
+        font-size: 18px;
+      }
+    }
+  }
 `;

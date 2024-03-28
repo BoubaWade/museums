@@ -58,4 +58,17 @@ const NavEachMuseumPageStyled = styled.nav`
     font-size: 14px;
     padding: 5px 20px;
   }
+  @media screen and (max-width: 860px) {
+    .logo-container {
+      display: none;
+    }
+    .preview-page {
+      max-width: 110px;
+      margin: 0;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 13px;
+    }
+  }
 `;
